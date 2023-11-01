@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "960253001083",
+    "firebase_url": "https://whose-shelll-default-rtdb.firebaseio.com",
+    "project_id": "whose-shelll",
+    "storage_bucket": "whose-shelll.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960253001083:android:331e1422838d16c94051de",
+        "android_client_info": {
+          "package_name": "com.Company.WhoseShell"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAXHKbbP4649TvnLHiGZI-uva7fhuCwxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
