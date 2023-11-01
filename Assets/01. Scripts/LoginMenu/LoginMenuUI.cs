@@ -27,10 +27,24 @@ public class LoginMenuUI : MonoBehaviour
 
     private void Awake()
     {
+        exitBtn.onClick.AddListener(() => 
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        });
+
         lg_loginBtn.onClick.AddListener(OnLogin);
         lg_registerBtn.onClick.AddListener(OnRegisterMenu);
         rg_backBtn.onClick.AddListener(OnLoginMenu);
         rg_registerBtn.onClick.AddListener(OnRegist);
+    }
+
+    private void Update()
+    {
+        InputTab();
     }
 
     // 로그인 버튼
@@ -116,5 +130,22 @@ public class LoginMenuUI : MonoBehaviour
         rg_PassInputField.text = "";
         rg_PassCheckInputField.text = "";
         rg_dropdown.value = 0;
+    }
+
+    public void InputTab()
+    {
+        if (!Input.GetKeyDown(KeyCode.Tab))
+            return;
+
+        if (lg_IdInputField.isFocused)
+            lg_PassInputField.Select();
+        else if (lg_PassInputField.isFocused)
+            lg_loginBtn.Select();
+        else if (rg_IdInputField.isFocused)
+            rg_PassInputField.Select();
+        else if (rg_PassInputField.isFocused)
+            rg_PassCheckInputField.Select();
+        else if (rg_PassCheckInputField.isFocused)
+            rg_registerBtn.Select();
     }
 }
