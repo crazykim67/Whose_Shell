@@ -105,7 +105,7 @@ public class LoginMenuUI : MonoBehaviour
             return;
         }
 
-        AuthManager.Instance.OnRegister($"{rg_IdInputField.text}@{rg_dropdown.options[rg_dropdown.value].text}", rg_PassInputField.text);
+        AuthManager.Instance.OnRegister(rg_IdInputField.text, rg_dropdown.options[rg_dropdown.value].text, rg_PassInputField.text);
         OnLoginMenu();
     }
 

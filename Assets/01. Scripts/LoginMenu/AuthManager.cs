@@ -65,14 +65,15 @@ public class AuthManager : MonoBehaviour
     }
 
     // 회원가입 메서드
-    public void OnRegister(string _id, string _pass)
+    public void OnRegister(string _id, string _email, string _pass)
     {
-        auth.CreateUserWithEmailAndPasswordAsync($"{_id}", _pass).ContinueWith(
+        auth.CreateUserWithEmailAndPasswordAsync($"{_id}@{_email}", _pass).ContinueWith(
             task =>
             {
                 if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
                 {
                     Debug.Log($"{_id} is Register Successful");
+                    TestDatabase.Instance.OnSaveData(_id, $"{_id}@{_email}");
                 }
                 else if (task.IsFaulted)
                 {
