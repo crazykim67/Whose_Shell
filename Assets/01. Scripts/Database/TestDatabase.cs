@@ -52,7 +52,7 @@ public class TestDatabase : MonoBehaviour
         UserData _user = new UserData(id, email);
         string jsonData = JsonUtility.ToJson(_user);
 
-        databaseReference.Child(id).SetRawJsonValueAsync(jsonData);
+        databaseReference.Child("User").Child(id).SetRawJsonValueAsync(jsonData);
     }
 
     public void OnLoadData()
