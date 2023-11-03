@@ -34,10 +34,6 @@ public class SoundManager : MonoBehaviour
     [Header("Audio Mixer")]
     public AudioMixer mixer;
 
-    public float currentBgLength;
-
-    public float curretClipTime;
-
     public void Awake()
     {
         if (instance == null)
@@ -50,15 +46,6 @@ public class SoundManager : MonoBehaviour
 
         bgSound = this.GetComponent<AudioSource>();
         SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void Update()
-    {
-        if (bgSound == null)
-            return;
-
-        if (bgSound.isPlaying)
-            curretClipTime = bgSound.time;
     }
 
     public void SFXPlay(string sfxName, AudioClip clip)
@@ -89,10 +76,7 @@ public class SoundManager : MonoBehaviour
         for (int i = 0; i < clipList.Length; i++)
         {
             if (scene.name == clipList[i].name)
-            {
                 BackGroundPlay(clipList[i]);
-                currentBgLength = clipList[i].length;
-            }
         }
     }
 
