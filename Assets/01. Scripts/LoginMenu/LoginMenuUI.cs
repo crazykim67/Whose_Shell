@@ -46,6 +46,7 @@ public class LoginMenuUI : MonoBehaviour
     private void Update()
     {
         InputTab();
+        InputEnter();
     }
 
     // 로그인 버튼
@@ -162,6 +163,8 @@ public class LoginMenuUI : MonoBehaviour
 
     #endregion
 
+    #region Input Key
+
     public void InputTab()
     {
         if (!Input.GetKeyDown(KeyCode.Tab))
@@ -178,4 +181,14 @@ public class LoginMenuUI : MonoBehaviour
         else if (rg_PassCheckInputField.isFocused)
             rg_registerBtn.Select();
     }
+
+    public void InputEnter()
+    {
+        if (!Input.GetKeyDown(KeyCode.Return))
+            return;
+
+        OnLogin();
+    }
+
+    #endregion
 }
