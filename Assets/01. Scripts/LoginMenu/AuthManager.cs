@@ -86,8 +86,11 @@ public class AuthManager : MonoBehaviour
     // 로그아웃 메서드
     public void OnLogOut()
     {
-        if(auth.CurrentUser != null)
-            auth.SignOut();
+        if (auth.CurrentUser == null)
+            return;
+
+        auth.SignOut();
+        Debug.Log("Logout Successful");
     }
 
     public void OnApplicationQuit() => OnLogOut();

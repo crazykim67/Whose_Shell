@@ -6,7 +6,6 @@ using TMPro;
 
 public class LoginMenuUI : MonoBehaviour
 {
-
     [Header("Login Menu")]
     public GameObject loginMenu;
     public TMP_InputField lg_IdInputField;
@@ -24,6 +23,8 @@ public class LoginMenuUI : MonoBehaviour
     public TMP_Dropdown rg_dropdown;
     public Button rg_registerBtn;
     public Button rg_backBtn;
+
+    public MainMenuUI mainMenuUI;
 
     private void Awake()
     {
@@ -63,6 +64,7 @@ public class LoginMenuUI : MonoBehaviour
 
         // 파이어베이스 로그인
         AuthManager.Instance.OnLogin(lg_IdInputField.text, lg_dropdown.options[lg_dropdown.value].text, lg_PassInputField.text);
+        CircleTransitionController.Instance.CloseBlackScreen(OnHide, mainMenuUI.OnShow);
     }
 
     // 회원가입 완료 버튼
@@ -131,6 +133,34 @@ public class LoginMenuUI : MonoBehaviour
         rg_PassCheckInputField.text = "";
         rg_dropdown.value = 0;
     }
+
+    #region Show & Hide
+
+    public void OnShow()
+    {
+        loginMenu.SetActive(true);
+
+        lg_IdInputField.text = "";
+        lg_PassInputField.text = "";
+        lg_dropdown.value = 0;
+    }
+
+    public void OnHide()
+    {
+        loginMenu.SetActive(false);
+        registerMenu.SetActive(false);
+
+        lg_IdInputField.text = "";
+        lg_PassInputField.text = "";
+        lg_dropdown.value = 0;
+
+        rg_IdInputField.text = "";
+        rg_PassInputField.text = "";
+        rg_PassCheckInputField.text = "";
+        rg_dropdown.value = 0;
+    }
+
+    #endregion
 
     public void InputTab()
     {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +45,10 @@ public class CircleTransitionController : MonoBehaviour
             Destroy(gameObject);
 
         canvas = GetComponent<Canvas>();
+
+        // 처음부터 실행
+        blackScreen.material.SetFloat("_Radius", 0);
+        OpenBlackScreen(false);
     }
 
     private void Start() => DrawCircleScreen();
@@ -57,14 +62,17 @@ public class CircleTransitionController : MonoBehaviour
             CloseBlackScreen();
     }
 
-    public void OpenBlackScreen()
+    public void OpenBlackScreen(bool _change = false)
     {
-        StartCoroutine(Transition(2, 0, 1));
+        StartCoroutine(Transition(2, 0, 1, _change));
     }
 
-    public void CloseBlackScreen() 
+    public void CloseBlackScreen(Action act_1 = null, Action act_2 = null) 
     {
-        StartCoroutine(Transition(2, 1, 0));
+        if(act_1 == null && act_2 == null)
+            StartCoroutine(Transition(2, 1, 0));
+        else
+            StartCoroutine(Transition(2, 1, 0, true, act_1, act_2));
     }
 
     public void DrawCircleScreen()
@@ -86,7 +94,7 @@ public class CircleTransitionController : MonoBehaviour
         blackScreen.rectTransform.sizeDelta = new Vector2(squareValue, squareValue);
     }
 
-    private IEnumerator Transition(float duration, float beginRadius, float endRadius)
+    private IEnumerator Transition(float duration, float beginRadius, float endRadius, bool _change = true, Action _act_1 = null, Action _act_2 = null)
     {
         var mat = blackScreen.material;
         float time = 0;
@@ -100,6 +108,15 @@ public class CircleTransitionController : MonoBehaviour
 
             yield return null;
         }
+
+        if (_act_1 != null)
+            _act_1.Invoke();
+
+        if (_act_2 != null)
+            _act_2.Invoke();
+
+        if (_change)
+            OpenBlackScreen(false);
     }
 
 }
