@@ -5,13 +5,18 @@ using UnityEngine.UI;
 using TMPro;
 public class MainMenuUI : MonoBehaviour
 {
+    [Header("MainMenu UI")]
     public GameObject mainMenu;
 
     public Button onlineBtn;
     public Button optionBtn;
     public Button logoutBtn;
 
+    [Header("Login Menu Script")]
     public LoginMenuUI loginMenuUI;
+
+    [Header("Create Room Script")]
+    public RoomCreateUI roomCreateUI;
 
     public void OnLogout()
     {
@@ -32,4 +37,9 @@ public class MainMenuUI : MonoBehaviour
     }
 
     #endregion
+
+    public void OnOnline()
+    {
+        CircleTransitionController.Instance.CloseBlackScreen(OnHide, roomCreateUI.OnShow);
+    }
 }
