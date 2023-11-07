@@ -8,6 +8,7 @@ public class MainMenuUI : MonoBehaviour
     [Header("MainMenu UI")]
     public GameObject mainMenu;
 
+    public Button hostBtn;
     public Button onlineBtn;
     public Button optionBtn;
     public Button logoutBtn;
@@ -17,6 +18,9 @@ public class MainMenuUI : MonoBehaviour
 
     [Header("Create Room Script")]
     public RoomCreateUI roomCreateUI;
+
+    [Header("Online Menu Script")]
+    public OnlineMenuUI onlineMenuUI;
 
     public void OnLogout()
     {
@@ -38,8 +42,13 @@ public class MainMenuUI : MonoBehaviour
 
     #endregion
 
-    public void OnOnline()
+    public void OnHost()
     {
         CircleTransitionController.Instance.CloseBlackScreen(OnHide, roomCreateUI.OnShow);
+    }
+
+    public void OnOnline()
+    {
+        CircleTransitionController.Instance.CloseBlackScreen(OnHide, onlineMenuUI.OnShow);
     }
 }
