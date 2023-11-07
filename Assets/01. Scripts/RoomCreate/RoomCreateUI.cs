@@ -1,8 +1,15 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+[System.Serializable]
+public class CreateGameRoomData
+{
+    public int terrapinCount;
+    public int maxPlayerCount;
+}
 
 public class RoomCreateUI : MonoBehaviour
 {
@@ -11,11 +18,36 @@ public class RoomCreateUI : MonoBehaviour
     [Header("MainMenu UI")]
     public MainMenuUI mainMenuUI;
 
+    [SerializeField]
+    private List<Image> crewImages;
+
+    [SerializeField]
+    private List<Button> terrapinCountButtons;
+
+    [SerializeField]
+    private List<Button> maxPlayerCountButtons;
+
+    [SerializeField]
+    private CreateGameRoomData roomData;
+
+    private void Start()
+    {
+        for(int i = 0;i < crewImages.Count; i++)
+        {
+            Material mat = Instantiate(crewImages[i].material);
+            crewImages[i].material = mat;
+        }
+
+        roomData = new CreateGameRoomData() { terrapinCount = 1, maxPlayerCount = 10};
+        UpdateCrewImage();
+    }
+
     #region Show & Hide
 
     public void OnShow()
     {
         roomCreateUI.SetActive(true);
+        Init();
     }
 
     public void OnHide()
@@ -24,6 +56,96 @@ public class RoomCreateUI : MonoBehaviour
     }
 
     #endregion
+
+    public void Init()
+    {
+        roomData = new CreateGameRoomData() { terrapinCount = 1, maxPlayerCount = 10 };
+        UpdateCrewImage();
+    }
+
+    // 플레이어 인원 설정
+    public void UpdateMaxPlayerCount(int count)
+    {
+        roomData.maxPlayerCount = count;
+
+        for(int i = 0; i < maxPlayerCountButtons.Count; i++)
+        {
+            if(i == count - 4)
+                maxPlayerCountButtons[i].image.color = new Color(1f, 1f, 1f, 1f);
+            else
+                maxPlayerCountButtons[i].image.color = new Color(1f, 1f, 1f, 0f);
+        }
+
+        UpdateCrewImage();
+    }
+
+    public void UpdateTerrapinCount(int count)
+    {
+        roomData.terrapinCount = count;
+
+        for(int i = 0; i < terrapinCountButtons.Count; i++)
+        {
+            if(i == count - 1)
+                terrapinCountButtons[i].image.color = new Color(1f, 1f, 1f, 1f);
+            else
+                terrapinCountButtons[i].image.color = new Color(1f, 1f, 1f, 0f);
+        }
+
+        int limitMaxPlayer = count == 1 ? 4 : count == 2 ? 7 : 9;
+
+        if (roomData.maxPlayerCount < limitMaxPlayer)
+            UpdateMaxPlayerCount(limitMaxPlayer);
+        else
+            UpdateMaxPlayerCount(roomData.maxPlayerCount);
+
+        for(int i = 0; i < maxPlayerCountButtons.Count; i++)
+        {
+            var text = maxPlayerCountButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            if(i < limitMaxPlayer - 4)
+            {
+                maxPlayerCountButtons[i].interactable = false;
+                text.color = Color.gray;
+            }
+            else
+            {
+                maxPlayerCountButtons[i].interactable = true;
+                text.color = Color.white;
+            }
+        }
+
+        UpdateCrewImage();
+    }
+
+    // 업데이트 이미지
+    private void UpdateCrewImage()
+    {
+        int terrapinCount = roomData.terrapinCount;
+        int index = 0;
+
+        for(int i = 0;i < crewImages.Count; i++)
+            crewImages[i].material.SetFloat("_Hue", 0f);
+
+        while(terrapinCount != 0)
+        {
+            if(index >= roomData.maxPlayerCount)
+                index = 0;
+
+            if (crewImages[index].material.GetFloat("_Hue") != 290f && Random.Range(0, 5) == 0)
+            {
+                crewImages[index].material.SetFloat("_Hue", 290f);
+                terrapinCount--;
+            }
+            index++;
+        }
+
+        for(int i = 0; i < crewImages.Count; i++)
+        {
+            if(i < roomData.maxPlayerCount)
+                crewImages[i].gameObject.SetActive(true);
+            else
+                crewImages[i].gameObject.SetActive(false);
+        }
+    }
 
     public void OnCancel()
     {

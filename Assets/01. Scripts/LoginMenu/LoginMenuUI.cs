@@ -184,6 +184,9 @@ public class LoginMenuUI : MonoBehaviour
 
     public void InputEnter()
     {
+        if (!loginMenu.activeSelf)
+            return;
+
         if (!Input.GetKeyDown(KeyCode.Return))
             return;
 
