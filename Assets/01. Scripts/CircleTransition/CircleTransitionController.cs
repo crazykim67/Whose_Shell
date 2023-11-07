@@ -34,6 +34,8 @@ public class CircleTransitionController : MonoBehaviour
     [SerializeField]
     private float speed = 1f;
 
+    private GraphicRaycaster gr;
+
     private void Awake()
     {
         if(instance == null)
@@ -44,6 +46,7 @@ public class CircleTransitionController : MonoBehaviour
         else
             Destroy(gameObject);
 
+        gr = GetComponent<GraphicRaycaster>();
         canvas = GetComponent<Canvas>();
 
         // 처음부터 실행
@@ -96,6 +99,7 @@ public class CircleTransitionController : MonoBehaviour
 
     private IEnumerator Transition(float duration, float beginRadius, float endRadius, bool _change = true, Action _act_1 = null, Action _act_2 = null)
     {
+        gr.enabled = true;
         var mat = blackScreen.material;
         float time = 0;
         while (time <= duration)
@@ -108,6 +112,8 @@ public class CircleTransitionController : MonoBehaviour
 
             yield return null;
         }
+
+        gr.enabled = false;
 
         if (_act_1 != null)
             _act_1.Invoke();
