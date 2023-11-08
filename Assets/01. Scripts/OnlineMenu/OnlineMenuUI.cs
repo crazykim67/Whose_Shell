@@ -8,9 +8,11 @@ public class OnlineMenuUI : MonoBehaviour
 {
     public GameObject onlineMenu;
 
+    public TMP_InputField nickNameInputField;
     public TMP_InputField roomCodeInputField;
 
-    public Animator anim;
+    public Animator nickAnim;
+    public Animator codeAnim;
 
     public TextMeshProUGUI errorText;
 
@@ -57,24 +59,36 @@ public class OnlineMenuUI : MonoBehaviour
     // 방 입장
     public void OnJoin()
     {
+        if (nickNameInputField.text.Equals(string.Empty))
+        {
+            onNickAnim();
+            OnError("닉네임 입력 칸이 비어있습니다.");
+            return;
+        }
+
         if (roomCodeInputField.text.Equals(string.Empty))
         {
-            OnAnim();
+            OnCodeAnim();
             OnError("방 코드 입력 칸이 비어있습니다.");
             return;
         }
 
         if (roomCodeInputField.text.Length < 4)
         {
-            OnAnim();
+            OnCodeAnim();
             OnError("방 코드는 4글자여야 합니다.");
             return;
         }
     }
 
-    public void OnAnim()
+    public void onNickAnim()
     {
-        anim.SetTrigger("Error");
+        nickAnim.SetTrigger("Error");
+    }
+
+    public void OnCodeAnim()
+    {
+        codeAnim.SetTrigger("Error");
     }
 
     public void OnError(string str)

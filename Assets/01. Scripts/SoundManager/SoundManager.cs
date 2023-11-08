@@ -83,7 +83,7 @@ public class SoundManager : MonoBehaviour
     public void OnSceneAsyncLoaded(string _scene)
     {
         // 수정 예정
-        if (_scene.Equals("LoginMenu"))
+        if (_scene.Equals("MainMenu"))
         {
             bgSound.Stop();
         }

@@ -18,16 +18,20 @@ public class RoomCreateUI : MonoBehaviour
     [Header("MainMenu UI")]
     public MainMenuUI mainMenuUI;
 
-    [SerializeField]
-    private List<Image> crewImages;
+    public TextMeshProUGUI errorText;
+    public TMP_InputField nickNameInputField;
 
-    [SerializeField]
-    private List<Button> terrapinCountButtons;
+    public Animator nickAnim;
 
-    [SerializeField]
-    private List<Button> maxPlayerCountButtons;
+    private float timer;
+    private bool isError;
 
-    [SerializeField]
+    public List<Image> crewImages;
+
+    public List<Button> terrapinCountButtons;
+
+    public List<Button> maxPlayerCountButtons;
+
     private CreateGameRoomData roomData;
 
     private void Start()
@@ -40,6 +44,23 @@ public class RoomCreateUI : MonoBehaviour
 
         roomData = new CreateGameRoomData() { terrapinCount = 1, maxPlayerCount = 10};
         UpdateCrewImage();
+    }
+
+    private void Update()
+    {
+        if (isError)
+        {
+            if(timer < 3f)
+            {
+                timer += Time.deltaTime;
+            }
+            else
+            {
+                timer = 0;
+                isError = false;
+                errorText.enabled = false;
+            }
+        }
     }
 
     #region Show & Hide
@@ -63,14 +84,32 @@ public class RoomCreateUI : MonoBehaviour
         UpdateCrewImage();
     }
 
+    #region Mirror 관련
+
+    public void OnCreateRoom()
+    {
+        if (nickNameInputField.text.Equals(string.Empty))
+        {
+            OnNickAnim();
+            OnError("닉네임 입력 칸이 비어있습니다.");
+            return;
+        }
+
+        var manager = RoomManager.singleton;
+
+        manager.StartHost();
+    }
+
+    #endregion
+
     // 플레이어 인원 설정
     public void UpdateMaxPlayerCount(int count)
     {
         roomData.maxPlayerCount = count;
 
-        for(int i = 0; i < maxPlayerCountButtons.Count; i++)
+        for (int i = 0; i < maxPlayerCountButtons.Count; i++)
         {
-            if(i == count - 4)
+            if (i == count - 4)
                 maxPlayerCountButtons[i].image.color = new Color(1f, 1f, 1f, 1f);
             else
                 maxPlayerCountButtons[i].image.color = new Color(1f, 1f, 1f, 0f);
@@ -79,6 +118,7 @@ public class RoomCreateUI : MonoBehaviour
         UpdateCrewImage();
     }
 
+    // 자라 수 정하는 메서드
     public void UpdateTerrapinCount(int count)
     {
         roomData.terrapinCount = count;
@@ -147,8 +187,22 @@ public class RoomCreateUI : MonoBehaviour
         }
     }
 
+    // 뒤로가기
     public void OnCancel()
     {
         CircleTransitionController.Instance.CloseBlackScreen(OnHide, mainMenuUI.OnShow);
+    }
+
+    public void OnError(string str)
+    {
+        errorText.enabled = true;
+        errorText.text = str;
+        isError = true;
+        timer = 0;
+    }
+
+    public void OnNickAnim()
+    {
+        nickAnim.SetTrigger("Error");
     }
 }
