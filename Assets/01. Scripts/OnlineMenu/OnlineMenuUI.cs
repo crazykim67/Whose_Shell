@@ -9,6 +9,7 @@ public class OnlineMenuUI : MonoBehaviour
     public GameObject onlineMenu;
 
     public TMP_InputField nickNameInputField;
+    public TMP_InputField codeInputField;
 
     public Animator nickAnim;
     public Animator codeAnim;
@@ -60,13 +61,32 @@ public class OnlineMenuUI : MonoBehaviour
     {
         if (nickNameInputField.text.Equals(string.Empty))
         {
-            onNickAnim();
+            OnNickAnim();
             OnError("닉네임 입력 칸이 비어있습니다.");
+            return;
+        }
+
+        if (codeInputField.text.Equals(string.Empty))
+        {
+            OnCodeAnim();
+            OnError("방 코드 입력 칸이 비어있습니다.");
+            return;
+        }
+
+        if (codeInputField.text.Length != 5)
+        {
+            OnCodeAnim();
+            OnError("방 코드 입력 칸이 잘못되었습니다.");
             return;
         }
     }
 
-    public void onNickAnim()
+    public void OnCodeAnim()
+    {
+        codeAnim.SetTrigger("Error");
+    }
+
+    public void OnNickAnim()
     {
         nickAnim.SetTrigger("Error");
     }
