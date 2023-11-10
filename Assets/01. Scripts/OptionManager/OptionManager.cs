@@ -31,6 +31,8 @@ public class OptionManager : MonoBehaviour
 
     public Button confirmBtn;
 
+    private Animator anim;
+
     public void Awake()
     {
         if(instance == null)
@@ -41,6 +43,8 @@ public class OptionManager : MonoBehaviour
         else
             Destroy(gameObject);
 
+        anim = GetComponent<Animator>();
+
         confirmBtn.onClick.AddListener(() => { OnHide(); });
     }
 
@@ -48,13 +52,13 @@ public class OptionManager : MonoBehaviour
 
     public void OnShow()
     {
-        optionMenu.SetActive(true);
+        anim.SetTrigger("Open");
         emptyImage.SetActive(true);
     }
 
     public void OnHide()
     {
-        optionMenu.SetActive(false);
+        anim.SetTrigger("Close");
         emptyImage.SetActive(false);
     }
 

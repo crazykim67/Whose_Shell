@@ -94,10 +94,6 @@ public class RoomCreateUI : MonoBehaviour
             OnError("닉네임 입력 칸이 비어있습니다.");
             return;
         }
-
-        var manager = RoomManager.singleton;
-
-        manager.StartHost();
     }
 
     #endregion
