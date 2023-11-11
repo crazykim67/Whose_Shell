@@ -32,7 +32,7 @@ public class RoomCreateUI : MonoBehaviour
 
     public List<Button> maxPlayerCountButtons;
 
-    private CreateGameRoomData roomData;
+    public CreateGameRoomData roomData;
 
     private void Start()
     {
@@ -84,7 +84,7 @@ public class RoomCreateUI : MonoBehaviour
         UpdateCrewImage();
     }
 
-    #region Mirror 관련
+    #region Photon 관련
 
     public void OnCreateRoom()
     {
@@ -94,6 +94,8 @@ public class RoomCreateUI : MonoBehaviour
             OnError("닉네임 입력 칸이 비어있습니다.");
             return;
         }
+
+        NetworkManager.Instance.CreateRoom(roomData.maxPlayerCount);
     }
 
     #endregion
