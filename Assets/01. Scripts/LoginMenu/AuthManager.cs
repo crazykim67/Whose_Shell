@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Firebase.Auth;
+using Firebase.Extensions;
 using System;
 
 public class AuthManager : MonoBehaviour
@@ -46,15 +47,16 @@ public class AuthManager : MonoBehaviour
     }
 
     // 로그인 메서드
-    public void OnLogin(string _id, string _email, string _pass)
+    public void OnLogin(string _id, string _email, string _pass, Action _act1, Action _act2)
     {
-        auth.SignInWithEmailAndPasswordAsync($"{_id}@{_email}", _pass).ContinueWith(
+        auth.SignInWithEmailAndPasswordAsync($"{_id}@{_email}", _pass).ContinueWithOnMainThread(
             task =>
             {
                 if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
                 { 
                     Debug.Log($"{_id} is Login Successful");
                     currentId = _id;
+                    CircleTransitionController.Instance.CloseBlackScreen(_act1, _act2);
                 }
                 else if (task.IsFaulted)
                 {
@@ -65,15 +67,16 @@ public class AuthManager : MonoBehaviour
     }
 
     // 회원가입 메서드
-    public void OnRegister(string _id, string _email, string _pass)
+    public void OnRegister(string _id, string _email, string _pass, Action _act1)
     {
-        auth.CreateUserWithEmailAndPasswordAsync($"{_id}@{_email}", _pass).ContinueWith(
+        auth.CreateUserWithEmailAndPasswordAsync($"{_id}@{_email}", _pass).ContinueWithOnMainThread(
             task =>
             {
                 if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
                 {
                     Debug.Log($"{_id} is Register Successful");
                     FirebaseManager.Instance.OnSaveData(_id, $"{_id}@{_email}", _pass);
+                    _act1.Invoke();
                 }
                 else if (task.IsFaulted)
                 {

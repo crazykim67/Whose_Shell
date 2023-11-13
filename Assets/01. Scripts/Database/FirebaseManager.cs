@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
+using Firebase.Extensions;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -105,9 +106,7 @@ public class FirebaseManager : MonoBehaviour
 
     public void CheckID(string _email, string _pass)
     {
-        bool isLogin = false;
-
-        databaseReference.Child(AuthManager.Instance.currentId).GetValueAsync().ContinueWith(task =>
+        databaseReference.Child(AuthManager.Instance.currentId).GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsCanceled)
                 Debug.Log("Load Canceled...!");
@@ -123,9 +122,6 @@ public class FirebaseManager : MonoBehaviour
                     dataString += $"ID : {data.Key} - Email : {data.Value}\n";
                     Debug.Log(dataString);
                 }
-
-                StartCoroutine(CircleTransitionController.Instance.Text());
-
             }
         });
     }

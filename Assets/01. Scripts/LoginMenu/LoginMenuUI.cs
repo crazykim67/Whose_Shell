@@ -64,8 +64,9 @@ public class LoginMenuUI : MonoBehaviour
         }
         FirebaseManager.Instance.CheckID($"{lg_IdInputField.text}@{lg_dropdown.options[lg_dropdown.value].text}", lg_PassInputField.text);
         // 파이어베이스 로그인
-        AuthManager.Instance.OnLogin(lg_IdInputField.text, lg_dropdown.options[lg_dropdown.value].text, lg_PassInputField.text);
-        CircleTransitionController.Instance.CloseBlackScreen(OnHide, mainMenuUI.OnShow);
+        AuthManager.Instance.OnLogin(lg_IdInputField.text, lg_dropdown.options[lg_dropdown.value].text, lg_PassInputField.text,
+            OnHide, mainMenuUI.OnShow);
+        //CircleTransitionController.Instance.CloseBlackScreen(OnHide, mainMenuUI.OnShow);
     }
 
     // 회원가입 완료 버튼
@@ -108,8 +109,7 @@ public class LoginMenuUI : MonoBehaviour
             return;
         }
 
-        AuthManager.Instance.OnRegister(rg_IdInputField.text, rg_dropdown.options[rg_dropdown.value].text, rg_PassInputField.text);
-        OnLoginMenu();
+        AuthManager.Instance.OnRegister(rg_IdInputField.text, rg_dropdown.options[rg_dropdown.value].text, rg_PassInputField.text, OnLoginMenu);
     }
 
     // 로그인화면 세팅
