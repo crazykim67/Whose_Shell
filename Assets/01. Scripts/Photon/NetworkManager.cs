@@ -88,10 +88,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             return;
 
         if(PhotonNetwork.CurrentRoom.PlayerCount <= 1)
-        {
             FirebaseManager.Instance.RemoveRoomData(PhotonNetwork.CurrentRoom.Name);
-            Debug.Log("방 파괴");
-        }
 
         PhotonNetwork.LeaveRoom();
     }
@@ -123,7 +120,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Join Room Successful...!");
-        //FirebaseManager.Instance.UpdatePlayerCount(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount);
+        FirebaseManager.Instance.UpdatePlayerCount(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount);
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
     }
 
     // 방 나가기 콜백
@@ -156,5 +154,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsConnected)
             PhotonNetwork.Disconnect();
+    }
+
+    public void OnLoadScene(string sceneName)
+    {
+        PhotonNetwork.LoadLevel(sceneName);
     }
 }

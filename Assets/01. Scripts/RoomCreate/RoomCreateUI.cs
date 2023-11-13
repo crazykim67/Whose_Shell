@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 [System.Serializable]
 public class CreateGameRoomData
@@ -95,7 +96,18 @@ public class RoomCreateUI : MonoBehaviour
             return;
         }
 
+        PhotonNetwork.NickName = nickNameInputField.text;
+        CircleTransitionController.Instance.CloseBlackScreen(InputField, OnJoinRoom);
+    }
+
+    public void InputField()
+    {
         NetworkManager.Instance.CreateRoom(roomData.maxPlayerCount);
+    }
+
+    public void OnJoinRoom()
+    {
+        NetworkManager.Instance.OnLoadScene("GameScene");
     }
 
     #endregion

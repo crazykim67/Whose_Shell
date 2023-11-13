@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 public class OnlineMenuUI : MonoBehaviour
 {
@@ -79,6 +80,9 @@ public class OnlineMenuUI : MonoBehaviour
             OnError("방 코드 입력 칸이 잘못되었습니다.");
             return;
         }
+
+        PhotonNetwork.NickName = nickNameInputField.text;
+        CircleTransitionController.Instance.CloseBlackScreen(InputField , OnJoinRoom);
     }
 
     public void OnCodeAnim()
@@ -98,4 +102,18 @@ public class OnlineMenuUI : MonoBehaviour
         isError = true;
         timer = 0;
     }
+
+    #region Photon
+
+    public void InputField()
+    {
+        NetworkManager.Instance.JoinRoom(codeInputField.text);
+    }
+
+    public void OnJoinRoom()
+    {
+        NetworkManager.Instance.OnLoadScene("GameScene");
+    }
+
+    #endregion
 }

@@ -33,11 +33,13 @@ public class FirebaseManager : MonoBehaviour
     {
         public string id;
         public string email;
+        public string password;
 
-        public UserData(string _id, string _email)
+        public UserData(string _id, string _email, string _password)
         {
             id = _id;
             email = _email;
+            password = _password;
         }
     }
 
@@ -71,9 +73,9 @@ public class FirebaseManager : MonoBehaviour
 
     #region ID, EMAIL DATA
 
-    public void OnSaveData(string id, string email)
+    public void OnSaveData(string id, string email, string password)
     {
-        UserData _user = new UserData(id, email);
+        UserData _user = new UserData(id, email, password);
         string jsonData = JsonUtility.ToJson(_user);
 
         databaseReference.Child("User").Child(id).SetRawJsonValueAsync(jsonData);
@@ -97,6 +99,33 @@ public class FirebaseManager : MonoBehaviour
                     dataString += $"ID : {data.Key} - Email : {data.Value}\n"; ;
                     Debug.Log(dataString);
                 }
+            }
+        });
+    }
+
+    public void CheckID(string _email, string _pass)
+    {
+        bool isLogin = false;
+
+        databaseReference.Child(AuthManager.Instance.currentId).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCanceled)
+                Debug.Log("Load Canceled...!");
+            else if (task.IsFaulted)
+                Debug.Log("Load Failed...!");
+            else
+            {
+                var _data = task.Result;
+
+                string dataString = "";
+                foreach (var data in _data.Children)
+                {
+                    dataString += $"ID : {data.Key} - Email : {data.Value}\n";
+                    Debug.Log(dataString);
+                }
+
+                StartCoroutine(CircleTransitionController.Instance.Text());
+
             }
         });
     }

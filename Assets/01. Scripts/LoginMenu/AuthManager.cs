@@ -73,7 +73,7 @@ public class AuthManager : MonoBehaviour
                 if (task.IsCompleted && !task.IsFaulted && !task.IsCanceled)
                 {
                     Debug.Log($"{_id} is Register Successful");
-                    FirebaseManager.Instance.OnSaveData(_id, $"{_id}@{_email}");
+                    FirebaseManager.Instance.OnSaveData(_id, $"{_id}@{_email}", _pass);
                 }
                 else if (task.IsFaulted)
                 {

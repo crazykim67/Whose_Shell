@@ -125,4 +125,10 @@ public class CircleTransitionController : MonoBehaviour
             OpenBlackScreen(false);
     }
 
+    public IEnumerator Text()
+    {
+        Debug.Log("확인");
+
+        yield return null;
+    }
 }

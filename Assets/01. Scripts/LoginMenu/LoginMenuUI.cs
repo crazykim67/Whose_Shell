@@ -62,7 +62,7 @@ public class LoginMenuUI : MonoBehaviour
             Debug.Log("Password Input Field is Empty...!");
             return;
         }
-
+        FirebaseManager.Instance.CheckID($"{lg_IdInputField.text}@{lg_dropdown.options[lg_dropdown.value].text}", lg_PassInputField.text);
         // 파이어베이스 로그인
         AuthManager.Instance.OnLogin(lg_IdInputField.text, lg_dropdown.options[lg_dropdown.value].text, lg_PassInputField.text);
         CircleTransitionController.Instance.CloseBlackScreen(OnHide, mainMenuUI.OnShow);
