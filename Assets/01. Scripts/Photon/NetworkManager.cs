@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -64,15 +65,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     #region Room
 
     // 방 만들기
-    public void CreateRoom(int maxPlayerCount)
+    public void CreateRoom(int maxPlayerCount, int terrapinCount)
     {
         if (!PhotonNetwork.IsConnected)
         {
             OnConnect();
             return;
         }
-
-        PhotonNetwork.CreateRoom(OnCreateRoomCode(), new RoomOptions { MaxPlayers = maxPlayerCount });
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = maxPlayerCount;
+        roomOptions.CustomRoomProperties = new Hashtable() { {"Terrapin", terrapinCount } };
+        PhotonNetwork.CreateRoom(OnCreateRoomCode(), roomOptions);
     }
 
     // 방 입장
@@ -112,8 +115,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     // 방 만들기 콜백
     public override void OnCreatedRoom()
     {
-        Debug.Log("Create Room Successful...!");
+        Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
+        int terrapin = (int)cp["Terrapin"]; 
         FirebaseManager.Instance.OnRoomData(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount);
+        Debug.Log("Create Room Successful...!");
     }
 
     // 방 입장 콜백

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +26,28 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         {
             roomCodeText.enabled = false;
             startBtn.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnStart()
+    {
+        if (GameManager.Instance == null)
+            return;
+
+        if (!PhotonNetwork.InRoom)
+            return;
+
+        if(GameManager.Instance.terrapinCount == 1)
+        {
+            Debug.Log("최소인원 4명");
+        }
+        else if(GameManager.Instance.terrapinCount == 2)
+        {
+            Debug.Log("최소인원 7명");
+        }
+        else
+        {
+            Debug.Log("최소인원 9명");
         }
     }
 }

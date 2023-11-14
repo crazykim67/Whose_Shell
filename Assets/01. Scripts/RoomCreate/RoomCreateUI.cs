@@ -102,7 +102,7 @@ public class RoomCreateUI : MonoBehaviour
 
     public void InputField()
     {
-        NetworkManager.Instance.CreateRoom(roomData.maxPlayerCount);
+        NetworkManager.Instance.CreateRoom(roomData.maxPlayerCount, roomData.terrapinCount);
     }
 
     public void OnJoinRoom()

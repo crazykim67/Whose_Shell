@@ -49,6 +49,7 @@ public class FirebaseManager : MonoBehaviour
     {
         public string roomName;
         public int playerCount;
+        public int terrapinCount;
 
         public RoomData(string _roomName, int _playerCount)
         {
@@ -98,28 +99,6 @@ public class FirebaseManager : MonoBehaviour
                 foreach (var data in _data.Children)
                 {
                     dataString += $"ID : {data.Key} - Email : {data.Value}\n"; ;
-                    Debug.Log(dataString);
-                }
-            }
-        });
-    }
-
-    public void CheckID(string _email, string _pass)
-    {
-        databaseReference.Child(AuthManager.Instance.currentId).GetValueAsync().ContinueWithOnMainThread(task =>
-        {
-            if (task.IsCanceled)
-                Debug.Log("Load Canceled...!");
-            else if (task.IsFaulted)
-                Debug.Log("Load Failed...!");
-            else
-            {
-                var _data = task.Result;
-
-                string dataString = "";
-                foreach (var data in _data.Children)
-                {
-                    dataString += $"ID : {data.Key} - Email : {data.Value}\n";
                     Debug.Log(dataString);
                 }
             }
