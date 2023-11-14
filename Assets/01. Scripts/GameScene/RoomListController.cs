@@ -16,8 +16,6 @@ public class RoomListController : MonoBehaviourPunCallbacks
 
     public List<PlayerState> playerList = new List<PlayerState>();
 
-    public Button startBtn;
-
     private void Awake() => pv = GetComponent<PhotonView>();
 
     public override void OnJoinedRoom() => GetCurrentPlayers();
