@@ -85,7 +85,7 @@ public class FirebaseManager : MonoBehaviour
 
     public void OnLoadData()
     {
-        databaseReference.Child(AuthManager.Instance.currentId).GetValueAsync().ContinueWith(task =>
+        databaseReference.Child("User").Child(AuthManager.Instance.currentId).GetValueAsync().ContinueWith(task =>
         {
             if (task.IsCanceled)
                 Debug.Log("Load Canceled...!");
@@ -98,7 +98,7 @@ public class FirebaseManager : MonoBehaviour
                 string dataString = "";
                 foreach (var data in _data.Children)
                 {
-                    dataString += $"ID : {data.Key} - Email : {data.Value}\n"; ;
+                    dataString += $"ID : {data.Key} - Email : {data.Value}\n";
                     Debug.Log(dataString);
                 }
             }
