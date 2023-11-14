@@ -6,6 +6,9 @@ using Photon.Realtime;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private Transform sprite;
+
     private PhotonView pv;
 
     private float moveX, moveY;
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         pv = GetComponent<PhotonView>();
         cam = Camera.main.GetComponent<Camera>();
+        cam.transform.position = new Vector3(0, 0, -1);
     }
 
     private void FixedUpdate()
@@ -37,8 +41,8 @@ public class PlayerController : MonoBehaviour
         transform.Translate(new Vector2(moveX, moveY).normalized * speed * Time.deltaTime);
 
         if (moveX < 0f)
-            transform.localScale = new Vector3(-1f, 1f, 1f);
+            sprite.localScale = new Vector3(-1f, 1f, 1f);
         else if (moveX > 0f)
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            sprite.localScale = new Vector3(1f, 1f, 1f);
     }
 }
