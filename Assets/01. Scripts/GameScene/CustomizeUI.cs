@@ -8,7 +8,6 @@ public class CustomizeUI : MonoBehaviour
 {
     public GameObject customUI;
 
-
     #region Show & Hide
 
     public void OnShow()
@@ -28,4 +27,6 @@ public class CustomizeUI : MonoBehaviour
     }
 
     #endregion
+
+
 }

@@ -91,9 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dc8fcc29896159438208d643f318471, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 4143556485100667934}
+  spriteTr: {fileID: 4143556485100667934}
   speed: 3
-  mat: {fileID: 2100000, guid: ca081c78d5ff2744f8eb792b260f88ca, type: 2}
+  sprite: {fileID: 8275144442025050380}
+  mat: {fileID: 2100000, guid: f7a0bd14da1b91541ac9740e20aa2606, type: 2}
 --- !u!61 &4476332405532895877
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -374,7 +375,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f7a0bd14da1b91541ac9740e20aa2606, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
