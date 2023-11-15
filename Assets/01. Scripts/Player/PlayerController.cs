@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
 
     private Camera cam;
 
+    public Material mat;
+
+    public static bool isUI = false;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -35,6 +39,9 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
+        if (isUI)
+            return;
+
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
 

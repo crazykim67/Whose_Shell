@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3400444509828897563}
   - component: {fileID: 4476332405532895877}
   - component: {fileID: 5473010617859517724}
+  - component: {fileID: 6213300826883065986}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -92,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 4143556485100667934}
   speed: 3
+  mat: {fileID: 2100000, guid: ca081c78d5ff2744f8eb792b260f88ca, type: 2}
 --- !u!61 &4476332405532895877
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,6 +167,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6213300826883065986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6438897225243032623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445be515b049cd24992e1c586854c79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  spriteRenderer: {fileID: 8275144442025050380}
 --- !u!1 &6770833292070045066
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,10 +240,10 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 32767
   m_TargetDisplay: 0
 --- !u!114 &406787129471740913
 MonoBehaviour:
@@ -358,7 +374,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
