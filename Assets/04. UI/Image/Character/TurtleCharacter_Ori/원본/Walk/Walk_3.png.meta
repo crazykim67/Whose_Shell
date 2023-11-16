@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: a0a7dd7ea1346ba49b22a4634fb91f28
+guid: 285c88578f69b074a98539c1e75ea75e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3745163931830953359
-    second: Turtle_0
+      213: 5956618288052529504
+    second: Walk_3_0
+  - first:
+      213: -5121146553594081498
+    second: Walk_3_1
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -122,22 +125,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Turtle_0
+      name: Walk_3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 180
-        height: 210
+        x: 851
+        y: 745
+        width: 1331
+        height: 2034
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 50, z: 30, w: 50}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 17a5c992f31860cc0800000000000000
-      internalID: -3745163931830953359
+      spriteID: 06967f106c82aa250800000000000000
+      internalID: 5956618288052529504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_3_1
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 467
+        width: 1066
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62f0f4ea7580ee8b0800000000000000
+      internalID: -5121146553594081498
       vertices: []
       indices: 
       edges: []
@@ -145,15 +169,14 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 201a113d4dd929f48a94a67850bf815e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Turtle_0: -3745163931830953359
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

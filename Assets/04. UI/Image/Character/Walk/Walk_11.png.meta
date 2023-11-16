@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: a0a7dd7ea1346ba49b22a4634fb91f28
+guid: 35087fc7f8d9ce54f8c2bb7dfd2db7db
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3745163931830953359
-    second: Turtle_0
+      213: 1788440024534259019
+    second: Walk_2_0
+  - first:
+      213: -352352345855896882
+    second: Walk_2_1
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -122,22 +125,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Turtle_0
+      name: Walk_2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 180
-        height: 210
+        width: 233
+        height: 329
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 50, z: 30, w: 50}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 17a5c992f31860cc0800000000000000
-      internalID: -3745163931830953359
+      spriteID: b45947c0ab0d1d810800000000000000
+      internalID: 1788440024534259019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_2_1
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 51
+        width: 104
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec2db7588613c1bf0800000000000000
+      internalID: -352352345855896882
       vertices: []
       indices: 
       edges: []
@@ -145,7 +169,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 201a113d4dd929f48a94a67850bf815e
+    spriteID: 478d184787c950c4e92a465cd0ad5945
     internalID: 0
     vertices: []
     indices: 
@@ -153,7 +177,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Turtle_0: -3745163931830953359
+      Walk_2_0: 1788440024534259019
+      Walk_2_1: -352352345855896882
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

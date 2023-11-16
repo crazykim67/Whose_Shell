@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: a0a7dd7ea1346ba49b22a4634fb91f28
+guid: a8cb9b0ce61989443a2da1010456200e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3745163931830953359
-    second: Turtle_0
+      213: 8259307907288975844
+    second: Walk_8_0
+  - first:
+      213: 1888359789351403513
+    second: Walk_8_1
+  - first:
+      213: 4535083612630286051
+    second: Walk_8_2
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -122,22 +128,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Turtle_0
+      name: Walk_8_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 180
-        height: 210
+        x: 768
+        y: 744
+        width: 1351
+        height: 1965
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 50, z: 30, w: 50}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 17a5c992f31860cc0800000000000000
-      internalID: -3745163931830953359
+      spriteID: 4e9c88038c4fe9270800000000000000
+      internalID: 8259307907288975844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_8_1
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 740
+        width: 20
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fffb64393dc43a10800000000000000
+      internalID: 1888359789351403513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_8_2
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 515
+        width: 1066
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eef58d848adfee30800000000000000
+      internalID: 4535083612630286051
       vertices: []
       indices: 
       edges: []
@@ -145,15 +193,14 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 201a113d4dd929f48a94a67850bf815e
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Turtle_0: -3745163931830953359
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

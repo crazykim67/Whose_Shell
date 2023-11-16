@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a0a7dd7ea1346ba49b22a4634fb91f28
+guid: 4c967c44e311aac4ab381aa6c77438b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3745163931830953359
-    second: Turtle_0
+      213: 6646734700752008592
+    second: Walk_10_0
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -122,22 +122,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Turtle_0
+      name: Walk_10_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 180
-        height: 210
+        width: 233
+        height: 329
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 30, y: 50, z: 30, w: 50}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 17a5c992f31860cc0800000000000000
-      internalID: -3745163931830953359
+      spriteID: 095f5929ef1fd3c50800000000000000
+      internalID: 6646734700752008592
       vertices: []
       indices: 
       edges: []
@@ -145,7 +145,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 201a113d4dd929f48a94a67850bf815e
+    spriteID: f9c8007b8b15b8548825fb515490d4f4
     internalID: 0
     vertices: []
     indices: 
@@ -153,7 +153,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Turtle_0: -3745163931830953359
+      Walk_10_0: 6646734700752008592
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

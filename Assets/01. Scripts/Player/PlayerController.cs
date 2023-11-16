@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer sprite;
     public Material mat;
 
+    public Animator anim;
+    private bool isMove = false;
+
     public bool isUI = false;
 
     private void Awake()
@@ -42,8 +45,14 @@ public class PlayerController : MonoBehaviour
         if (pv.IsMine)
         {
             Move();
+            Anim();
             cam.transform.SetParent(this.transform);
         }
+    }
+
+    public void Anim()
+    {
+        anim.SetBool("isMove", isMove);
     }
 
     public void Move()
@@ -53,6 +62,11 @@ public class PlayerController : MonoBehaviour
 
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
+
+        if (moveX != 0 || moveY != 0)
+            isMove = true;
+        else
+            isMove = false;
 
         transform.Translate(new Vector2(moveX, moveY).normalized * speed * Time.deltaTime);
 
