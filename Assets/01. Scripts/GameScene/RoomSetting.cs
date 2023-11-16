@@ -16,6 +16,16 @@ public class RoomSetting : MonoBehaviourPunCallbacks
     private bool isError;
     private float timer;
 
+    public GameObject optionMenu;
+    public Button settingBtn;
+
+    private bool isMenu = false;
+
+    private void Awake()
+    {
+        settingBtn.onClick.AddListener(() => { OnShowSetting(); });
+    }
+
     private void Update()
     {
         if (isError)
@@ -27,6 +37,18 @@ public class RoomSetting : MonoBehaviourPunCallbacks
                 timer = 0;
                 isError = false;
                 errorText.enabled = false;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isMenu)
+            {
+                OnOptionMenuShow();
+            }
+            else
+            {
+                OnOptionMenuHide();
             }
         }
     }
@@ -49,6 +71,7 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             roomCodeText.text = $"Room Code : {PhotonNetwork.CurrentRoom.Name}";
+            roomCodeText.enabled = true;
             startBtn.gameObject.SetActive(true);
             errorText.gameObject.SetActive(true);
         }
@@ -82,4 +105,50 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         errorText.text = str;
         errorText.enabled = true;
     }
+
+    #region OptionMenu
+
+    public void OnOptionMenuShow()
+    {
+        optionMenu.SetActive(true);
+        isMenu = true;
+    }
+
+    public void OnOptionMenuHide()
+    {
+        if (OptionManager.Instance == null)
+            return;
+        if(OptionManager.Instance.emptyImage.activeSelf)
+            OnHideSetting();
+
+        optionMenu.SetActive(false);
+        isMenu = false;
+    }
+
+    public void OnShowSetting()
+    {
+        if (OptionManager.Instance == null)
+            return;
+
+        OptionManager.Instance.OnShow();
+    }
+
+    public void OnHideSetting()
+    {
+        if (OptionManager.Instance == null)
+            return;
+
+        OptionManager.Instance.OnHide();
+    }
+
+    public void OnExit()
+    {
+        if (!PhotonNetwork.InRoom)
+            return;
+
+        FirebaseManager.Instance.UpdatePlayerCount(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount - 1);
+        NetworkManager.Instance.LeftRoom();
+    }
+
+    #endregion
 }

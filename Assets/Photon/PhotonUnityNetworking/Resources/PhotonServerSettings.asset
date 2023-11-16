@@ -41,6 +41,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - SetNickName
   - OnJoin
+  - OnConfirm
+  - SetRPCColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

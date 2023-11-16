@@ -20,16 +20,21 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer sprite;
     public Material mat;
 
-    public static bool isUI = false;
+    public bool isUI = false;
 
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
-        cam = Camera.main.GetComponent<Camera>();
-        cam.transform.position = new Vector3(0, 0, -1);
 
-        Material playerMat = new Material(mat);
-        sprite.material = playerMat;
+        if (pv.IsMine)
+        {
+            cam = Camera.main.GetComponent<Camera>();
+            cam.transform.position = new Vector3(0, 0, -1);
+
+            Material playerMat = new Material(mat);
+            sprite.material = playerMat;
+            GameManager.Instance.SetPlayer(this);
+        }
     }
 
     private void FixedUpdate()
@@ -56,4 +61,22 @@ public class PlayerController : MonoBehaviour
         else if (moveX > 0f)
             spriteTr.localScale = new Vector3(1f, 1f, 1f);
     }
+
+    public void SetColor(float _hue)
+    {
+        if (pv.IsMine)
+        {
+            pv.RPC("SetRPCColor", RpcTarget.AllBuffered, _hue);
+        }
+    }
+
+    #region Photon RPC
+
+    [PunRPC]
+    public void SetRPCColor(float _hue)
+    {
+        sprite.material.SetFloat("_Hue", _hue);
+    }
+
+    #endregion
 }

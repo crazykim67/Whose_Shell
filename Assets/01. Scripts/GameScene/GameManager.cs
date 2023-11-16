@@ -28,9 +28,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     [HideInInspector]
     public int terrapinCount;
 
+    public CustomizeUI customizeUI;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    public void SetPlayer(PlayerController _player)
+    {
+        customizeUI.player = _player;
     }
 
     public override void OnJoinedRoom()
@@ -39,7 +46,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         int terrapin = (int)cp["Terrapin"];
 
         terrapinCount = terrapin;
-
 
         FirebaseManager.Instance.OnLoadData();
     }

@@ -133,6 +133,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         Debug.Log("On Left Room...!");
+        NetworkManager.Instance.OnLoadScene("MainMenu");
     }
 
     #endregion

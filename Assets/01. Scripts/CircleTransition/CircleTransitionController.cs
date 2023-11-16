@@ -50,20 +50,10 @@ public class CircleTransitionController : MonoBehaviour
         canvas = GetComponent<Canvas>();
 
         // 처음부터 실행
-        blackScreen.material.SetFloat("_Radius", 0);
-        OpenBlackScreen(false);
+        blackScreen.material.SetFloat("_Radius", 1);
     }
 
     private void Start() => DrawCircleScreen();
-
-    public void Update()
-    {
-        // Test
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            OpenBlackScreen();
-        else if(Input.GetKeyDown(KeyCode.Alpha2)) 
-            CloseBlackScreen();
-    }
 
     public void OpenBlackScreen(bool _change = false)
     {
