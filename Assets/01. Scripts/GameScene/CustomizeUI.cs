@@ -16,6 +16,7 @@ public class CustomizeUI : MonoBehaviour
 
     [Header("Player")]
     public PlayerController player;
+    public float hue;
 
     [Header("Character Image")]
     public Image characterImage;
@@ -39,8 +40,7 @@ public class CustomizeUI : MonoBehaviour
         if (player == null)
             return;
 
-        var _hue = player.mat.GetFloat("_Hue");
-        characterImage.material.SetFloat("_Hue", _hue);
+        characterImage.material.SetFloat("_Hue", hue);
 
         player.isUI = true;
         dimObj.SetActive(true);
@@ -73,5 +73,6 @@ public class CustomizeUI : MonoBehaviour
             return;
 
         player.SetColor(characterImage.material.GetFloat("_Hue"));
+        hue = characterImage.material.GetFloat("_Hue");
     }
 }
