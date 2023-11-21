@@ -21,6 +21,9 @@ public class RoomSetting : MonoBehaviourPunCallbacks
 
     private bool isMenu = false;
 
+    [Header("Player Count UI")]
+    public TextMeshProUGUI playerCount;
+
     private void Awake()
     {
         settingBtn.onClick.AddListener(() => { OnShowSetting(); });
@@ -56,6 +59,7 @@ public class RoomSetting : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         MasterCheck();
+        UpdatePlayerCount();
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -148,6 +152,28 @@ public class RoomSetting : MonoBehaviourPunCallbacks
 
         FirebaseManager.Instance.UpdatePlayerCount(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount - 1);
         NetworkManager.Instance.LeftRoom();
+    }
+
+    #endregion
+
+    #region Player Count Setting
+
+    public void UpdatePlayerCount()
+    {
+        if (!PhotonNetwork.InRoom)
+            return;
+
+        playerCount.text = $"{PhotonNetwork.CurrentRoom.PlayerCount} / {PhotonNetwork.CurrentRoom.MaxPlayers}";
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        UpdatePlayerCount();
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        UpdatePlayerCount();
     }
 
     #endregion

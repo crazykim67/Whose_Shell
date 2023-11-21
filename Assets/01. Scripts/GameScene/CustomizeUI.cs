@@ -43,6 +43,7 @@ public class CustomizeUI : MonoBehaviour
         characterImage.material.SetFloat("_Hue", hue);
 
         player.isUI = true;
+        player.OnStop();
         dimObj.SetActive(true);
         customUI.SetActive(true);
     }

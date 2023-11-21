@@ -85,6 +85,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnStop()
+    {
+        moveX = 0;
+        moveY = 0;
+        isMove = false;
+        Anim();
+    }
+
     #region Photon RPC
 
     [PunRPC]
