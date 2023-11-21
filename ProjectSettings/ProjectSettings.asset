@@ -904,10 +904,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 0c343713-66ec-4545-a3ff-6c4b0884a561
+  cloudProjectId: 6c6d1173-9d4d-4ac3-aa67-98d9d9a48243
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Whose Shell (1)
+  projectName: Whose Shell
   organizationId: crazykim67
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
