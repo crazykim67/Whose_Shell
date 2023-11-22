@@ -99,7 +99,6 @@ public class FirebaseManager : MonoBehaviour
                 foreach (var data in _data.Children)
                 {
                     dataString += $"ID : {data.Key} - Email : {data.Value}\n";
-                    Debug.Log(dataString);
                 }
             }
         });

@@ -127,6 +127,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Join Room Successful...!");
         FirebaseManager.Instance.UpdatePlayerCount(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount);
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+
+        // Vivox 연결
+        VivoxManager.Instance.Login(AuthManager.Instance.currentId);
+
+        VivoxManager.Instance.OnInputAudioMute(true);
+        VivoxManager.Instance.OnOutputAudioMute(true);
     }
 
     // 방 나가기 콜백
@@ -134,6 +140,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("On Left Room...!");
         NetworkManager.Instance.OnLoadScene("MainMenu");
+        VivoxManager.Instance.OnLeft();
     }
 
     #endregion

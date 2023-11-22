@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         int terrapin = (int)cp["Terrapin"];
 
         terrapinCount = terrapin;
-
-        FirebaseManager.Instance.OnLoadData();
+        //FirebaseManager.Instance.OnLoadData();
     }
 }

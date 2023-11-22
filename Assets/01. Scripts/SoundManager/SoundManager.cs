@@ -71,12 +71,25 @@ public class SoundManager : MonoBehaviour
             bgSound.Play();
     }
 
+    public void BackgroundStop()
+    {
+        if (bgSound == null)
+            return;
+
+        bgSound.Stop();
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         for (int i = 0; i < clipList.Length; i++)
         {
             if (scene.name == clipList[i].name)
+            {
                 BackGroundPlay(clipList[i]);
+                break;
+            }
+            else
+                BackgroundStop();
         }
     }
 

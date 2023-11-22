@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VivoxUnity;
 using UnityEngine.Android;
 using System;
+using UnityEditor.PackageManager;
+using VivoxUnity;
+using Photon.Pun;
 
 [Serializable]
 public class Vivox
 {
-    public Client client;
+    public VivoxUnity.Client client;
 
     public Uri server = new Uri("https://unity.vivox.com/appconfig/6c6d1-whose-92719-udash");
     public string issuer = "6c6d1-whose-92719-udash";
@@ -49,12 +51,18 @@ public class VivoxManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
 
-        vivox.client = new Client();
+        vivox.client = new VivoxUnity.Client();
         vivox.client.Uninitialize();
         vivox.client.Initialize();
-        //SetAudioDevices();
+        SetAudioDevices();
     }
 
     public void Login(string userName)
@@ -69,6 +77,7 @@ public class VivoxManager : MonoBehaviour
                 try
                 {
                     vivox.loginSession.EndLogin(callback);
+                    Debug.Log($"Vivox LoginSession Login Successful...!\n ID : {userName}");
                 }
                 catch (Exception e)
                 {
@@ -89,6 +98,7 @@ public class VivoxManager : MonoBehaviour
             try
             {
                 vivox.channelSession.EndConnect(callback);
+                Debug.Log($"Vivox ChannelSession Join Successful...!\n Channel Name : {channelName}");
             }
             catch (Exception e)
             {
@@ -145,17 +155,6 @@ public class VivoxManager : MonoBehaviour
 
         vivox.audioInputDevice = vivox.client.AudioInputDevices;
         vivox.audioOutputDevice = vivox.client.AudioOutputDevices;
-        CheckAudioDevice();
-    }
-
-    // 오디오 장치 검사
-    public void CheckAudioDevice()
-    {
-        var inTemp = vivox.audioInputDevice.ActiveDevice;
-        var outTemp = vivox.audioOutputDevice.ActiveDevice;
-
-        Debug.Log($"Input Device : {inTemp.Name}");
-        Debug.Log($"Output Device : {outTemp.Name}");
     }
 
     public void MuteOtherUser(IParticipant _user, bool isMute)
@@ -174,21 +173,31 @@ public class VivoxManager : MonoBehaviour
             Debug.Log("Try Again");
     }
 
+    public void OnInputAudioMute(bool isMute)
+    {
+        vivox.client.AudioInputDevices.Muted = isMute;
+    }
+
+    public void OnOutputAudioMute(bool isMute)
+    {
+        vivox.client.AudioOutputDevices.Muted = isMute;
+    }
+
     #endregion
 
-    public void OnLeft()
+    public void OnLeft(string roomName = "")
     {
-        if (vivox.channelSession != null)
+        if (!roomName.Equals(string.Empty))
         {
-            vivox.channelSession.Disconnect();
-            vivox.loginSession.DeleteChannelSession(new ChannelId(vivox.issuer, "방 이름", vivox.domain, ChannelType.NonPositional));
+            if (vivox.channelSession != null)
+            {
+                vivox.channelSession.Disconnect();
+                vivox.loginSession.DeleteChannelSession(new ChannelId(vivox.issuer, roomName, vivox.domain, ChannelType.NonPositional));
+            }
         }
 
         vivox.client.Uninitialize();
+        Debug.Log("Vivox Discconect...!");
     }
 
-    private void OnApplicationQuit()
-    {
-        OnLeft();
-    }
 }

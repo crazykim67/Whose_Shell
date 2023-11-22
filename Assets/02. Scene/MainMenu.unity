@@ -5176,6 +5176,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 517798922}
   m_CullTransparentMesh: 1
+--- !u!1 &527030329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 527030330}
+  - component: {fileID: 527030331}
+  m_Layer: 0
+  m_Name: VivoxManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &527030330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527030329}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &527030331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527030329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9885998968b72874aa20fe93ef89e5a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vivox:
+    issuer: 6c6d1-whose-92719-udash
+    domain: mtu1xp.vivox.com
+    tokenKey: L7XRwfPL9dUwXpxp8mCpRMYMNCHOHyEL
 --- !u!1 &537757954
 GameObject:
   m_ObjectHideFlags: 0
@@ -17814,7 +17862,7 @@ RectTransform:
   m_Children:
   - {fileID: 285758680}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.28, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -18736,6 +18784,7 @@ SceneRoots:
   - {fileID: 1441693543}
   - {fileID: 2121967211}
   - {fileID: 1678867806}
+  - {fileID: 527030330}
   - {fileID: 16377558}
   - {fileID: 1779340223}
   - {fileID: 1922332984}
