@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteTr: {fileID: 4143556485100667934}
-  speed: 3
+  speed: 3.5
   sprite: {fileID: 8275144442025050380}
   mat: {fileID: 2100000, guid: f7a0bd14da1b91541ac9740e20aa2606, type: 2}
   anim: {fileID: 8987331487738204194}
