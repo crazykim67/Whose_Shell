@@ -8,14 +8,6 @@ using Photon.Pun;
 
 public class CustomizeUI : MonoBehaviour
 {
-    public GameObject customUI;
-
-    public GameObject dimObj;
-
-    public Button confirmBtn;
-
-    [Header("Player")]
-    public PlayerController player;
     public float hue;
 
     [Header("Character Image")]
@@ -25,44 +17,35 @@ public class CustomizeUI : MonoBehaviour
     {
         Material mat = new Material(characterImage.material);
         characterImage.material = mat;
-
-        confirmBtn.onClick.AddListener(() =>
-        {
-            OnHide();
-            OnConfirm();
-        });
     }
 
     #region Show & Hide
 
     public void OnShow()
     {
-        if (player == null)
+        if (CustomManager.Instance.player == null)
             return;
+
+        gameObject.SetActive(true);
 
         characterImage.material.SetFloat("_Hue", hue);
 
-        player.isUI = true;
-        player.OnStop();
-        dimObj.SetActive(true);
-        customUI.SetActive(true);
+        CustomManager.Instance.player.OnStop();
     }
 
     public void OnHide()
     {
-        player.isUI = false;
-        dimObj.SetActive(false);
-        customUI.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     #endregion
 
     public void OnClick(float _hue)
     {
-        if (player == null)
+        if (CustomManager.Instance.player == null)
             return;
 
-        if (player.mat.GetFloat("_Hue") == _hue)
+        if (CustomManager.Instance.player.mat.GetFloat("_Hue") == _hue)
             return;
 
         characterImage.material.SetFloat("_Hue", _hue);
@@ -70,10 +53,10 @@ public class CustomizeUI : MonoBehaviour
 
     public void OnConfirm()
     {
-        if(player == null) 
+        if(CustomManager.Instance.player == null) 
             return;
 
-        player.SetColor(characterImage.material.GetFloat("_Hue"));
+        CustomManager.Instance.player.SetColor(characterImage.material.GetFloat("_Hue"));
         hue = characterImage.material.GetFloat("_Hue");
     }
 }

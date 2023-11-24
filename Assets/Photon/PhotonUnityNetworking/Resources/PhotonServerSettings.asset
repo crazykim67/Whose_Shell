@@ -43,6 +43,10 @@ MonoBehaviour:
   - OnJoin
   - OnConfirm
   - SetRPCColor
+  - SetSettings
+  - RuleDataSetting
+  - SetData
+  - SetDataRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

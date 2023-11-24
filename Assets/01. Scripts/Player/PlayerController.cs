@@ -37,8 +37,13 @@ public class PlayerController : MonoBehaviour
             Material playerMat = new Material(mat);
             sprite.material = playerMat;
             mat = playerMat;
-            GameManager.Instance.SetPlayer(this);
         }
+    }
+
+    private void Start()
+    {
+        if(pv.IsMine)
+            CustomManager.Instance.SetPlayer(this);
     }
 
     private void FixedUpdate()
