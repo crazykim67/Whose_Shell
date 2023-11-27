@@ -31,6 +31,9 @@ public class RoomSetting : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (GameManager.Instance == null)
+            return;
+
         if (isError)
         {
             if(timer <= 3)
@@ -46,13 +49,45 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             if (!isMenu)
-            {
                 OnOptionMenuShow();
-            }
             else
-            {
                 OnOptionMenuHide();
-            }
+        }
+
+        StartCheck();
+    }
+
+    public void StartCheck()
+    {
+        if (!PhotonNetwork.InRoom)
+            return;
+
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        if (GameManager.Instance == null)
+            return;
+
+        if (GameManager.Instance.terrapinCount == 1)
+        {
+            if(PhotonNetwork.CurrentRoom.PlayerCount < 4)
+                startBtn.interactable = false;
+            else
+                startBtn.interactable = true;
+        }
+        else if (GameManager.Instance.terrapinCount == 2)
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount < 7)
+                startBtn.interactable = false;
+            else
+                startBtn.interactable = true;
+        }
+        else
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount < 9)
+                startBtn.interactable = false;
+            else
+                startBtn.interactable = true;
         }
     }
 
