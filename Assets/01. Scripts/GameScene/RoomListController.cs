@@ -24,7 +24,7 @@ public class RoomListController : MonoBehaviourPunCallbacks
 
     private void GetCurrentPlayers()
     {
-        foreach(KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players) 
+        foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players) 
         {
             AddPlayerList(player.Value);
         }

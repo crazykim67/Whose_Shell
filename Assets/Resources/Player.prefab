@@ -100,6 +100,8 @@ MonoBehaviour:
   mat: {fileID: 2100000, guid: f7a0bd14da1b91541ac9740e20aa2606, type: 2}
   anim: {fileID: 8987331487738204194}
   isUI: 0
+  playerType: 0
+  nickName: 
 --- !u!61 &4476332405532895877
 BoxCollider2D:
   m_ObjectHideFlags: 0

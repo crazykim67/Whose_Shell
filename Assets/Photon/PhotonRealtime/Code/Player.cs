@@ -28,7 +28,7 @@ namespace Photon.Realtime
     #if SUPPORTED_UNITY || NETFX_CORE
     using Hashtable = ExitGames.Client.Photon.Hashtable;
     using SupportClass = ExitGames.Client.Photon.SupportClass;
-    #endif
+#endif
 
 
     /// <summary>
@@ -37,6 +37,7 @@ namespace Photon.Realtime
     /// <remarks>
     /// Each player has a actorNumber, valid for that room. It's -1 until assigned by server (and client logic).
     /// </remarks>
+    [System.Serializable]
     public class Player
     {
         /// <summary>

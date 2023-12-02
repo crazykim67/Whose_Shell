@@ -4,6 +4,12 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
+public enum PlayerType
+{
+    Turtle,
+    Terrapin,
+}
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
@@ -25,6 +31,10 @@ public class PlayerController : MonoBehaviour
 
     public bool isUI = false;
 
+    public PlayerType playerType;
+
+    public string nickName;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -37,7 +47,10 @@ public class PlayerController : MonoBehaviour
             Material playerMat = new Material(mat);
             sprite.material = playerMat;
             mat = playerMat;
+            pv.RPC("SetNickName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
+            pv.RPC("SetController", RpcTarget.AllBufferedViaServer);
         }
+
     }
 
     private void Start()
@@ -104,6 +117,18 @@ public class PlayerController : MonoBehaviour
     public void SetRPCColor(float _hue)
     {
         sprite.material.SetFloat("_Hue", _hue);
+    }
+
+    [PunRPC]
+    public void SetNickName(string _nick)
+    {
+        nickName = _nick;
+    }
+
+    [PunRPC]
+    public void SetController()
+    {
+        GameSystem.Instance.AddController(this);
     }
 
     #endregion

@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +7,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
+// 게임의 전체적인 규칙을 관리하는 스크립트
 public class GameManager : MonoBehaviourPunCallbacks
 {
     private PhotonView pv;
