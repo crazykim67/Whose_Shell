@@ -2862,7 +2862,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3343339300073539543}
   m_HandleRect: {fileID: 8726358499237820434}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -14875,7 +14875,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 360
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2

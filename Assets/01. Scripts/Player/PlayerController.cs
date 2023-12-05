@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform spriteTr;
 
-    private PhotonView pv;
+    [HideInInspector]
+    public PhotonView pv;
 
     private float moveX, moveY;
 
@@ -25,13 +26,15 @@ public class PlayerController : MonoBehaviour
 
     public SpriteRenderer sprite;
     public Material mat;
+    public float playerColor;
+
 
     public Animator anim;
     private bool isMove = false;
 
     public bool isUI = false;
 
-    public PlayerType playerType;
+    public PlayerType playerType = PlayerType.Turtle;
 
     public string nickName;
 
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
         if (pv.IsMine)
         {
+            Init();
             cam = Camera.main.GetComponent<Camera>();
             cam.transform.position = new Vector3(0, 0, -1);
 
@@ -67,6 +71,11 @@ public class PlayerController : MonoBehaviour
             Anim();
             cam.transform.SetParent(this.transform);
         }
+    }
+
+    public void Init()
+    {
+        playerType = PlayerType.Turtle;
     }
 
     public void Anim()
@@ -117,6 +126,7 @@ public class PlayerController : MonoBehaviour
     public void SetRPCColor(float _hue)
     {
         sprite.material.SetFloat("_Hue", _hue);
+        playerColor = _hue;
     }
 
     [PunRPC]

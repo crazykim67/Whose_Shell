@@ -48,6 +48,12 @@ MonoBehaviour:
   - SetData
   - SetDataRPC
   - SetController
+  - GameStart
+  - TerrapinSelect
+  - ShowPlayer
+  - ShowIntroSequence
+  - ShowSequence
+  - SetPlayerType
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

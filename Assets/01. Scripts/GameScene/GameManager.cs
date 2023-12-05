@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public GameRuleData ruleData;
 
-    [HideInInspector]
     public int terrapinCount;
 
     private void Awake()
@@ -39,7 +38,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         pv = GetComponent<PhotonView>();
     }
 
-    public override void OnJoinedRoom()
+    private void Start()
     {
         Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
         int terrapin = (int)cp["Terrapin"];

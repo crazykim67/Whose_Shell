@@ -55,7 +55,7 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         }
     }
 
-    
+
 
     public override void OnJoinedRoom()
     {
@@ -93,15 +93,38 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         if (GameManager.Instance == null)
             return;
 
+        if (GameSystem.Instance == null)
+            return;
+
         if (!PhotonNetwork.InRoom)
             return;
 
-        if(GameManager.Instance.terrapinCount == 1)
-            OnError("게임 인원이 최소 4명 이상이어야 합니다.");
-        else if(GameManager.Instance.terrapinCount == 2)
-            OnError("게임 인원이 최소 7명 이상이어야 합니다.");
-        else
-            OnError("게임 인원이 최소 9명 이상이어야 합니다.");
+        //if(GameManager.Instance.terrapinCount == 1)
+        //{
+        //    if(PhotonNetwork.CurrentRoom.PlayerCount < 4)
+        //    {
+        //        OnError("게임 인원이 최소 4명 이상이어야 합니다.");
+        //        return;
+        //    }
+        //}
+        //else if(GameManager.Instance.terrapinCount == 2)
+        //{
+        //    if(PhotonNetwork.CurrentRoom.PlayerCount < 7)
+        //    {
+        //        OnError("게임 인원이 최소 7명 이상이어야 합니다.");
+        //        return;
+        //    }
+        //}
+        //else
+        //{
+        //    if(PhotonNetwork.CurrentRoom.PlayerCount < 9)
+        //    {
+        //        OnError("게임 인원이 최소 9명 이상이어야 합니다.");
+        //        return;
+        //    }
+        //}
+
+        GameSystem.Instance.OnStart();
     }
 
     public void OnError(string str)
@@ -191,27 +214,27 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         if (GameManager.Instance == null)
             return;
 
-        if (GameManager.Instance.terrapinCount == 1)
-        {
-            if (PhotonNetwork.CurrentRoom.PlayerCount < 4)
-                startBtn.interactable = false;
-            else
-                startBtn.interactable = true;
-        }
-        else if (GameManager.Instance.terrapinCount == 2)
-        {
-            if (PhotonNetwork.CurrentRoom.PlayerCount < 7)
-                startBtn.interactable = false;
-            else
-                startBtn.interactable = true;
-        }
-        else
-        {
-            if (PhotonNetwork.CurrentRoom.PlayerCount < 9)
-                startBtn.interactable = false;
-            else
-                startBtn.interactable = true;
-        }
+        //if (GameManager.Instance.terrapinCount == 1)
+        //{
+        //    if (PhotonNetwork.CurrentRoom.PlayerCount < 4)
+        //        startBtn.interactable = false;
+        //    else
+        //        startBtn.interactable = true;
+        //}
+        //else if (GameManager.Instance.terrapinCount == 2)
+        //{
+        //    if (PhotonNetwork.CurrentRoom.PlayerCount < 7)
+        //        startBtn.interactable = false;
+        //    else
+        //        startBtn.interactable = true;
+        //}
+        //else
+        //{
+        //    if (PhotonNetwork.CurrentRoom.PlayerCount < 9)
+        //        startBtn.interactable = false;
+        //    else
+        //        startBtn.interactable = true;
+        //}
     }
 
     #endregion

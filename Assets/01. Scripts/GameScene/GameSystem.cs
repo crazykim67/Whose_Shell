@@ -4,9 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.Playables;
-using NUnit.Framework;
-
+using TMPro;
 
 public class GameSystem : MonoBehaviourPunCallbacks
 {
@@ -106,5 +104,71 @@ public class GameSystem : MonoBehaviourPunCallbacks
                 break;
             }
         }
+    }
+
+    // 자라 선정
+    private IEnumerator GameReady()
+    {
+        var manager = GameManager.Instance;
+
+        while (PhotonNetwork.CurrentRoom.PlayerCount != controllerList.Count)
+            yield return null;
+
+        for(int i = 0; i < manager.terrapinCount; i++)
+        {
+            int index = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
+            var player = controllerList[index];
+
+            if (player.playerType != PlayerType.Terrapin)
+            {
+                //player.playerType = PlayerType.Terrapin;
+                pv.RPC("SetPlayerType", RpcTarget.All, player.nickName);
+            }
+            else
+            {
+                i--;
+            }
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        yield return StartCoroutine(IntroGameUIManager.Instance.Controller.ShowIntroSequence());
+    }
+
+    #region Start
+
+    //[PunRPC]
+    //public void GameStart()
+    //{
+    //    StartCoroutine(GameReady());
+    //}
+
+    public void OnStart()
+    {
+        StartCoroutine(GameReady());
+        //GameStart();
+        //pv.RPC("GameStart", RpcTarget.All);
+    }
+
+    #endregion
+
+    // 해당 플레이어 자라 설정
+    [PunRPC]
+    private void SetPlayerType(string nickName)
+    {
+        foreach(var controller in controllerList)
+        {
+            if (controller.nickName.Equals(nickName))
+            {
+                controller.playerType = PlayerType.Terrapin;
+                Debug.Log($"Terrapin Select {controller.nickName}");
+                break;
+            }
+        }
+    }
+
+    public List<PlayerController> GetPlayerList()
+    {
+        return controllerList;
     }
 }
