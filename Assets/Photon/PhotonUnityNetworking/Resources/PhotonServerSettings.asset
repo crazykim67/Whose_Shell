@@ -54,6 +54,7 @@ MonoBehaviour:
   - ShowIntroSequence
   - ShowSequence
   - SetPlayerType
+  - ShowIntroRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

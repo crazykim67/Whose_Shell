@@ -120,34 +120,22 @@ public class GameSystem : MonoBehaviourPunCallbacks
             var player = controllerList[index];
 
             if (player.playerType != PlayerType.Terrapin)
-            {
-                //player.playerType = PlayerType.Terrapin;
                 pv.RPC("SetPlayerType", RpcTarget.All, player.nickName);
-            }
             else
-            {
                 i--;
-            }
         }
 
         yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(IntroGameUIManager.Instance.Controller.ShowIntroSequence());
+        // 모든 사용자에게 거북이/자라 선별 화면 호출 동기화
+        IntroGameUIManager.Instance.Controller.OnIntro();
     }
 
     #region Start
 
-    //[PunRPC]
-    //public void GameStart()
-    //{
-    //    StartCoroutine(GameReady());
-    //}
-
     public void OnStart()
     {
         StartCoroutine(GameReady());
-        //GameStart();
-        //pv.RPC("GameStart", RpcTarget.All);
     }
 
     #endregion

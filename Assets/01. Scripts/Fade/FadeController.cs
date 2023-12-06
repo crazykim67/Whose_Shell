@@ -37,14 +37,6 @@ public class FadeController : MonoBehaviour
         instance = this;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            OnFadeIn(Test);
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            OnFadeOut();
-    }
-
     public void OnFadeIn(Action act = null)
     {
         if(act != null)
@@ -53,13 +45,15 @@ public class FadeController : MonoBehaviour
             StartCoroutine(FadeIn());
     }
 
-    public void OnFadeOut()
+    public void OnFadeOut(float _speed)
     {
-        StartCoroutine(FadeOut());
+        StartCoroutine(FadeOut(_speed));
     }
 
     public IEnumerator FadeIn(Action act = null, float fadeSpeed = 0.8f)
     {
+        alphaValue = 0f;
+        bg.color = new Color(bg.color.r, bg.color.g, bg.color.b, alphaValue);
         bg.gameObject.SetActive(true);
 
         while (alphaValue <= 1)
@@ -76,6 +70,8 @@ public class FadeController : MonoBehaviour
 
     public IEnumerator FadeOut(float fadeSpeed = 0.8f) 
     {
+        alphaValue = 1f;
+        bg.color = new Color(bg.color.r, bg.color.g, bg.color.b, alphaValue);
         bg.gameObject.SetActive(true);
 
         while (alphaValue > 0)
@@ -89,8 +85,4 @@ public class FadeController : MonoBehaviour
         alphaValue = 0f;
     }
 
-    public void Test()
-    {
-        Debug.Log("테스트");
-    }
 }
