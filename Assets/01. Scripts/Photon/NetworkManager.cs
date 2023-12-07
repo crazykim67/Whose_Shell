@@ -132,7 +132,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.InstantiateRoomObject("CustomManager", Vector3.zero, Quaternion.identity);
         PhotonNetwork.InstantiateRoomObject("GameSystem", Vector3.zero, Quaternion.identity);
         PhotonNetwork.InstantiateRoomObject("IntroUI", Vector3.zero, Quaternion.identity);
-        PhotonNetwork.InstantiateRoomObject("PlayerListCanvas", Vector3.zero, Quaternion.identity);
+        //PhotonNetwork.InstantiateRoomObject("PlayerListCanvas", Vector3.zero, Quaternion.identity);
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
 
         // Vivox 연결

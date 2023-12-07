@@ -19,6 +19,8 @@ public class RoomSetting : MonoBehaviourPunCallbacks
     public GameObject optionMenu;
     public Button settingBtn;
 
+    public GameObject lobbyObj;
+
     private bool isMenu = false;
 
     [Header("Player Count UI")]
@@ -237,4 +239,9 @@ public class RoomSetting : MonoBehaviourPunCallbacks
     }
 
     #endregion
+
+    public void SetActive(bool isAct)
+    {
+        lobbyObj.SetActive(isAct);
+    }
 }

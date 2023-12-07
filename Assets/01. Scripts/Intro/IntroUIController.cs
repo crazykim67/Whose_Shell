@@ -39,11 +39,16 @@ public class IntroUIController : MonoBehaviour
     [SerializeField]
     private Color terrapinColor;
 
+    private RoomSetting roomSettingUI;
+
     [Header("INTRODUCT TEXT")]
     public IntroductText introductText;
 
+    private void Awake() => roomSettingUI = FindAnyObjectByType<RoomSetting>();
+
     public IEnumerator ShowIntroSequence()
     {
+        OnGameSetting(false);
         dimObj.SetActive(true);
 
         introductObj.SetActive(true);
@@ -68,6 +73,15 @@ public class IntroUIController : MonoBehaviour
                 dimObj.SetActive(false);
                 turtleObj.SetActive(false);
             }) ;
+    }
+
+    public void OnGameSetting(bool isAct)
+    {
+        if(roomSettingUI != null)
+            roomSettingUI.SetActive(isAct);
+
+        if(CustomManager.Instance != null)
+            CustomManager.Instance.SetActive(isAct);
     }
 
     #region RPC

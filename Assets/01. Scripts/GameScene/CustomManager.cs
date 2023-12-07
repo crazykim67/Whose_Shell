@@ -117,4 +117,9 @@ public class CustomManager : MonoBehaviour
     {
         this.player = _player;
     }
+
+    public void SetActive(bool isAct)
+    {
+        this.gameObject.SetActive(isAct);
+    }
 }
