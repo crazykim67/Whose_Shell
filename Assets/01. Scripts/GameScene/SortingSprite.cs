@@ -35,4 +35,14 @@ public class SortingSprite : MonoBehaviour
         if(type == ESortingType.Update) 
             spriteRenderer.sortingOrder = sorter.GetSortingOrder(gameObject);
     }
+
+    public void SetSorter(SpriteSorter _sorter)
+    {
+        this.sorter = _sorter;
+
+        if (type == ESortingType.Static)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+        spriteRenderer.sortingOrder = sorter.GetSortingOrder(gameObject);
+    }
 }

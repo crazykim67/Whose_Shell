@@ -59,6 +59,15 @@ public class IntroUIController : MonoBehaviour
 
         ShowPlayer();
         turtleObj.SetActive(true);
+
+        yield return new WaitForSeconds(3f);
+
+        if (FadeController.Instance != null)
+            FadeController.Instance.OnFadeIn(0.5f, () => { 
+                MapManager.Instance.MapIndex(1); 
+                dimObj.SetActive(false);
+                turtleObj.SetActive(false);
+            }) ;
     }
 
     #region RPC

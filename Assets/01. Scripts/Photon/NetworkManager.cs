@@ -128,6 +128,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         FirebaseManager.Instance.UpdatePlayerCount(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount);
 
         PhotonNetwork.InstantiateRoomObject("GameManager", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.InstantiateRoomObject("MapManager", Vector3.zero, Quaternion.identity);
         PhotonNetwork.InstantiateRoomObject("CustomManager", Vector3.zero, Quaternion.identity);
         PhotonNetwork.InstantiateRoomObject("GameSystem", Vector3.zero, Quaternion.identity);
         PhotonNetwork.InstantiateRoomObject("IntroUI", Vector3.zero, Quaternion.identity);

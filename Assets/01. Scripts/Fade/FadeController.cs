@@ -37,12 +37,12 @@ public class FadeController : MonoBehaviour
         instance = this;
     }
 
-    public void OnFadeIn(Action act = null)
+    public void OnFadeIn(float _speed = 0.8f, Action act = null)
     {
         if(act != null)
             StartCoroutine(FadeIn(act, 1f));
         else
-            StartCoroutine(FadeIn());
+            StartCoroutine(FadeIn(null, _speed));
     }
 
     public void OnFadeOut(float _speed)
@@ -65,7 +65,10 @@ public class FadeController : MonoBehaviour
 
         alphaValue = 1f;
         if (act != null)
+        {
             act.Invoke();
+            OnFadeOut(0.5f);
+        }
     }
 
     public IEnumerator FadeOut(float fadeSpeed = 0.8f) 

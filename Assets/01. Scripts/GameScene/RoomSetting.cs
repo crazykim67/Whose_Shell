@@ -26,6 +26,7 @@ public class RoomSetting : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        StartCheck();
         settingBtn.onClick.AddListener(() => { OnShowSetting(); });
     }
 
@@ -54,8 +55,6 @@ public class RoomSetting : MonoBehaviourPunCallbacks
                 OnOptionMenuHide();
         }
     }
-
-
 
     public override void OnJoinedRoom()
     {

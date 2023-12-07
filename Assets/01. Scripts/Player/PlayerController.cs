@@ -12,6 +12,9 @@ public enum PlayerType
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Sprite Sorter")]
+    public SortingSprite sorting;
+
     [SerializeField]
     private Transform spriteTr;
 
