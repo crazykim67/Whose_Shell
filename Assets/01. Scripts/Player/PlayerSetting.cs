@@ -25,4 +25,9 @@ public class PlayerSetting : MonoBehaviour
     {
         nickNameText.text = _nick;
     }
+
+    public void SetColor(Color color)
+    {
+        nickNameText.color = color;
+    }
 }

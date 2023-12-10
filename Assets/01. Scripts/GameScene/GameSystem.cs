@@ -129,6 +129,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
 
         // 모든 사용자에게 거북이/자라 선별 화면 호출 동기화
         IntroGameUIManager.Instance.Controller.OnIntro();
+
     }
 
     #region Start
@@ -159,4 +160,46 @@ public class GameSystem : MonoBehaviourPunCallbacks
     {
         return controllerList;
     }
+
+    public void SetNickNameColor()
+    {
+        PlayerController myController = null;
+
+        foreach(var controller in controllerList)
+        {
+            if (controller.nickName.Equals(PhotonNetwork.NickName))
+            {
+                myController = controller;
+                break;
+            }
+        }
+
+        if (myController.playerType == PlayerType.Terrapin)
+        {
+            foreach (var controller in controllerList)
+            {
+                if(controller.playerType == PlayerType.Terrapin)
+                    controller.playerSet.SetColor(Color.red);
+                else
+                    controller.playerSet.SetColor(Color.white);
+            }
+        }
+        else
+        {
+            foreach (var controller in controllerList)
+                controller.playerSet.SetColor(Color.white);
+        }
+    }
+
+    #region Init
+
+    public void InitNickName()
+    {
+        foreach (var controller in controllerList)
+        {
+            controller.playerSet.SetColor(Color.white);
+        }
+    }
+
+    #endregion
 }

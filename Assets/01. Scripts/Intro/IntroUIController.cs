@@ -56,6 +56,9 @@ public class IntroUIController : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
+        if (GameSystem.Instance != null)
+            GameSystem.Instance.SetNickNameColor();
+
         if (FadeController.Instance != null)
             FadeController.Instance.OnFadeOut(0.5f);
 

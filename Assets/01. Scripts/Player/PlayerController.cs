@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerType playerType = PlayerType.Turtle;
 
+    public PlayerSetting playerSet;
     public string nickName;
 
     private void Awake()
@@ -50,7 +51,6 @@ public class PlayerController : MonoBehaviour
             Init();
             cam = Camera.main.GetComponent<Camera>();
             cam.transform.position = new Vector3(0, 0, -1);
-
             Material playerMat = new Material(mat);
             sprite.material = playerMat;
             mat = playerMat;
