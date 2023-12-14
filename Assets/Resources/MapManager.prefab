@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &200847122229797311
 GameObject:
@@ -1213,6 +1214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 8275030420790841825}
 --- !u!1 &741882432358565678
 GameObject:
@@ -1426,6 +1428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &1032921618989159205
 GameObject:
@@ -1977,6 +1980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 9186786353393458531}
 --- !u!1 &1478483149922109752
 GameObject:
@@ -2619,7 +2623,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7557375368948752621}
   - component: {fileID: 4068637032175895526}
-  - component: {fileID: 7910858751975463965}
   m_Layer: 0
   m_Name: sprite_medbay_scanner
   m_TagString: Untagged
@@ -2694,20 +2697,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7910858751975463965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2011970370929162213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 445be515b049cd24992e1c586854c79c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  spriteRenderer: {fileID: 0}
 --- !u!1 &2024862797310765957
 GameObject:
   m_ObjectHideFlags: 0
@@ -4310,6 +4299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &3272101741025813901
 GameObject:
@@ -4736,6 +4726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &3406108225659362588
 GameObject:
@@ -7076,6 +7067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &4552837849602233853
 GameObject:
@@ -7623,6 +7615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &5032195611950113530
 GameObject:
@@ -8113,6 +8106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &5471264995091101592
 GameObject:
@@ -8453,6 +8447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &5566377260884945329
 GameObject:
@@ -9592,6 +9587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &6652519058618264636
 GameObject:
@@ -10089,6 +10085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &7312746852214143483
 GameObject:
@@ -11515,6 +11512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 9205749535909198301}
 --- !u!1 &8327013738128799456
 GameObject:
@@ -11928,6 +11926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &8643855573943550884
 GameObject:
@@ -12393,6 +12392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!61 &4609206283782528225
 BoxCollider2D:
@@ -12538,6 +12538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  sorter: {fileID: 2655046842465944472}
   spriteRenderer: {fileID: 0}
 --- !u!1 &9039037924050364995
 GameObject:

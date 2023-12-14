@@ -12,6 +12,7 @@ public class SortingSprite : MonoBehaviour
     [SerializeField]
     private ESortingType type;
 
+    [SerializeField]
     private SpriteSorter sorter;
 
     [SerializeField]
@@ -19,7 +20,8 @@ public class SortingSprite : MonoBehaviour
 
     private void Start()
     {
-        sorter = FindAnyObjectByType<SpriteSorter>();
+        if (sorter == null)
+            sorter = FindAnyObjectByType<SpriteSorter>();
 
         if(type == ESortingType.Static)
         spriteRenderer = GetComponent<SpriteRenderer>();
