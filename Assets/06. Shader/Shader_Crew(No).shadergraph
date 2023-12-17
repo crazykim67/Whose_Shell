@@ -50,6 +50,9 @@
         },
         {
             "m_Id": "c8937fea55734c3c807042ca6ca02e05"
+        },
+        {
+            "m_Id": "7be1c5b434d14ed59d2ba495af8eb0a1"
         }
     ],
     "m_GroupDatas": [],
@@ -160,6 +163,9 @@
             },
             {
                 "m_Id": "c8937fea55734c3c807042ca6ca02e05"
+            },
+            {
+                "m_Id": "7be1c5b434d14ed59d2ba495af8eb0a1"
             }
         ]
     },
@@ -249,7 +255,7 @@
     "m_ObjectId": "1d2ca11210de44d0879134a66d0473b0",
     "m_Datas": [],
     "m_ActiveSubTarget": {
-        "m_Id": "2502aeb048404aa78c44fb9dd24e7ceb"
+        "m_Id": "ae2b2473f7a249dc9e68fdf6d60fbb66"
     },
     "m_AllowMaterialOverride": false,
     "m_SurfaceType": 0,
@@ -300,12 +306,6 @@
     "m_Value": 0.5,
     "m_DefaultValue": 0.5,
     "m_Labels": []
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalSpriteUnlitSubTarget",
-    "m_ObjectId": "2502aeb048404aa78c44fb9dd24e7ceb"
 }
 
 {
@@ -555,6 +555,40 @@
         "w": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "7be1c5b434d14ed59d2ba495af8eb0a1",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.NormalTS",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "ec09729ababb466aabd630d18b74cfea"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.NormalTS"
 }
 
 {
@@ -834,6 +868,12 @@
 }
 
 {
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalSpriteLitSubTarget",
+    "m_ObjectId": "ae2b2473f7a249dc9e68fdf6d60fbb66"
+}
+
+{
     "m_SGVersion": 1,
     "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
     "m_ObjectId": "bf938bf03cdf449eb11035abf8bbc074",
@@ -1020,6 +1060,30 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.BaseColor"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.NormalMaterialSlot",
+    "m_ObjectId": "ec09729ababb466aabd630d18b74cfea",
+    "m_Id": 0,
+    "m_DisplayName": "Normal (Tangent Space)",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "NormalTS",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": [],
+    "m_Space": 3
 }
 
 {

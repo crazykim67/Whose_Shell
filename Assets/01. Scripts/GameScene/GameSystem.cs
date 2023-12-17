@@ -33,6 +33,8 @@ public class GameSystem : MonoBehaviourPunCallbacks
     public List<Player> playerList = new List<Player>();
     public List<PlayerController> controllerList = new List<PlayerController>();
 
+    private bool isStart = false;
+
     private void Awake()
     {
         instance = this;
@@ -109,6 +111,8 @@ public class GameSystem : MonoBehaviourPunCallbacks
     // 자라 선정
     private IEnumerator GameReady()
     {
+        isStart = true;
+
         var manager = GameManager.Instance;
 
         while (PhotonNetwork.CurrentRoom.PlayerCount != controllerList.Count)
@@ -136,6 +140,9 @@ public class GameSystem : MonoBehaviourPunCallbacks
 
     public void OnStart()
     {
+        if (isStart)
+            return;
+
         StartCoroutine(GameReady());
     }
 
