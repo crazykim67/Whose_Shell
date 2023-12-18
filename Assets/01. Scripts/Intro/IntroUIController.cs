@@ -93,6 +93,13 @@ public class IntroUIController : MonoBehaviour
     public void ShowIntroRPC()
     {
         StartCoroutine(ShowIntroSequence());
+
+        if (GameSystem.Instance == null)
+            return;
+
+        foreach(var player in GameSystem.Instance.controllerList)
+            if(!player.nickName.Equals(PhotonNetwork.NickName))
+                player.playerSet.SetActive(false);
     }
 
     #endregion

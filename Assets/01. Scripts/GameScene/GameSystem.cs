@@ -33,7 +33,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
     public List<Player> playerList = new List<Player>();
     public List<PlayerController> controllerList = new List<PlayerController>();
 
-    private bool isStart = false;
+    public bool isStart = false;
 
     private void Awake()
     {
@@ -111,8 +111,6 @@ public class GameSystem : MonoBehaviourPunCallbacks
     // 자라 선정
     private IEnumerator GameReady()
     {
-        isStart = true;
-
         var manager = GameManager.Instance;
 
         while (PhotonNetwork.CurrentRoom.PlayerCount != controllerList.Count)
@@ -144,11 +142,12 @@ public class GameSystem : MonoBehaviourPunCallbacks
             return;
 
         StartCoroutine(GameReady());
+        pv.RPC("IsStart", RpcTarget.All, true);
     }
 
     #endregion
 
-    // 해당 플레이어 자라 설정
+    // 해당 플레이어 자라 설정 및 이름표 설정
     [PunRPC]
     private void SetPlayerType(string nickName)
     {
@@ -161,6 +160,12 @@ public class GameSystem : MonoBehaviourPunCallbacks
                 break;
             }
         }
+    }
+
+    [PunRPC]
+    public void IsStart(bool _isStart)
+    {
+        isStart = _isStart;
     }
 
     public List<PlayerController> GetPlayerList()

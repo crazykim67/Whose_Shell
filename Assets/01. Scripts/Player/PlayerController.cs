@@ -145,4 +145,46 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    #region TrrigerEnter / Exit
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (GameSystem.Instance == null)
+            return;
+
+        if (!GameSystem.Instance.isStart)
+            return;
+
+        if(coll.tag == "Player")
+        {
+            PlayerController otherPlayer = coll.gameObject.GetComponent<PlayerController>();
+
+            if (otherPlayer.pv.IsMine)
+                return;
+
+            otherPlayer.playerSet.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (GameSystem.Instance == null)
+            return;
+
+        if (!GameSystem.Instance.isStart)
+            return;
+
+        if (coll.tag == "Player")
+        {
+            PlayerController otherPlayer = coll.gameObject.GetComponent<PlayerController>();
+
+            if (otherPlayer.pv.IsMine)
+                return;
+
+            otherPlayer.playerSet.SetActive(false);
+        }
+    }
+
+    #endregion
 }
