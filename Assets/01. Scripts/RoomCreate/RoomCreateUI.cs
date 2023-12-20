@@ -201,6 +201,7 @@ public class RoomCreateUI : MonoBehaviour
     public void OnCancel()
     {
         CircleTransitionController.Instance.CloseBlackScreen(OnHide, mainMenuUI.OnShow);
+        nickNameInputField.text = "";
     }
 
     public void OnError(string str)

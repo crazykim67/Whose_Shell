@@ -62,8 +62,11 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        if(pv.IsMine)
+        if (pv.IsMine)
+        {
             CustomManager.Instance.SetPlayer(this);
+            InGameUIManager.Instance.OnSet(this);
+        }
     }
 
     private void FixedUpdate()

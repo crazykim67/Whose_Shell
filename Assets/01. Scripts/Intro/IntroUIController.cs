@@ -100,6 +100,8 @@ public class IntroUIController : MonoBehaviour
         foreach(var player in GameSystem.Instance.controllerList)
             if(!player.nickName.Equals(PhotonNetwork.NickName))
                 player.playerSet.SetActive(false);
+
+        InGameUIManager.Instance.StartGameSetting();
     }
 
     #endregion
