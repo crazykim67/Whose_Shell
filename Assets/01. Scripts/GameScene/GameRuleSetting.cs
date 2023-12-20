@@ -116,8 +116,8 @@ public class GameRuleSetting : MonoBehaviour
         emergencyTime = 20;
         voteTime = 120;
         playerSpeed = 3.5f;
-        turtleSight = 1f;
-        terrapinSight = 1.5f;
+        turtleSight = 8f;
+        terrapinSight = 10f;
         killCoolTime = 40f;
         killRange = KillRange.Normal;
         commonTask = 1;
@@ -169,19 +169,19 @@ public class GameRuleSetting : MonoBehaviour
 
     public void OnPlayerSpeedChange(bool isPlus)
     {
-        playerSpeed = Mathf.Clamp(playerSpeed + (isPlus ? 0.25f : -0.25f), 3.5f, 8f);
+        playerSpeed = Mathf.Clamp(playerSpeed + (isPlus ? 0.25f : -0.25f), 5f, 8f);
         playerSpeedText.text = string.Format("{0}", playerSpeed);
     }
 
     public void OnTurtleSightChange(bool isPlus)
     {
-        turtleSight = Mathf.Clamp(turtleSight + (isPlus ? 0.25f : -0.25f), 0.25f, 5f);
+        turtleSight = Mathf.Clamp(turtleSight + (isPlus ? 0.25f : -0.25f), 3f, 10f);
         turtleSightText.text = string.Format("{0}", turtleSight);
     }
 
     public void OnTerrapinSightChange(bool isPlus)
     {
-        terrapinSight = Mathf.Clamp(terrapinSight + (isPlus ? 0.25f : -0.25f), 0.25f, 5f);
+        terrapinSight = Mathf.Clamp(terrapinSight + (isPlus ? 0.25f : -0.25f), 3f, 10f);
         terrapinSightText.text = string.Format("{0}", terrapinSight);
     }
 

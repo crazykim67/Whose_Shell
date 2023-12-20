@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.Rendering.Universal;
 
 public enum PlayerType
 {
@@ -31,7 +32,6 @@ public class PlayerController : MonoBehaviour
     public Material mat;
     public float playerColor;
 
-
     public Animator anim;
     private bool isMove = false;
 
@@ -42,6 +42,10 @@ public class PlayerController : MonoBehaviour
     public PlayerSetting playerSet;
     public string nickName;
 
+    [Header("Sight")]
+    [SerializeField]
+    private Light2D shadowLight;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -50,6 +54,8 @@ public class PlayerController : MonoBehaviour
         {
             Init();
             cam = Camera.main.GetComponent<Camera>();
+            shadowLight = cam.GetComponentInChildren<Light2D>();
+
             cam.transform.position = new Vector3(0, -0.25f, -1);
             Material playerMat = new Material(mat);
             sprite.material = playerMat;
@@ -190,4 +196,13 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    public void SetKillButton()
+    {
+        if (InGameUIManager.Instance == null)
+            return;
+
+        if(playerType == PlayerType.Terrapin)
+            InGameUIManager.Instance.KillUI.OnShow();
+    }
 }

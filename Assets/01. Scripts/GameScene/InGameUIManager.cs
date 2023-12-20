@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class InGameUIManager : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new InGameUIManager();
                 return instance;
@@ -25,14 +26,28 @@ public class InGameUIManager : MonoBehaviour
 
     #endregion
 
+    private PhotonView pv;
+
     [SerializeField]
     private GameObject uiObject;
 
     [SerializeField]
     private MinimapManager minimap;
 
-    private void Awake() => instance = this;
+    [SerializeField]
+    private KillButtonUI killUI;
 
+    public  KillButtonUI KillUI {
+        get
+        {
+            return killUI; }
+        }
+
+    private void Awake()
+    {
+        instance = this;
+        pv = GetComponent<PhotonView>();
+    }
     public void OnSet(PlayerController player)
     {
         minimap.SetPlayer(player);

@@ -105,6 +105,7 @@ MonoBehaviour:
   playerType: 0
   playerSet: {fileID: 1358015532410216358}
   nickName: 
+  shadowLight: {fileID: 0}
 --- !u!61 &4476332405532895877
 BoxCollider2D:
   m_ObjectHideFlags: 0

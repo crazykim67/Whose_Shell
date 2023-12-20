@@ -156,7 +156,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
             if (controller.nickName.Equals(nickName))
             {
                 controller.playerType = PlayerType.Terrapin;
-                Debug.Log($"Terrapin Select {controller.nickName}");
+                controller.SetKillButton();
                 break;
             }
         }

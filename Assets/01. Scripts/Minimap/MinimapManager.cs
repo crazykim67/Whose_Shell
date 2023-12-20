@@ -30,6 +30,7 @@ public class MinimapManager : MonoBehaviour
     {
         Material mat = Instantiate(minimapImage.material);
         minimapImage.material = mat;
+        mat.SetFloat("_Hue", 230f);
     }
 
     public void SetPlayer(PlayerController _player)
