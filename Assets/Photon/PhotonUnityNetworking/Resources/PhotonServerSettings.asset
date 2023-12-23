@@ -57,6 +57,16 @@ MonoBehaviour:
   - ShowIntroRPC
   - SetPosition
   - IsStart
+  - SetKillCoolDown
+  - SetTerrapinValue
+  - SetColor
+  - RPCKill
+  - RpcTeleport
+  - SetRpcColor
+  - MasterSwitched
+  - SetMasterClient
+  - SetMasterClientRpc
+  - InstantiateRoomObject
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

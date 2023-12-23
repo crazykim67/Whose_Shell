@@ -1,9 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Rendering.Universal;
+using static UnityEngine.GraphicsBuffer;
 
 public enum PlayerType
 {
@@ -46,6 +47,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Light2D shadowLight;
 
+    [Header("Kill")]
+    [SerializeField]
+    private float killCooldown;
+    public float KillCooldown { get { return killCooldown; } }
+    public bool isKill { get { return killCooldown < 0f && playerFinder.players.Count != 0; } }
+    public PlayerFinder playerFinder;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -63,7 +71,6 @@ public class PlayerController : MonoBehaviour
             pv.RPC("SetNickName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
             pv.RPC("SetController", RpcTarget.AllBufferedViaServer);
         }
-
     }
 
     private void Start()
@@ -83,6 +90,12 @@ public class PlayerController : MonoBehaviour
             Anim();
             cam.transform.SetParent(this.transform);
         }
+    }
+
+    private void Update()
+    {
+        if(playerType == PlayerType.Terrapin)
+            killCooldown -= Time.deltaTime;
     }
 
     public void Init()
@@ -132,6 +145,28 @@ public class PlayerController : MonoBehaviour
         Anim();
     }
 
+    public void SetTerrapinActive(List<PlayerController > list)
+    {
+        if (!pv.IsMine)
+            return;
+
+        if(playerType == PlayerType.Terrapin)
+        {
+            foreach (var player in list)
+            {
+                if(player.playerType == PlayerType.Turtle)
+                    player.playerSet.SetActive(false);
+            }
+        }
+        else
+        {
+            foreach (var player in list)
+                player.playerSet.SetActive(false);
+        }
+
+        
+    }
+
     #region Photon RPC
 
     [PunRPC]
@@ -151,58 +186,79 @@ public class PlayerController : MonoBehaviour
     public void SetController()
     {
         GameSystem.Instance.AddController(this);
+
+        if (GameSystem.Instance == null)
+            return;
+    }
+
+    [PunRPC]
+    public void RpcTeleport(float x, float y, float z)
+    {
+        this.transform.position = new Vector3(x, y, z);
     }
 
     #endregion
 
-    #region TrrigerEnter / Exit
+    #region Kill
 
-    private void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (GameSystem.Instance == null)
-            return;
-
-        if (!GameSystem.Instance.isStart)
-            return;
-
-        if(coll.tag == "Player")
-        {
-            PlayerController otherPlayer = coll.gameObject.GetComponent<PlayerController>();
-
-            if (otherPlayer.pv.IsMine)
-                return;
-
-            otherPlayer.playerSet.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D coll)
-    {
-        if (GameSystem.Instance == null)
-            return;
-
-        if (!GameSystem.Instance.isStart)
-            return;
-
-        if (coll.tag == "Player")
-        {
-            PlayerController otherPlayer = coll.gameObject.GetComponent<PlayerController>();
-
-            if (otherPlayer.pv.IsMine)
-                return;
-
-            otherPlayer.playerSet.SetActive(false);
-        }
-    }
-
-    #endregion
-
-    public void SetKillButton()
+    public void SetTerrapinUI()
     {
         if (InGameUIManager.Instance == null)
             return;
 
+        if (!pv.IsMine)
+            return;
+
         if(playerType == PlayerType.Terrapin)
-            InGameUIManager.Instance.KillUI.OnShow();
+            InGameUIManager.Instance.KillUI.OnShow(this);
     }
+
+    public void SetKillCooldown(float _cooldown)
+    {
+        if (!pv.IsMine)
+            return;
+
+        killCooldown = _cooldown;
+    }
+
+    public void Kill()
+    {
+        RPCKill(playerFinder.GetNearTarget().pv.ViewID);
+    }
+
+    public void RPCKill(int _viewId)
+    {
+        PlayerController target = null;
+        foreach(var player in GameSystem.Instance.GetPlayerList())
+        {
+            if(player.pv.ViewID == _viewId)
+                target = player;
+        }
+
+        if(target != null)
+        {
+            pv.RPC("RpcTeleport", RpcTarget.All, target.transform.position.x, target.transform.position.y, target.transform.position.z);
+            var manager = GameManager.Instance;
+
+            //GameObject obj = GameSystem.Instance.masterClient.InstantiateRoomObject("Deadbody", target.transform.position, target.transform.rotation);
+            pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, "Deadbody", target.transform.position, 
+                target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, target.playerColor);
+
+            if(pv.IsMine)
+                killCooldown = GameSystem.Instance.killCooldown;
+        }
+    }
+
+    [PunRPC]
+    public void InstantiateRoomObject(string name, Vector3 pos, float rotX, float rotY, float rotZ, float _hue)
+    {
+        Quaternion rot = Quaternion.Euler(rotX, rotY, rotZ);
+        Deadbody obj = PhotonNetwork.InstantiateRoomObject(name, pos, rot).GetComponent<Deadbody>();
+
+        var _deadbody = obj.GetComponent<Deadbody>();
+
+        _deadbody.SetColor(_hue);
+    }
+
+    #endregion
 }

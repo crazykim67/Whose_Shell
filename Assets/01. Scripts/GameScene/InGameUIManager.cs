@@ -51,7 +51,6 @@ public class InGameUIManager : MonoBehaviour
     public void OnSet(PlayerController player)
     {
         minimap.SetPlayer(player);
-        Debug.Log("Width : " + Screen.width + "Height : " + Screen.height);
     }
 
     public void StartGameSetting()

@@ -57,7 +57,7 @@ public class IntroUIController : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         if (GameSystem.Instance != null)
-            GameSystem.Instance.SetNickNameColor();
+            GameSystem.Instance.SetTerrapinUI();
 
         if (FadeController.Instance != null)
             FadeController.Instance.OnFadeOut(0.5f);
@@ -97,9 +97,10 @@ public class IntroUIController : MonoBehaviour
         if (GameSystem.Instance == null)
             return;
 
-        foreach(var player in GameSystem.Instance.controllerList)
-            if(!player.nickName.Equals(PhotonNetwork.NickName))
-                player.playerSet.SetActive(false);
+        // 모든 닉네임 비활성화
+        //foreach(var player in GameSystem.Instance.controllerList)
+        //    if (!player.nickName.Equals(PhotonNetwork.NickName))
+        //        player.playerSet.SetActive(false);
 
         InGameUIManager.Instance.StartGameSetting();
     }
@@ -122,8 +123,9 @@ public class IntroUIController : MonoBehaviour
         }
 
         myCharacter.SetIntroCharacter(PhotonNetwork.NickName, myPlayer.playerColor);
+        myPlayer.SetTerrapinActive(GameSystem.Instance.controllerList);
 
-        if(myPlayer.playerType == PlayerType.Terrapin)
+        if (myPlayer.playerType == PlayerType.Terrapin)
         {
             playerType.text = "자라";
             playerType.color = gradientImage.color = terrapinColor;

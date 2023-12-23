@@ -123,8 +123,9 @@ public class GameRuleSetting : MonoBehaviour
         commonTask = 1;
         simpleTask = 2;
 
-        pv.RPC("SetSettings", RpcTarget.AllBuffered);
-        RuleDataSetting();
+        //pv.RPC("SetSettings", RpcTarget.AllBuffered);
+        RuleDataSetting(emergencyCount, emergencyCoolTime, emergencyTime, voteTime,
+            playerSpeed, turtleSight, terrapinSight, killCoolTime, (int)killRange, commonTask, simpleTask);
     }
 
     #region Show & Hide
@@ -212,31 +213,43 @@ public class GameRuleSetting : MonoBehaviour
     #endregion
 
     [PunRPC]
-    public void SetSettings()
+    public void SetSettings(int _emCount, int _emCoolTime, int _emTime,
+        int _voteTime, float _speed, float _tuSight, float _teSight,
+        float _killCoolTime, int _range, int _commonTask, int _simpleTask)
     {
-        emergencyCountText.text = string.Format("{0}", emergencyCount);
-        emergencyCoolTimeText.text = string.Format("{0}s", emergencyCoolTime);
-        emergencyTimeText.text = string.Format("{0}s", emergencyTime);
-        voteTimeText.text = string.Format("{0}s", voteTime);
-        playerSpeedText.text = string.Format("{0}", playerSpeed);
-        turtleSightText.text = string.Format("{0}", turtleSight);
-        terrapinSightText.text = string.Format("{0}", terrapinSight);
-        killCoolTimeText.text = string.Format("{0}s", killCoolTime);
-        killRangeText.text = string.Format("{0}", killRange);
-        commonTaskText.text = string.Format("{0}", commonTask);
-        simpleTaskText.text = string.Format("{0}", simpleTask);
+        emergencyCountText.text = string.Format("{0}", _emCount);
+        emergencyCoolTimeText.text = string.Format("{0}s", _emCoolTime);
+        emergencyTimeText.text = string.Format("{0}s", _emTime);
+        voteTimeText.text = string.Format("{0}s", _voteTime);
+        playerSpeedText.text = string.Format("{0}", _speed);
+        turtleSightText.text = string.Format("{0}", _tuSight);
+        terrapinSightText.text = string.Format("{0}", _teSight);
+        killCoolTimeText.text = string.Format("{0}s", _killCoolTime);
+        killRangeText.text = string.Format("{0}", _range);
+        commonTaskText.text = string.Format("{0}", _commonTask);
+        simpleTaskText.text = string.Format("{0}", _simpleTask);
     }
 
-    public void RuleDataSetting()
+    [PunRPC]
+    public void RuleDataSetting(int _emCount, int _emCoolTime, int _emTime,
+        int _voteTime, float _speed, float _tuSight, float _teSight,
+        float _killCoolTime, int _range, int _commonTask, int _simpleTask)
     {
-        GameManager.Instance.SetData(emergencyCount, emergencyCoolTime, emergencyTime, voteTime, playerSpeed,
-            turtleSight, terrapinSight, killCoolTime, (int)killRange, commonTask, simpleTask);
+        GameManager.Instance.SetData(_emCount, _emCoolTime, _emTime, _voteTime, _speed,
+            _tuSight, _teSight, _killCoolTime, _range, _commonTask, _simpleTask);
     }
 
     public void OnConfirm()
     {
-        pv.RPC("SetSettings", RpcTarget.AllBuffered);
-        RuleDataSetting();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            pv.RPC("SetSettings", RpcTarget.AllBuffered, emergencyCount, emergencyCoolTime, emergencyTime, voteTime,
+                playerSpeed, turtleSight, terrapinSight, killCoolTime, (int)killRange, commonTask, simpleTask);
+            pv.RPC("RuleDataSetting", RpcTarget.AllBuffered, emergencyCount, emergencyCoolTime, emergencyTime, voteTime,
+                playerSpeed, turtleSight, terrapinSight, killCoolTime, (int)killRange, commonTask, simpleTask);
+        }
+
+        //RuleDataSetting();
         OnHide();
     }
 }

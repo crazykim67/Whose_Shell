@@ -32,8 +32,11 @@ public class GameSystem : MonoBehaviourPunCallbacks
 
     public List<Player> playerList = new List<Player>();
     public List<PlayerController> controllerList = new List<PlayerController>();
-
     public bool isStart = false;
+
+    [Header("Rule Data")]
+    public float killCooldown;
+    public int killRange;
 
     private void Awake()
     {
@@ -51,12 +54,14 @@ public class GameSystem : MonoBehaviourPunCallbacks
         {
             AddPlayerList(player.Value);
         }
+
     }
 
     public void AddPlayerList(Player player)
     {
         if (player != null)
             playerList.Add(player);
+
     }
 
     public void RemovePlayer(int index)
@@ -73,7 +78,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
         if (controller == null)
             return;
 
-            controllerList.Add(controller);
+        controllerList.Add(controller);
     }
 
     private void RemoveController(PlayerController controller)
@@ -85,6 +90,8 @@ public class GameSystem : MonoBehaviourPunCallbacks
     }
 
     #endregion
+
+    #region Photon Callbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -107,6 +114,8 @@ public class GameSystem : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    #endregion
 
     // 자라 선정
     private IEnumerator GameReady()
@@ -131,7 +140,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
 
         // 모든 사용자에게 거북이/자라 선별 화면 호출 동기화
         IntroGameUIManager.Instance.Controller.OnIntro();
-
+        pv.RPC("SetTerrapinValue", RpcTarget.All);
     }
 
     #region Start
@@ -147,16 +156,23 @@ public class GameSystem : MonoBehaviourPunCallbacks
 
     #endregion
 
+    #region RPC
+
     // 해당 플레이어 자라 설정 및 이름표 설정
     [PunRPC]
     private void SetPlayerType(string nickName)
     {
-        foreach(var controller in controllerList)
+        var manager = GameManager.Instance;
+
+        // 킬 쿨타임 세팅
+        killCooldown = manager.ruleData.killCoolTime;
+        killRange = (int)manager.ruleData.killRange;
+        foreach (var controller in controllerList)
         {
             if (controller.nickName.Equals(nickName))
             {
                 controller.playerType = PlayerType.Terrapin;
-                controller.SetKillButton();
+                controller.SetTerrapinUI();
                 break;
             }
         }
@@ -168,12 +184,19 @@ public class GameSystem : MonoBehaviourPunCallbacks
         isStart = _isStart;
     }
 
-    public List<PlayerController> GetPlayerList()
+    [PunRPC]
+    private void SetTerrapinValue()
     {
-        return controllerList;
+        foreach (var player in controllerList)
+        {
+            player.SetKillCooldown(killCooldown);
+            player.playerFinder.SetKillRange(killRange + 1f);
+        }
     }
 
-    public void SetNickNameColor()
+    #endregion
+
+    public void SetTerrapinUI()
     {
         PlayerController myController = null;
 
@@ -214,4 +237,10 @@ public class GameSystem : MonoBehaviourPunCallbacks
     }
 
     #endregion
+
+    public List<PlayerController> GetPlayerList()
+    {
+        return controllerList;
+    }
+
 }

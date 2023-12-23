@@ -73,4 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerList: []
   controllerList: []
+  masterClient: {fileID: 0}
   isStart: 0
+  killCooldown: 0
+  killRange: 0
