@@ -6,10 +6,19 @@ using Photon.Realtime;
 using UnityEngine.Rendering.Universal;
 using static UnityEngine.GraphicsBuffer;
 
+// 0x : 0 - 거북이 1 - 자라
+// x0 : 0 - 생존 1 = 사망
+// 00 - 생존 거북이 01 생존 자라
+// 10 - 죽은 거북이 11 죽은 자라
 public enum PlayerType
 {
-    Turtle,
-    Terrapin,
+    Turtle = 0,
+    Terrapin = 1,
+    Ghost = 2,
+    Tutle_Alive = 0,
+    Terrapin_Alive = 1,
+    Turtle_Ghost = 2,
+    Terrapin_Ghost = 3,
 }
 
 public class PlayerController : MonoBehaviour
@@ -238,15 +247,23 @@ public class PlayerController : MonoBehaviour
         if(target != null)
         {
             pv.RPC("RpcTeleport", RpcTarget.All, target.transform.position.x, target.transform.position.y, target.transform.position.z);
-            var manager = GameManager.Instance;
 
-            //GameObject obj = GameSystem.Instance.masterClient.InstantiateRoomObject("Deadbody", target.transform.position, target.transform.rotation);
-            pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, "Deadbody", target.transform.position, 
-                target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, target.playerColor);
+            target.isDead();
 
-            if(pv.IsMine)
+            if (pv.IsMine)
                 killCooldown = GameSystem.Instance.killCooldown;
+
+            //pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, "Deadbody", target.transform.position, 
+            //    target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, target.playerColor);
         }
+    }
+
+    public void isDead()
+    {
+        pv.RPC("isRpcDead", RpcTarget.All, (int)playerType & 0x02);
+
+        pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, "Deadbody", transform.position,
+        transform.rotation.x, transform.rotation.y, transform.rotation.z, playerColor);
     }
 
     [PunRPC]
@@ -258,6 +275,64 @@ public class PlayerController : MonoBehaviour
         var _deadbody = obj.GetComponent<Deadbody>();
 
         _deadbody.SetColor(_hue);
+    }
+
+    // 해당 플레이어에게서 실행되는 RPC 또는 자기 자신
+    [PunRPC]
+    public void isRpcDead(int _enum)
+    {
+        playerType |= PlayerType.Ghost;
+        anim.SetBool("isGhost", true);
+
+        // 자신이 죽었을 때
+        if (pv.IsMine)
+        {
+            foreach (var player in GameSystem.Instance.controllerList)
+            {
+                if ((player.playerType & PlayerType.Ghost) == PlayerType.Ghost)
+                    player.SetVisibility(true);
+            }
+        }
+        // 다른 사람이 죽었을 때
+        else
+        {
+            PlayerController myController = null;
+
+            foreach(var player in GameSystem.Instance.controllerList) 
+            { 
+                if(player.nickName.Equals(PhotonNetwork.NickName))
+                {
+                    myController = player;
+                    break;
+                }
+            }
+
+            if(myController != null)
+            {
+                if (((int)playerType & 0x02) != _enum)
+                {
+                    // 다른 사람이 죽었을 때 자신이 죽은 상태가 아니라면
+                    if ((myController.playerType & PlayerType.Ghost) != PlayerType.Ghost)
+                        SetVisibility(false);
+                    // 다른 사람이 죽었을 때 자신이 죽은 상태라면
+                    else
+                        SetVisibility(true);
+                }
+            }
+            
+        }
+    }
+
+    public void SetVisibility(bool isVisible)
+    {
+        if (isVisible)
+        {
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.6f);
+        }
+        else
+        {
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0f);
+        }
     }
 
     #endregion

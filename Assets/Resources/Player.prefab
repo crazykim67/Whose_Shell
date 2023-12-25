@@ -560,6 +560,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: isMove
+  - Type: 4
+    SynchronizeType: 2
+    Name: isGhost
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0
