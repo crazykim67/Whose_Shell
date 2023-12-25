@@ -292,6 +292,8 @@ public class PlayerController : MonoBehaviour
                 if ((player.playerType & PlayerType.Ghost) == PlayerType.Ghost)
                     player.SetVisibility(true);
             }
+
+            GameSystem.Instance.ChangeLightMode(PlayerType.Ghost);
         }
         // 다른 사람이 죽었을 때
         else
@@ -320,6 +322,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
             
+        }
+
+        var collider = GetComponent<BoxCollider2D>();
+        if(collider != null)
+        {
+            collider.enabled = false;
         }
     }
 

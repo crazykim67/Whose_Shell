@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 public class GameSystem : MonoBehaviourPunCallbacks
 {
@@ -38,10 +39,18 @@ public class GameSystem : MonoBehaviourPunCallbacks
     public float killCooldown;
     public int killRange;
 
+    [SerializeField]
+    private Light2D shadowLight;
+
+    [SerializeField]
+    private Light2D globalLight;
+
     private void Awake()
     {
         instance = this;
         pv = GetComponent<PhotonView>();
+        shadowLight = Camera.main.GetComponentInChildren<Light2D>();
+
         AddPlayer();
     }
 
@@ -243,4 +252,20 @@ public class GameSystem : MonoBehaviourPunCallbacks
         return controllerList;
     }
 
+    public void ChangeLightMode(PlayerType type)
+    {
+        if (shadowLight == null)
+            return;
+
+        if(type == PlayerType.Ghost)
+        {
+            shadowLight.intensity = 0f;
+            globalLight.intensity = 1f;
+        }
+        else
+        {
+            shadowLight.intensity = 0.5f;
+            globalLight.intensity = 0.5f;
+        }
+    }
 }
