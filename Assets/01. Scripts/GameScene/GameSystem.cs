@@ -268,4 +268,15 @@ public class GameSystem : MonoBehaviourPunCallbacks
             globalLight.intensity = 0.5f;
         }
     }
+
+    public void StartReportMeeting(float deadbodyColor)
+    {
+        pv.RPC("RpcSendReportSign", RpcTarget.All, deadbodyColor);
+    }
+
+    [PunRPC]
+    public void RpcSendReportSign(float deadbodyColor)
+    {
+        InGameUIManager.Instance.ReportUI.OnShow(deadbodyColor);
+    }
 }

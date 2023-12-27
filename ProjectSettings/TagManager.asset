@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Map
   - Player Finder
-  - 
+  - Deadbody
   - 
   - 
   - 
@@ -41,6 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Additive
+  - name: Light Map
     uniqueID: 238662703
     locked: 0

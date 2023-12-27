@@ -37,11 +37,15 @@ public class InGameUIManager : MonoBehaviour
     [SerializeField]
     private KillButtonUI killUI;
 
-    public  KillButtonUI KillUI {
-        get
-        {
-            return killUI; }
-        }
+    public  KillButtonUI KillUI {get { return killUI; } }
+
+    [SerializeField]
+    private ReportButtonUI reportButtonUI;
+    public ReportButtonUI ReportButtonUI { get { return reportButtonUI; } }
+
+    [SerializeField]
+    private ReportUI reportUI;
+    public ReportUI ReportUI { get { return reportUI; } }
 
     private void Awake()
     {

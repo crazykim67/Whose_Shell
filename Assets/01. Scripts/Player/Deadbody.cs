@@ -12,6 +12,9 @@ public class Deadbody : MonoBehaviour
     [SerializeField]
     private SpriteRenderer sprite;
 
+    [SerializeField]
+    private float shellColor;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -28,5 +31,25 @@ public class Deadbody : MonoBehaviour
     private void SetRpcColor(float _hue)
     {
         sprite.material.SetFloat("_Hue", _hue);
+        shellColor = _hue;
+    }
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        var player = coll.GetComponent<PlayerController>();
+        if(player != null && player.pv.IsMine && (player.playerType & PlayerType.Ghost) != PlayerType.Ghost)
+        {
+            InGameUIManager.Instance.ReportButtonUI.SetInteractable(true);
+            player.deadbodyColor = shellColor;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        var player = coll.GetComponent<PlayerController>();
+        if (player != null && player.pv.IsMine && (player.playerType & PlayerType.Ghost) != PlayerType.Ghost)
+        {
+            InGameUIManager.Instance.ReportButtonUI.SetInteractable(false);
+        }
     }
 }

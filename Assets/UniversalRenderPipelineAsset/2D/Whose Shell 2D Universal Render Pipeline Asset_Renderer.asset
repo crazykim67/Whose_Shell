@@ -34,9 +34,9 @@ MonoBehaviour:
   - name: Multiply
     maskTextureChannel: 0
     blendMode: 1
-  - name: Vision
+  - name: Light Map
     maskTextureChannel: 0
-    blendMode: 1
+    blendMode: 0
   - name: Multiply with Mask
     maskTextureChannel: 1
     blendMode: 1

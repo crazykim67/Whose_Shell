@@ -63,6 +63,9 @@ public class PlayerController : MonoBehaviour
     public bool isKill { get { return killCooldown < 0f && playerFinder.players.Count != 0; } }
     public PlayerFinder playerFinder;
 
+    [Header("Deadbody")]
+    public float deadbodyColor;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -208,7 +211,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    #region Kill
+    #region Kill && Dead
 
     public void SetTerrapinUI()
     {
@@ -344,4 +347,13 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    public void Report()
+    {
+        if (GameSystem.Instance == null)
+            return;
+
+        GameSystem.Instance.StartReportMeeting(deadbodyColor);
+    }
+
 }
