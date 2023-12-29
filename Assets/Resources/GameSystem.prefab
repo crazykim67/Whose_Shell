@@ -79,6 +79,8 @@ MonoBehaviour:
   killRange: 0
   shadowLight: {fileID: 0}
   globalLight: {fileID: 8054097842645194386}
+  skipVotePlayerCount: 0
+  remainTime: 0
 --- !u!1 &6746363375688056054
 GameObject:
   m_ObjectHideFlags: 0

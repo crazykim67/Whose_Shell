@@ -190,6 +190,10 @@ MonoBehaviour:
   shadowLight: {fileID: 0}
   killCooldown: 0
   playerFinder: {fileID: 4748733055617980661}
+  deadbodyColor: 0
+  isReporter: 0
+  isVote: 0
+  vote: 0
 --- !u!61 &4476332405532895877
 BoxCollider2D:
   m_ObjectHideFlags: 0

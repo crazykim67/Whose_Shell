@@ -49,6 +49,8 @@ public class CustomManager : MonoBehaviour
     //[HideInInspector]
     public PlayerController player;
 
+    public List<ColorButton> colorBtns = new List<ColorButton>();
+
     private void Awake()
     {
         instance = this;
@@ -64,6 +66,7 @@ public class CustomManager : MonoBehaviour
 
     public void OnShow(UIState state)
     {
+        InitBtns();
         player.isUI = true;
 
         switch(state)
@@ -121,5 +124,28 @@ public class CustomManager : MonoBehaviour
     public void SetActive(bool isAct)
     {
         this.gameObject.SetActive(isAct);
+    }
+
+    public void InitBtns()
+    {
+        if (GameSystem.Instance == null)
+            return;
+
+        var players = GameSystem.Instance.GetPlayerList();
+
+        for (int i = 0; i < colorBtns.Count; i++)
+            colorBtns[i].SetInteractable(true);
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            foreach(var btn in colorBtns)
+            {
+                if (players[i].playerColor == btn.hue)
+                {
+                    btn.SetInteractable(false);
+                    break;
+                }
+            }
+        }
     }
 }

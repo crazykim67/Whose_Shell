@@ -45,8 +45,8 @@ public class CustomizeUI : MonoBehaviour
         if (CustomManager.Instance.player == null)
             return;
 
-        if (CustomManager.Instance.player.mat.GetFloat("_Hue") == _hue)
-            return;
+        //if (CustomManager.Instance.player.mat.GetFloat("_Hue") == _hue)
+        //    return;
 
         characterImage.material.SetFloat("_Hue", _hue);
     }
@@ -58,5 +58,10 @@ public class CustomizeUI : MonoBehaviour
 
         CustomManager.Instance.player.SetColor(characterImage.material.GetFloat("_Hue"));
         hue = characterImage.material.GetFloat("_Hue");
+    }
+
+    public void SetHue(float _hue)
+    {
+        this.hue = _hue; 
     }
 }

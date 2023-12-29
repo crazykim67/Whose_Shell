@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
         {
             CustomManager.Instance.SetPlayer(this);
             InGameUIManager.Instance.OnSet(this);
+            SetInitColor();
         }
     }
 
@@ -248,6 +249,15 @@ public class PlayerController : MonoBehaviour
     public void SkipVote()
     {
         pv.RPC("RpcSkipVote", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void RpcInitBtns()
+    {
+        if (CustomManager.Instance == null)
+            return;
+
+        CustomManager.Instance.InitBtns();
     }
 
     #endregion
@@ -405,7 +415,51 @@ public class PlayerController : MonoBehaviour
         if (pv.IsMine)
         {
             pv.RPC("SetRPCColor", RpcTarget.AllBuffered, _hue);
+            pv.RPC("RpcInitBtns", RpcTarget.All);
         }
+    }
+
+    private void SetInitColor()
+    {
+        if (GameSystem.Instance == null)
+            return;
+
+        if (CustomManager.Instance == null)
+            return;
+
+        var players = GameSystem.Instance.GetPlayerList();
+
+        List<float> playerColors = new List<float>();
+
+        for(int i = 0; i < players.Count; i++)
+        {
+            if (!players[i].nickName.Equals(PhotonNetwork.NickName))
+            {
+                playerColors.Add(players[i].playerColor);
+            }
+        }
+
+        foreach (var btn in CustomManager.Instance.colorBtns)
+        {
+            bool isFind = false;
+
+            foreach (var playerColor in playerColors)
+            {
+                if(btn.hue == playerColor)
+                {
+                    isFind = true;
+                    break;
+                }
+            }
+
+            if (!isFind)
+            {
+                SetColor(btn.hue);
+                CustomManager.Instance.customizeUI.SetHue(playerColor);
+                break;
+            }
+        }
+
     }
 
     #endregion
