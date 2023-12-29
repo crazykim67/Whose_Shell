@@ -45,6 +45,11 @@ public class GameSystem : MonoBehaviourPunCallbacks
     [SerializeField]
     private Light2D globalLight;
 
+    public int skipVotePlayerCount;
+
+    [Header("Vote Timer")]
+    public float remainTime;
+
     private void Awake()
     {
         instance = this;
@@ -278,5 +283,75 @@ public class GameSystem : MonoBehaviourPunCallbacks
     public void RpcSendReportSign(float deadbodyColor)
     {
         InGameUIManager.Instance.ReportUI.OnShow(deadbodyColor);
+
+        StartCoroutine(StartMeeting_Coroutine());
+        StartCoroutine(MeetingProcess_Coroutine());
+    }
+
+    private IEnumerator StartMeeting_Coroutine()
+    {
+        yield return new WaitForSeconds(3f);
+
+        InGameUIManager.Instance.ReportUI.OnHide();
+        InGameUIManager.Instance.MeetingUI.OnShow();
+    }
+
+    // 자신이 투표를 했는지 누구에게 투표했는지 체크하는 메소드
+    public void RpcSignVoteEject(float voterColor, float ejectColor)
+    {
+        InGameUIManager.Instance.MeetingUI.UpdateVote(voterColor, ejectColor);
+    }
+
+    public void RpcSignSkipVote(float hue)
+    {
+        InGameUIManager.Instance.MeetingUI.UpdateSkipVotePlayer(hue);
+    }
+
+    private IEnumerator MeetingProcess_Coroutine()
+    {
+        skipVotePlayerCount = 0;
+
+        var players = GetPlayerList();
+
+        // 투표 초기화 부분
+        foreach(var player in players)
+        {
+            if((player.playerType & PlayerType.Ghost) != PlayerType.Ghost)
+            {
+                player.isVote = false;
+            }
+
+            player.vote = 0;
+        }
+
+        var manager = GameManager.Instance;
+
+        remainTime = manager.ruleData.voteTime;
+
+        while (true)
+        {
+            remainTime -= Time.deltaTime;
+            yield return null;
+            if(remainTime <= 0f)
+                break;
+        }
+
+        foreach(var player in controllerList)
+        {
+            if(!player.isVote & (player.playerType & PlayerType.Ghost) != PlayerType.Ghost)
+            {
+                player.isVote = true;
+                skipVotePlayerCount += 1;
+                RpcSignSkipVote(player.playerColor);
+            }
+        }
+
+        RpcEndVoteTime();
+    }
+
+
+    public void RpcEndVoteTime()
+    {
+        InGameUIManager.Instance.MeetingUI.OpenResult();
     }
 }

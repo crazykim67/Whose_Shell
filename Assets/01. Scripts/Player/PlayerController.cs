@@ -66,6 +66,13 @@ public class PlayerController : MonoBehaviour
     [Header("Deadbody")]
     public float deadbodyColor;
 
+    [Header("Report")]
+    public bool isReporter = false;
+
+    [Header("Meeting")]
+    public bool isVote = false;
+    public int vote;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -141,14 +148,6 @@ public class PlayerController : MonoBehaviour
             spriteTr.localScale = new Vector3(1f, 1f, 1f);
     }
 
-    public void SetColor(float _hue)
-    {
-        if (pv.IsMine)
-        {
-            pv.RPC("SetRPCColor", RpcTarget.AllBuffered, _hue);
-        }
-    }
-
     public void OnStop()
     {
         moveX = 0;
@@ -207,6 +206,48 @@ public class PlayerController : MonoBehaviour
     public void RpcTeleport(float x, float y, float z)
     {
         this.transform.position = new Vector3(x, y, z);
+    }
+
+    [PunRPC]
+    public void IsReporter(bool isAct)
+    {
+        this.isReporter = isAct;
+    }
+
+    [PunRPC]
+    public void RpcVoteEjectPlayer(float hue)
+    {
+        isVote = true;
+
+        GameSystem.Instance.RpcSignVoteEject(playerColor, hue);
+
+        var players = GameSystem.Instance.controllerList;
+
+        PlayerController ejectPlayer = null;
+
+        foreach(var player in players)
+            if(player.playerColor == hue)
+                ejectPlayer = player;
+
+        ejectPlayer.vote += 1;
+    }
+
+    public void VoteEjectPlayer(float hue)
+    {
+        pv.RPC("RpcVoteEjectPlayer", RpcTarget.All, hue);
+    }
+
+    [PunRPC]
+    public void RpcSkipVote()
+    {
+        isVote = true;
+        GameSystem.Instance.skipVotePlayerCount += 1;
+        GameSystem.Instance.RpcSignSkipVote(playerColor);
+    }
+
+    public void SkipVote()
+    {
+        pv.RPC("RpcSkipVote", RpcTarget.All);
     }
 
     #endregion
@@ -354,6 +395,27 @@ public class PlayerController : MonoBehaviour
             return;
 
         GameSystem.Instance.StartReportMeeting(deadbodyColor);
+        pv.RPC("IsReporter", RpcTarget.All, true);
     }
 
+    #region Set
+
+    public void SetColor(float _hue)
+    {
+        if (pv.IsMine)
+        {
+            pv.RPC("SetRPCColor", RpcTarget.AllBuffered, _hue);
+        }
+    }
+
+    #endregion
+
+    #region Get
+
+    public float GetColor()
+    {
+        return this.playerColor;
+    }
+
+    #endregion
 }

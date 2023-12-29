@@ -114,7 +114,7 @@ public class GameRuleSetting : MonoBehaviour
         emergencyCount = 2;
         emergencyCoolTime = 20;
         emergencyTime = 20;
-        voteTime = 120;
+        voteTime = 30;
         playerSpeed = 3.5f;
         turtleSight = 8f;
         terrapinSight = 10f;
