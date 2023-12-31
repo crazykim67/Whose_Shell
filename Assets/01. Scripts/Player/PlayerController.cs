@@ -306,9 +306,6 @@ public class PlayerController : MonoBehaviour
 
             if (pv.IsMine)
                 killCooldown = GameSystem.Instance.killCooldown;
-
-            //pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, "Deadbody", target.transform.position, 
-            //    target.transform.rotation.x, target.transform.rotation.y, target.transform.rotation.z, target.playerColor);
         }
     }
 
@@ -316,7 +313,7 @@ public class PlayerController : MonoBehaviour
     {
         pv.RPC("isRpcDead", RpcTarget.All, (int)playerType & 0x02);
 
-        if (InGameUIManager.Instance.ReportButtonUI.IsInteractable())
+        if (InGameUIManager.Instance.ReportButtonUI.IsInteractable() && InGameUIManager.Instance != null)
             InGameUIManager.Instance.ReportButtonUI.SetInteractable(false);
 
         pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, isEjection, "Deadbody", transform.position,
