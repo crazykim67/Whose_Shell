@@ -43,11 +43,11 @@ public class EjectionUI : MonoBehaviour
                     break;
                 }
             }
-            str = string.Format("{0}은 자라{1}\n자라가 {2}명 남았습니다.", ejectPlayer.nickName, isTerrapin ? "입니다." : "가 아니었습니다.", remainTerrapinCount);
+            str = string.Format("{0}님은 자라{1}\n자라가 {2}마리 남았습니다.", ejectPlayer.nickName, isTerrapin ? "였습니다." : "가 아니었습니다.", remainTerrapinCount);
         }
         else
         {
-            str = string.Format("아무일도 일어나지 않았습니다.\n자라가 {0}명 남았습니다.", remainTerrapinCount);
+            str = string.Format("아무일도 일어나지 않았습니다.\n자라가 {0}마리 남았습니다.", remainTerrapinCount);
         }
 
         gameObject.SetActive(true);

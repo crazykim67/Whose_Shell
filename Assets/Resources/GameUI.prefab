@@ -3541,6 +3541,8 @@ MonoBehaviour:
   skipVoteBtn: {fileID: 5184327099335827017}
   skipVoteplayers: {fileID: 1935841113730166429}
   skipVoteParent: {fileID: 489863328856018134}
+  meetingPlayerPanels: []
+  skipPlayer: []
   meetingTimeText: {fileID: 2548330914077454013}
 --- !u!1 &8322027834197692270
 GameObject:

@@ -14,6 +14,14 @@ public class ReportButtonUI : MonoBehaviour
         reportBtn.interactable = isInteract;
     }
 
+    public bool IsInteractable()
+    {
+        if (reportBtn.interactable)
+            return true;
+        else
+            return false;
+    }
+
     public void OnClickButton()
     {
         if (GameSystem.Instance == null)

@@ -316,6 +316,9 @@ public class PlayerController : MonoBehaviour
     {
         pv.RPC("isRpcDead", RpcTarget.All, (int)playerType & 0x02);
 
+        if (InGameUIManager.Instance.ReportButtonUI.IsInteractable())
+            InGameUIManager.Instance.ReportButtonUI.SetInteractable(false);
+
         pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, isEjection, "Deadbody", transform.position,
         transform.rotation.x, transform.rotation.y, transform.rotation.z, playerColor);
     }
@@ -348,6 +351,9 @@ public class PlayerController : MonoBehaviour
             {
                 if ((player.playerType & PlayerType.Ghost) == PlayerType.Ghost)
                     player.SetVisibility(true);
+
+                if((player.playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
+                    InGameUIManager.Instance.KillUI.OnHide();
             }
 
             GameSystem.Instance.ChangeLightMode(PlayerType.Ghost);
@@ -409,6 +415,11 @@ public class PlayerController : MonoBehaviour
 
         GameSystem.Instance.StartReportMeeting(deadbodyColor);
         pv.RPC("IsReporter", RpcTarget.All, true);
+    }
+
+    public void SetReport(bool _isReport)
+    {
+        pv.RPC("IsReporter", RpcTarget.All, _isReport);
     }
 
     #region Set

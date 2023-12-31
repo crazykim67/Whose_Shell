@@ -26,7 +26,10 @@ public class MeetingUI : MonoBehaviour
     [SerializeField]
     private Transform skipVoteParent;
 
+    [SerializeField]
     private List<MeetingPlayerPanel> meetingPlayerPanels = new List<MeetingPlayerPanel>();
+    [SerializeField]
+    private List<Image> skipPlayer = new List<Image>();
 
     [SerializeField]
     private TextMeshProUGUI meetingTimeText;
@@ -108,6 +111,8 @@ public class MeetingUI : MonoBehaviour
 
         voter.material = Instantiate(voter.material);
         voter.material.SetFloat("_Hue", hue);
+
+        skipPlayer.Add(voter);
     }
 
     public void OnClickSkip()
@@ -157,5 +162,19 @@ public class MeetingUI : MonoBehaviour
     public void OnHide()
     {
         gameObject.SetActive(false);
+        skipVoteplayers.SetActive(false);
+        skipVoteBtn.SetActive(true);
+
+        foreach(var panel in meetingPlayerPanels)
+            Destroy(panel.gameObject);
+
+        foreach (var player in skipPlayer)
+            Destroy(player.gameObject);
+
+        foreach(var player in GameSystem.Instance.controllerList)
+            player.SetReport(false);
+
+        meetingPlayerPanels.Clear();
+        skipPlayer.Clear();
     }
 }
