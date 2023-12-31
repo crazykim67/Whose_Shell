@@ -302,7 +302,7 @@ public class PlayerController : MonoBehaviour
         {
             pv.RPC("RpcTeleport", RpcTarget.All, target.transform.position.x, target.transform.position.y, target.transform.position.z);
 
-            target.isDead();
+            target.isDead(false);
 
             if (pv.IsMine)
                 killCooldown = GameSystem.Instance.killCooldown;
@@ -312,23 +312,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void isDead()
+    public void isDead(bool isEjection)
     {
         pv.RPC("isRpcDead", RpcTarget.All, (int)playerType & 0x02);
 
-        pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, "Deadbody", transform.position,
+        pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, isEjection, "Deadbody", transform.position,
         transform.rotation.x, transform.rotation.y, transform.rotation.z, playerColor);
     }
 
     [PunRPC]
-    public void InstantiateRoomObject(string name, Vector3 pos, float rotX, float rotY, float rotZ, float _hue)
+    public void InstantiateRoomObject(bool isEjection, string name, Vector3 pos, float rotX, float rotY, float rotZ, float _hue = 0f)
     {
-        Quaternion rot = Quaternion.Euler(rotX, rotY, rotZ);
-        Deadbody obj = PhotonNetwork.InstantiateRoomObject(name, pos, rot).GetComponent<Deadbody>();
+        if (!isEjection)
+        {
+            Quaternion rot = Quaternion.Euler(rotX, rotY, rotZ);
+            Deadbody obj = PhotonNetwork.InstantiateRoomObject(name, pos, rot).GetComponent<Deadbody>();
 
-        var _deadbody = obj.GetComponent<Deadbody>();
+            var _deadbody = obj.GetComponent<Deadbody>();
 
-        _deadbody.SetColor(_hue);
+            _deadbody.SetColor(_hue);
+        }
     }
 
     // 해당 플레이어에게서 실행되는 RPC 또는 자기 자신

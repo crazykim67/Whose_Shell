@@ -126,6 +126,9 @@ public class MeetingUI : MonoBehaviour
         if (myCharacter.isVote)
             return;
 
+        if ((myCharacter.playerType & PlayerType.Ghost) == PlayerType.Ghost)
+            return;
+
         myCharacter.SkipVote();
         SelectPlayerPanel();
     }
@@ -149,5 +152,10 @@ public class MeetingUI : MonoBehaviour
         {
             meetingTimeText.text = string.Format("회의시간 : {0}s", (int)Mathf.Clamp(GameSystem.Instance.remainTime, 0f, float.MaxValue));
         }
+    }
+
+    public void OnHide()
+    {
+        gameObject.SetActive(false);
     }
 }

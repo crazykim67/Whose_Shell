@@ -101,4 +101,16 @@ public class MapManager : MonoBehaviour
 
         playerList[index].transform.position = new Vector3(x, y, z);
     }
+
+    public void SetRpcPosition(int index, float x, float y, float z)
+    {
+        pv.RPC("SetPosition", RpcTarget.All, index, x, y, z);
+    }
+
+    public Transform[] SpawnArray()
+    {
+        Transform[] array = spawnList.ToArray();
+
+        return array;
+    }
 }

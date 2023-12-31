@@ -347,11 +347,103 @@ public class GameSystem : MonoBehaviourPunCallbacks
         }
 
         RpcEndVoteTime();
+
+        yield return new WaitForSeconds(3f);
+
+        StartCoroutine(CalculateVoteResult_Coroutine(players.ToArray()));
     }
 
+    private IEnumerator CalculateVoteResult_Coroutine(PlayerController[] players)
+    {
+        System.Array.Sort(players, new PlayerVoteComparer());
+
+        int remainTerrapin = 0;
+
+        foreach (var player in players)
+        {
+            if ((player.playerType & PlayerType.Terrapin_Alive) == PlayerType.Terrapin_Alive)
+            {
+                remainTerrapin++;
+            }
+        }
+
+        // 스킵 투표 수가 플레이어 투표 수 보다 많을 시
+        if (skipVotePlayerCount >= players[0].vote)
+        {
+            RpcShowEjectionUI(false, 0, false, remainTerrapin);
+        }
+        // 투표 수가 1순위인 플레이어와 2순위인 플레이어가 같을 경우
+        else if (players[0].vote == players[1].vote)
+        {
+            RpcShowEjectionUI(false, 0, false, remainTerrapin);
+        }
+        // 스킵 투표 수와 2순위 투표 수 플레이어보다 많을 경우
+        else
+        {
+            bool isTerrapin = (players[0].playerType & PlayerType.Terrapin) == PlayerType.Terrapin;
+            RpcShowEjectionUI(true, players[0].playerColor, isTerrapin, isTerrapin ? remainTerrapin - 1 : remainTerrapin);
+
+            players[0].isDead(true);
+        }
+
+        var deadbodies = FindObjectsByType<Deadbody>(FindObjectsSortMode.None);
+
+        for (int i = 0; i < deadbodies.Length; i++)
+        {
+            Destroy(deadbodies[i].gameObject);
+        }
+
+        if (MapManager.Instance != null)
+        {
+            for (int i = 0; i < players.Length; i++)
+            {
+                var spawnPos = MapManager.Instance.SpawnArray()[i].position;
+
+                MapManager.Instance.SetRpcPosition(i, spawnPos.x, spawnPos.y, spawnPos.z);
+            }
+        }
+
+        yield return new WaitForSeconds(10f);
+
+        CloseEjectUI();
+    }
+
+    public void RpcShowEjectionUI(bool isEjection, float _hue, bool isTerrapin, int remainTerrapin)
+    {
+        InGameUIManager.Instance.EjectionUI.OnShow(isEjection, _hue, isTerrapin, remainTerrapin);
+        InGameUIManager.Instance.MeetingUI.OnHide();
+    }
+
+    public void CloseEjectUI()
+    {
+        InGameUIManager.Instance.EjectionUI.OnHide();
+
+        PlayerController myCharacter = null;
+
+        foreach(var player in controllerList)
+        {
+            if (player.nickName.Equals(PhotonNetwork.NickName))
+            {
+                myCharacter = player;
+                break;
+            }
+        }
+
+        myCharacter.isUI = false;
+    }
 
     public void RpcEndVoteTime()
     {
         InGameUIManager.Instance.MeetingUI.OpenResult();
+    }
+
+    private class PlayerVoteComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            PlayerController xPlayer = (PlayerController)x;
+            PlayerController yPlayer = (PlayerController)y;
+            return xPlayer.vote <= yPlayer.vote ? 1 : -1;
+        }
     }
 }

@@ -51,6 +51,10 @@ public class InGameUIManager : MonoBehaviour
     private MeetingUI meetingUI;
     public MeetingUI MeetingUI { get { return meetingUI; } }
 
+    [SerializeField]
+    private EjectionUI ejectionUI;
+    public EjectionUI EjectionUI { get { return ejectionUI; } }
+
     private void Awake()
     {
         instance = this;
