@@ -56,6 +56,18 @@ public class MeetingUI : MonoBehaviour
             }
         }
 
+        // VivoxManager ¼³Á¤
+        if(VivoxManager.Instance != null)
+        {
+            if (((myCharacter.playerType & PlayerType.Ghost) != PlayerType.Ghost))
+                VivoxManager.Instance.OnInputAudioMute(false);
+            else
+                VivoxManager.Instance.OnInputAudioMute(true);
+
+            VivoxManager.Instance.OnOutputAudioMute(false);
+        }
+
+
         var myPanel = Instantiate(playerPanelPrefab, playerPanelParent).GetComponent<MeetingPlayerPanel>();
         myPanel.SetPlayer(myCharacter);
         meetingPlayerPanels.Add(myPanel);

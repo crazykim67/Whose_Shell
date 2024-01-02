@@ -75,8 +75,8 @@ public class VivoxManager : MonoBehaviour
             {
                 try
                 {
+                    Debug.Log($"Vivox Login : {userName} Successful");
                     vivox.loginSession.EndLogin(callback);
-                    Debug.Log($"Vivox LoginSession Login Successful...!\n ID : {userName}");
                 }
                 catch (Exception e)
                 {
@@ -152,7 +152,10 @@ public class VivoxManager : MonoBehaviour
             UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.Microphone);
 #endif
 
-        vivox.audioInputDevice = vivox.client.AudioInputDevices;
+        if(vivox.client.AudioInputDevices != null)
+            vivox.audioInputDevice = vivox.client.AudioInputDevices;
+
+        if(vivox.client.AudioOutputDevices != null)
         vivox.audioOutputDevice = vivox.client.AudioOutputDevices;
     }
 

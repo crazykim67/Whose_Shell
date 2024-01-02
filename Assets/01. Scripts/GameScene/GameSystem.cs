@@ -206,6 +206,9 @@ public class GameSystem : MonoBehaviourPunCallbacks
             player.SetKillCooldown(killCooldown);
             player.playerFinder.SetKillRange(killRange + 1f);
         }
+
+        if(VivoxManager.Instance != null)
+            VivoxManager.Instance.JoinChannel(PhotonNetwork.CurrentRoom.Name, VivoxUnity.ChannelType.NonPositional);
     }
 
     #endregion

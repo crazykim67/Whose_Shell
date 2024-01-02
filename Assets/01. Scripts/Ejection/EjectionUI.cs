@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.TextCore.Text;
 
 public class EjectionUI : MonoBehaviour
 {
@@ -28,6 +29,23 @@ public class EjectionUI : MonoBehaviour
     {
         if (GameSystem.Instance == null)
             return;
+
+        PlayerController myCharacter = null;
+
+        foreach (var player in GameSystem.Instance.controllerList)
+        {
+            if (player.nickName.Equals(PhotonNetwork.NickName))
+            {
+                myCharacter = player;
+                break;
+            }
+        }
+
+        if (VivoxManager.Instance != null)
+        {
+            VivoxManager.Instance.OnInputAudioMute(true);
+            VivoxManager.Instance.OnOutputAudioMute(true);
+        }
 
         string str = "";
 
