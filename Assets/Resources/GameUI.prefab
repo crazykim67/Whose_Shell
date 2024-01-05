@@ -185,7 +185,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e8cf36a887b8e8c4b898897fcad200ea, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1042,7 +1042,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e8cf36a887b8e8c4b898897fcad200ea, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2847,6 +2847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coralCut: {fileID: 39433365123591793}
+  isPlaying: 0
 --- !u!1 &5941931345514442197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,7 +3547,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e8cf36a887b8e8c4b898897fcad200ea, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

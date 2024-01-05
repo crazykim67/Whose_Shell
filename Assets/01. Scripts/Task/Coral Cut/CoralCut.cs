@@ -58,6 +58,7 @@ public class CoralCut : MonoBehaviour
 
     public void OnHide()
     {
+        myCharacter.isUI = false;
         this.gameObject.SetActive(false);
         scissors.OnHide();
 
@@ -65,7 +66,6 @@ public class CoralCut : MonoBehaviour
             return;
 
         InGameUIManager.Instance.TaskUI.OnHideTaskMission();
-        myCharacter.isUI = false;
     }
 
     public void OnCheck()

@@ -38,6 +38,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
     [Header("Rule Data")]
     public float killCooldown;
     public int killRange;
+    public float speed;
 
     [SerializeField]
     private Light2D shadowLight;
@@ -177,14 +178,21 @@ public class GameSystem : MonoBehaviourPunCallbacks
     private void SetPlayerType(string nickName)
     {
         var manager = GameManager.Instance;
+        speed = manager.ruleData.playerSpeed;
+
+        foreach(var controller in controllerList)
+            controller.speed = speed;
 
         // 킬 쿨타임 세팅
         killCooldown = manager.ruleData.killCoolTime;
         killRange = (int)manager.ruleData.killRange;
+        shadowLight.pointLightOuterRadius = manager.ruleData.turtleSight;
+
         foreach (var controller in controllerList)
         {
             if (controller.nickName.Equals(nickName))
             {
+                shadowLight.pointLightOuterRadius = manager.ruleData.terrapinSight;
                 controller.playerType = PlayerType.Terrapin;
                 controller.SetTerrapinUI();
                 break;

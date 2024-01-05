@@ -115,9 +115,9 @@ public class GameRuleSetting : MonoBehaviour
         emergencyCoolTime = 20;
         emergencyTime = 20;
         voteTime = 30;
-        playerSpeed = 3.5f;
+        playerSpeed = 5f;
         turtleSight = 8f;
-        terrapinSight = 10f;
+        terrapinSight = 8f;
         killCoolTime = 40f;
         killRange = KillRange.Normal;
         commonTask = 1;

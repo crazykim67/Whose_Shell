@@ -54,19 +54,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameRuleData data = new GameRuleData(_emCount, _emCoolTime, _emTime, _voteTime,
             _speed, _tuSight, _teSight, _killCoolTime, (KillRange)_range, _commonTask, _simpleTask);
 
-        //pv.RPC("SetDataRPC", RpcTarget.AllBuffered, _emCount, _emCoolTime, _emTime, _voteTime,
-        //    _speed, _tuSight, _teSight, _killCoolTime, _range, _commonTask, _simpleTask);
         ruleData = data;
     }
-
-    //[PunRPC]
-    //public void SetDataRPC(int _emCount, int _emCoolTime, int _emTime,
-    //    int _voteTime, float _speed, float _tuSight, float _teSight,
-    //    float _killCoolTime, int _range, int _commonTask, int _simpleTask)
-    //{
-    //    GameRuleData data = new GameRuleData(_emCount, _emCoolTime, _emTime, _voteTime, 
-    //        _speed, _tuSight, _teSight, _killCoolTime, (KillRange)_range, _commonTask, _simpleTask);
-
-        
-    //}
 }

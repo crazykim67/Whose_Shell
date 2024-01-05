@@ -77,6 +77,7 @@ MonoBehaviour:
   isStart: 0
   killCooldown: 0
   killRange: 0
+  speed: 0
   shadowLight: {fileID: 0}
   globalLight: {fileID: 8054097842645194386}
   skipVotePlayerCount: 0
