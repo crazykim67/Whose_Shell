@@ -194,6 +194,7 @@ MonoBehaviour:
   isReporter: 0
   isVote: 0
   vote: 0
+  taskObject: {fileID: 0}
 --- !u!61 &4476332405532895877
 BoxCollider2D:
   m_ObjectHideFlags: 0

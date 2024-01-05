@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour
     public bool isVote = false;
     public int vote;
 
+    public TaskObject taskObject = null;
+
     private void Awake()
     {
         pv = GetComponent<PhotonView>();
@@ -114,7 +116,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(playerType == PlayerType.Terrapin)
+        OnClickTask();
+
+        if (playerType == PlayerType.Terrapin)
             killCooldown -= Time.deltaTime;
     }
 
@@ -480,6 +484,29 @@ public class PlayerController : MonoBehaviour
     public float GetColor()
     {
         return this.playerColor;
+    }
+
+    #endregion
+
+    #region Task Interactable
+
+    public void OnClickTask()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (taskObject == null)
+                return;
+
+            if (InGameUIManager.Instance.TaskUI.isPlaying)
+                return;
+
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            int layer = 1 << LayerMask.NameToLayer("Task");
+
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, layer);
+
+            taskObject.OnShow();
+        }
     }
 
     #endregion

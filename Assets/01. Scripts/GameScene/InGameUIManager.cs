@@ -55,6 +55,10 @@ public class InGameUIManager : MonoBehaviour
     private EjectionUI ejectionUI;
     public EjectionUI EjectionUI { get { return ejectionUI; } }
 
+    [SerializeField]
+    private TaskUI taskUI;
+    public TaskUI TaskUI { get { return taskUI; } }
+
     private void Awake()
     {
         instance = this;
@@ -74,4 +78,14 @@ public class InGameUIManager : MonoBehaviour
     {
         this.uiObject.SetActive(false);
     }
+
+
+    #region Task
+
+    public void OnTask(Task task)
+    {
+        TaskUI.OnTaskMission(task);
+    }
+
+    #endregion
 }

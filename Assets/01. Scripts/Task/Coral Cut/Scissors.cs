@@ -21,20 +21,24 @@ public class Scissors : MonoBehaviour
     [SerializeField]
     private Sprite cut;
 
+    [SerializeField]
+    private Stick currentStick;
+
+    [SerializeField]
+    private CoralCut coral;
+
     private void Update()
     {
         OnCut();
-
         ScissorsUpdate();
-        Raycast();
     }
 
-    private void OnShow()
+    public void OnShow()
     {
         Cursor.visible = false;
     }
 
-    private void OnHide()
+    public void OnHide()
     {
         Cursor.visible = true;
     }
@@ -43,7 +47,14 @@ public class Scissors : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            scissors.sprite = cut;
+            Raycast();
+
+            if (currentStick != null)
+            {
+                scissors.sprite = cut;
+                currentStick.Cut();
+                coral.OnCheck();
+            }
         }
         else if (Input.GetMouseButtonUp(0))
             scissors.sprite = nonCut;
@@ -66,6 +77,9 @@ public class Scissors : MonoBehaviour
         if (results.Count <= 0)
             return;
 
-        Debug.Log(results[0].gameObject.name);
+        if (results[0].gameObject.tag != "Stick")
+            return;
+
+        currentStick = results[0].gameObject.GetComponent<Stick>();
     }
 }
