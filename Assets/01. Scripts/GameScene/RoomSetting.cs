@@ -51,6 +51,23 @@ public class RoomSetting : MonoBehaviourPunCallbacks
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
+            PlayerController myCharacter = null;
+
+            if(GameSystem.Instance != null)
+            {
+                foreach(var player in GameSystem.Instance.controllerList)
+                {
+                    if (player.nickName.Equals(PhotonNetwork.NickName))
+                    {
+                        myCharacter = player;
+                        break;
+                    }
+                }
+            }
+
+            if (myCharacter.isUI)
+                return;
+
             if (!isMenu)
                 OnOptionMenuShow();
             else

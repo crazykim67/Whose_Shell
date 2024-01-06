@@ -49,7 +49,7 @@ public class Scissors : MonoBehaviour
         {
             Raycast();
 
-            if (currentStick != null)
+            if (currentStick != null && !currentStick.isCut)
             {
                 scissors.sprite = cut;
                 currentStick.Cut();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -9,14 +10,20 @@ public enum Task
 {
     None,
     CoralCut,
+    Trash,
 }
 
 public class TaskUI : MonoBehaviour
 {
+    public Image progress;
+
     [SerializeField]
     private CoralCut coralCut;
-
     public CoralCut CoralCut { get { return coralCut; } }
+
+    [SerializeField]
+    private TrashTask trashTask;
+    public TrashTask TrashTask { get { return trashTask; } }
 
     public bool isPlaying = false;
 
@@ -37,6 +44,12 @@ public class TaskUI : MonoBehaviour
                     CoralCut.OnShow();
                     break;
                 }
+                case Task.Trash: 
+                {
+                    this.gameObject.SetActive(true);
+                    trashTask.OnShow();
+                    break;
+                }
         }
 
         isPlaying = true;
@@ -46,5 +59,10 @@ public class TaskUI : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         isPlaying = false;
+    }
+
+    public void OnSuccess()
+    {
+        progress.fillAmount = progress.fillAmount + ((float)Math.Truncate(InGameUIManager.Instance.taskAmount * 100) / 100);
     }
 }

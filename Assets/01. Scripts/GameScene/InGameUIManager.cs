@@ -59,11 +59,26 @@ public class InGameUIManager : MonoBehaviour
     private TaskUI taskUI;
     public TaskUI TaskUI { get { return taskUI; } }
 
+    public float taskAmount;
+
     private void Awake()
     {
         instance = this;
         pv = GetComponent<PhotonView>();
     }
+
+    [PunRPC]
+    public void SetRPCTaskAmout()
+    {
+        if (PhotonNetwork.InRoom)
+            taskAmount = 1f / (PhotonNetwork.CurrentRoom.PlayerCount - GameManager.Instance.terrapinCount) / (GameManager.Instance.ruleData.commonTask + GameManager.Instance.ruleData.simpleTask);
+    }
+
+    public void SetTaskAmout()
+    {
+        pv.RPC("SetRPCTaskAmout", RpcTarget.All);
+    }
+
     public void OnSet(PlayerController player)
     {
         minimap.SetPlayer(player);
@@ -85,6 +100,17 @@ public class InGameUIManager : MonoBehaviour
     public void OnTask(Task task)
     {
         TaskUI.OnTaskMission(task);
+    }
+
+    [PunRPC]
+    public void OnRpcSuccess()
+    {
+        TaskUI.OnSuccess();
+    }
+
+    public void OnSuccess()
+    {
+        pv.RPC("OnRpcSuccess", RpcTarget.All);
     }
 
     #endregion

@@ -74,6 +74,9 @@ MonoBehaviour:
   - RpcVoteEjectPlayer
   - RpcSkipVote
   - RpcInitBtns
+  - OnRpcSuccess
+  - SetRPCTaskAmout
+  - OnRpcProgress
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

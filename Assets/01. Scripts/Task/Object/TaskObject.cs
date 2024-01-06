@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ public class TaskObject : MonoBehaviour
 
         currentPlayer = coll.GetComponent<PlayerController>();
 
-        if (currentPlayer != null && currentPlayer.pv.IsMine && (currentPlayer.playerType & PlayerType.Ghost) != PlayerType.Ghost)
+        if (currentPlayer != null && currentPlayer.pv.IsMine && (currentPlayer.playerType & PlayerType.Terrapin) != PlayerType.Terrapin)
         {
             outLine.SetActive(true);
             currentPlayer.taskObject = this;
@@ -49,6 +49,7 @@ public class TaskObject : MonoBehaviour
         currentPlayer.isUI = true;
     }
 
+    // 이미 처리한 미션인지 아닌지 체크
     public bool IsSuccessful()
     {
         bool isSuccss = false;
@@ -63,6 +64,11 @@ public class TaskObject : MonoBehaviour
             case Task.CoralCut:
                 {
                     isSuccss = InGameUIManager.Instance.TaskUI.CoralCut.isSuccess ? true : false;
+                    break;
+                }
+            case Task.Trash:
+                {
+                    isSuccss = InGameUIManager.Instance.TaskUI.TrashTask.isSuccess ? true : false;
                     break;
                 }
         }

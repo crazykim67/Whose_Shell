@@ -183,6 +183,22 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public void SetLight()
+    {
+        if (GameManager.Instance == null)
+            return;
+
+        if (!pv.IsMine)
+            return;
+
+        var manager = GameManager.Instance;
+
+        if (playerType == PlayerType.Terrapin)
+            shadowLight.pointLightOuterRadius = manager.ruleData.terrapinSight;
+        else
+            shadowLight.pointLightOuterRadius = manager.ruleData.turtleSight;
+    }
+
     #region Photon RPC
 
     [PunRPC]
@@ -270,11 +286,16 @@ public class PlayerController : MonoBehaviour
 
     public void SetTerrapinUI()
     {
+        if (GameManager.Instance == null)
+            return;
+
         if (InGameUIManager.Instance == null)
             return;
 
         if (!pv.IsMine)
             return;
+
+        var manager = GameManager.Instance;
 
         if(playerType == PlayerType.Terrapin)
             InGameUIManager.Instance.KillUI.OnShow(this);
@@ -348,6 +369,8 @@ public class PlayerController : MonoBehaviour
         // 자신이 죽었을 때
         if (pv.IsMine)
         {
+            OnHideTask();
+
             foreach (var player in GameSystem.Instance.controllerList)
             {
                 if ((player.playerType & PlayerType.Ghost) == PlayerType.Ghost)
@@ -390,8 +413,29 @@ public class PlayerController : MonoBehaviour
 
         var collider = GetComponent<BoxCollider2D>();
         if(collider != null)
+            collider.isTrigger = true;
+    }
+
+    public void OnHideTask()
+    {
+        if (taskObject == null)
+            return;
+
+        if (!InGameUIManager.Instance.TaskUI.isPlaying)
+            return;
+
+        switch (taskObject.task)
         {
-            collider.enabled = false;
+            case Task.CoralCut:
+                {
+                    InGameUIManager.Instance.TaskUI.CoralCut.OnHide();
+                    break;
+                }
+            case Task.Trash:
+                {
+                    InGameUIManager.Instance.TaskUI.TrashTask.OnHide();
+                    break;
+                }
         }
     }
 
@@ -409,6 +453,8 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region Report
+
     public void Report()
     {
         if (GameSystem.Instance == null)
@@ -422,6 +468,8 @@ public class PlayerController : MonoBehaviour
     {
         pv.RPC("IsReporter", RpcTarget.All, _isReport);
     }
+
+    #endregion
 
     #region Set
 
@@ -505,7 +553,11 @@ public class PlayerController : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, Mathf.Infinity, layer);
 
-            taskObject.OnShow();
+            if (hit.collider == null)
+                return;
+
+            if (hit.transform.gameObject.tag == "Task")
+                taskObject.OnShow();
         }
     }
 

@@ -186,13 +186,11 @@ public class GameSystem : MonoBehaviourPunCallbacks
         // 킬 쿨타임 세팅
         killCooldown = manager.ruleData.killCoolTime;
         killRange = (int)manager.ruleData.killRange;
-        shadowLight.pointLightOuterRadius = manager.ruleData.turtleSight;
 
         foreach (var controller in controllerList)
         {
             if (controller.nickName.Equals(nickName))
             {
-                shadowLight.pointLightOuterRadius = manager.ruleData.terrapinSight;
                 controller.playerType = PlayerType.Terrapin;
                 controller.SetTerrapinUI();
                 break;
@@ -204,6 +202,9 @@ public class GameSystem : MonoBehaviourPunCallbacks
     public void IsStart(bool _isStart)
     {
         isStart = _isStart;
+
+        if (InGameUIManager.Instance != null)
+            InGameUIManager.Instance.SetTaskAmout();
     }
 
     [PunRPC]
@@ -213,6 +214,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
         {
             player.SetKillCooldown(killCooldown);
             player.playerFinder.SetKillRange(killRange + 1f);
+            player.SetLight();
         }
 
         if(VivoxManager.Instance != null)
@@ -293,6 +295,18 @@ public class GameSystem : MonoBehaviourPunCallbacks
     [PunRPC]
     public void RpcSendReportSign(float deadbodyColor)
     {
+        foreach(var player in controllerList) 
+        { 
+            if (player.pv.IsMine)
+            {
+                if (InGameUIManager.Instance.TaskUI.isPlaying)
+                {
+                    InGameUIManager.Instance.TaskUI.CoralCut.OnHide();
+                    InGameUIManager.Instance.TaskUI.TrashTask.OnHide();
+                }
+            }
+        }
+
         InGameUIManager.Instance.ReportUI.OnShow(deadbodyColor);
 
         StartCoroutine(StartMeeting_Coroutine());

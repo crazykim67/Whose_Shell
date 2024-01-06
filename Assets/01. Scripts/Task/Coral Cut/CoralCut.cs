@@ -4,7 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoralCut : MonoBehaviour
+public class CoralCut : TaskScript
 {
     public Task task = Task.CoralCut;
 
@@ -14,58 +14,25 @@ public class CoralCut : MonoBehaviour
     [SerializeField]
     private Scissors scissors;
 
-    [SerializeField]
-    private Animator textAnim;
-
-    [SerializeField]
-    private Button closeBtn;
-
-    public bool isSuccess = false;
-
-    private PlayerController myCharacter;
-
-    private void Init()
+    public override void Init()
     {
-        if (GameSystem.Instance == null)
-            return;
-
-        if (myCharacter == null)
-            foreach (var player in GameSystem.Instance.controllerList)
-            {
-                if (player.nickName.Equals(PhotonNetwork.NickName))
-                    myCharacter = player;
-                break;
-            }
-
-        textAnim.gameObject.SetActive(false);
-        textAnim.SetBool("isSuccess", false);
+        base.Init();
 
         foreach (var stick in sticks)
             stick.OnReset();
     }
 
-    public void OnShow()
+    public override void OnShow()
     {
-        if (isSuccess)
-            return;
+        base.OnShow();
 
-        Init();
-
-        this.gameObject.SetActive(true);
         scissors.OnShow();
-        myCharacter.isUI = true;
     }
 
-    public void OnHide()
+    public override void OnHide()
     {
-        myCharacter.isUI = false;
-        this.gameObject.SetActive(false);
+        base.OnHide();
         scissors.OnHide();
-
-        if (InGameUIManager.Instance == null)
-            return;
-
-        InGameUIManager.Instance.TaskUI.OnHideTaskMission();
     }
 
     public void OnCheck()
@@ -82,11 +49,15 @@ public class CoralCut : MonoBehaviour
 
     public IEnumerator OnSuccess()
     {
+        myCharacter.isUI = false;
         closeBtn.interactable = false;
 
         textAnim.gameObject.SetActive(true);
         textAnim.SetBool("isSuccess", true);
         isSuccess = true;
+
+        if(InGameUIManager.Instance != null)
+            InGameUIManager.Instance.OnSuccess();
 
         yield return new WaitForSeconds(3f);
 

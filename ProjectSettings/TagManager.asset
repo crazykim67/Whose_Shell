@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Stick
+  - Trash
+  - TrashCan
+  - Task
   layers:
   - Default
   - TransparentFX
