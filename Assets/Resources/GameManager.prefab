@@ -58,6 +58,8 @@ MonoBehaviour:
     commonTask: 1
     simpleTask: 2
   terrapinCount: 0
+  successCommonTask: 0
+  successSimpleTask: 0
 --- !u!114 &6431038177005856686
 MonoBehaviour:
   m_ObjectHideFlags: 0

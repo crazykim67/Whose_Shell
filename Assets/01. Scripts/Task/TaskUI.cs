@@ -12,6 +12,7 @@ public enum Task
     CoralCut,
     Trash,
     Dish,
+    CleanShell,
 }
 
 public enum TaskType
@@ -36,6 +37,10 @@ public class TaskUI : MonoBehaviour
     [SerializeField]
     private DishTask dishTask;
     public DishTask DishTask { get { return dishTask; } }
+
+    [SerializeField]
+    private CleanShellTask cleanShellTask;
+    public CleanShellTask CleanShellTask { get { return cleanShellTask; } }
 
     public bool isPlaying = false;
 
@@ -66,6 +71,12 @@ public class TaskUI : MonoBehaviour
                 {
                     this.gameObject.SetActive(true);
                     DishTask.OnShow();
+                    break;
+                }
+            case Task.CleanShell:
+                {
+                    this.gameObject.SetActive(true);
+                    CleanShellTask.OnShow();
                     break;
                 }
         }

@@ -14,7 +14,7 @@ public class TaskObject : MonoBehaviour
     [SerializeField]
     private PlayerController currentPlayer;
 
-    private void OnTriggerStay2D(Collider2D coll)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
         if (GameSystem.Instance == null)
             return;
@@ -27,7 +27,7 @@ public class TaskObject : MonoBehaviour
 
         currentPlayer = coll.GetComponent<PlayerController>();
 
-        if (currentPlayer != null && currentPlayer.pv.IsMine && (currentPlayer.playerType & PlayerType.Terrapin) != PlayerType.Terrapin)
+        if (currentPlayer != null && currentPlayer.pv.IsMine /*&& (currentPlayer.playerType & PlayerType.Terrapin) != PlayerType.Terrapin*/)
         {
             outLine.SetActive(true);
             currentPlayer.taskObject = this;
@@ -79,6 +79,11 @@ public class TaskObject : MonoBehaviour
             case Task.Dish:
                 {
                     isSuccss = InGameUIManager.Instance.TaskUI.DishTask.isSuccess ? true : false;
+                    break;
+                }
+            case Task.CleanShell:
+                {
+                    isSuccss = InGameUIManager.Instance.TaskUI.CleanShellTask.isSuccess ? true : false;
                     break;
                 }
         }
