@@ -14,6 +14,13 @@ public enum Task
     Dish,
 }
 
+public enum TaskType
+{
+    None,
+    Common,
+    Simple,
+}
+
 public class TaskUI : MonoBehaviour
 {
     public Image progress;
@@ -75,5 +82,42 @@ public class TaskUI : MonoBehaviour
     public void OnSuccess()
     {
         progress.fillAmount = progress.fillAmount + ((float)Math.Truncate(InGameUIManager.Instance.taskAmount * 1000) / 1000);
+    }
+
+    public void TaskTypeCheck(TaskType type)
+    {
+        if (GameManager.Instance == null)
+            return;
+
+        if (InGameUIManager.Instance == null)
+            return;
+
+        var game = GameManager.Instance;
+        var inGame = InGameUIManager.Instance;
+
+        switch (type)
+        {
+            case TaskType.None:
+                    break;
+            case TaskType.Common:
+                {
+                    game.successCommonTask = game.successCommonTask + 1;
+                    break;
+                }
+            case TaskType.Simple:
+                {
+                    game.successSimpleTask = game.successSimpleTask + 1;
+                    break;
+                }
+        }
+
+        int totalSuccessTask = game.successCommonTask + game.successSimpleTask;
+        int totalTask = inGame.commonTaskCount + inGame.simpleTaskCount;
+
+        //
+        if (totalSuccessTask == totalTask)
+        {
+            // °ÅºÏÀÌ ½Â¸®
+        }
     }
 }

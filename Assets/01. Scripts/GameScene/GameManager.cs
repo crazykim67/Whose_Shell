@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public int terrapinCount;
 
+    public int successCommonTask;
+    public int successSimpleTask;
+
     private void Awake()
     {
         instance = this;

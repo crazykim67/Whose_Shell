@@ -61,6 +61,9 @@ public class InGameUIManager : MonoBehaviour
 
     public float taskAmount;
 
+    public int commonTaskCount = 0;
+    public int simpleTaskCount = 0;
+
     private void Awake()
     {
         instance = this;
@@ -68,15 +71,21 @@ public class InGameUIManager : MonoBehaviour
     }
 
     [PunRPC]
-    public void SetRPCTaskAmout()
+    public void SetRPCTaskAmount()
     {
+        int taskEssential = (PhotonNetwork.CurrentRoom.PlayerCount - GameManager.Instance.terrapinCount);
+
         if (PhotonNetwork.InRoom)
-            taskAmount = 1f / (PhotonNetwork.CurrentRoom.PlayerCount - GameManager.Instance.terrapinCount) / (GameManager.Instance.ruleData.commonTask + GameManager.Instance.ruleData.simpleTask);
+        {
+            taskAmount = 1f / (commonTaskCount + simpleTaskCount);
+            commonTaskCount = (taskEssential * GameManager.Instance.ruleData.commonTask);
+            simpleTaskCount = (taskEssential * GameManager.Instance.ruleData.simpleTask);
+        }
     }
 
-    public void SetTaskAmout()
+    public void SetTaskAmount()
     {
-        pv.RPC("SetRPCTaskAmout", RpcTarget.All);
+        pv.RPC("SetRPCTaskAmount", RpcTarget.All);
     }
 
     public void OnSet(PlayerController player)
@@ -111,6 +120,17 @@ public class InGameUIManager : MonoBehaviour
     public void OnSuccess()
     {
         pv.RPC("OnRpcSuccess", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void TaskTypeRpcCheck(int type)
+    {
+        TaskUI.TaskTypeCheck((TaskType)type);
+    }
+
+    public void TaskTypeCheck(int type)
+    {
+        pv.RPC("TaskTypeRpcCheck", RpcTarget.All, type);
     }
 
     #endregion

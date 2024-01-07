@@ -3203,6 +3203,7 @@ MonoBehaviour:
   closeBtn: {fileID: 1724692242061840413}
   isSuccess: 0
   myCharacter: {fileID: 0}
+  taskType: 2
   gr: {fileID: 7221791913172772817}
   plates:
   - {fileID: 661445353335015660}
@@ -5039,6 +5040,8 @@ MonoBehaviour:
   ejectionUI: {fileID: 6614654413977549996}
   taskUI: {fileID: 3114592750626126175}
   taskAmount: 0
+  commonTaskCount: 0
+  simpleTaskCount: 0
 --- !u!1 &6687100921896249584
 GameObject:
   m_ObjectHideFlags: 0
@@ -6453,6 +6456,7 @@ MonoBehaviour:
   closeBtn: {fileID: 7312002951459242199}
   isSuccess: 0
   myCharacter: {fileID: 0}
+  taskType: 1
   gr: {fileID: 7221791913172772817}
   currentTrash: {fileID: 0}
   trashes:
@@ -6632,6 +6636,7 @@ MonoBehaviour:
   closeBtn: {fileID: 6650880287194766843}
   isSuccess: 0
   myCharacter: {fileID: 0}
+  taskType: 1
   sticks:
   - {fileID: 4604907435731927191}
   - {fileID: 8526115073284289427}

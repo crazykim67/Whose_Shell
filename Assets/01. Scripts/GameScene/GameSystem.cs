@@ -204,7 +204,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
         isStart = _isStart;
 
         if (InGameUIManager.Instance != null)
-            InGameUIManager.Instance.SetTaskAmout();
+            InGameUIManager.Instance.SetTaskAmount();
     }
 
     [PunRPC]

@@ -1450,6 +1450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   task: 1
+  taskType: 1
   outLine: {fileID: 6326224014657407437}
   currentPlayer: {fileID: 0}
 --- !u!61 &453629722204293008
@@ -8261,6 +8262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   task: 2
+  taskType: 1
   outLine: {fileID: 4811768826332542416}
   currentPlayer: {fileID: 0}
 --- !u!61 &3572785220109881046
@@ -11839,6 +11841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   task: 3
+  taskType: 2
   outLine: {fileID: 3472055239781113721}
   currentPlayer: {fileID: 0}
 --- !u!61 &8089530722570626803

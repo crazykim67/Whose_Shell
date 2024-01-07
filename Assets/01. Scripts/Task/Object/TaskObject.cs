@@ -6,19 +6,24 @@ public class TaskObject : MonoBehaviour
 {
     public Task task = Task.None;
 
+    public TaskType taskType = TaskType.None;
+
     [SerializeField]
     private GameObject outLine;
 
     [SerializeField]
     private PlayerController currentPlayer;
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void OnTriggerStay2D(Collider2D coll)
     {
         if (GameSystem.Instance == null)
             return;
 
         if (IsSuccessful())
+        {
+            currentPlayer.taskObject = null;
             return;
+        }
 
         currentPlayer = coll.GetComponent<PlayerController>();
 

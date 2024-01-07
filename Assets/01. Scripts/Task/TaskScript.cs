@@ -14,6 +14,8 @@ public class TaskScript : MonoBehaviour
 
     public PlayerController myCharacter;
 
+    public TaskType taskType = TaskType.None;
+
     public virtual void Init()
     {
         if (GameSystem.Instance == null)

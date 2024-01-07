@@ -80,7 +80,10 @@ public class TrashTask : TaskScript
         isSuccess = true;
 
         if (InGameUIManager.Instance != null)
+        {
             InGameUIManager.Instance.OnSuccess();
+            InGameUIManager.Instance.TaskTypeCheck((int)taskType);
+        }
 
         yield return new WaitForSeconds(3f);
 

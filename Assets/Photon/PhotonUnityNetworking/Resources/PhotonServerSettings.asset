@@ -77,6 +77,10 @@ MonoBehaviour:
   - OnRpcSuccess
   - SetRPCTaskAmout
   - OnRpcProgress
+  - SetRPCTaskAmount
+  - OnTurtleWin
+  - TaskTypeCheck
+  - TaskTypeRpcCheck
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
