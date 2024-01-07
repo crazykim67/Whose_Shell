@@ -25,9 +25,9 @@ public class Trash : MonoBehaviour
         trashImage.raycastTarget = false;
     }
 
-    public void OnThrow(bool isTrash)
+    public void OnThrow(bool _isThrow)
     {
-        if (isTrash)
+        if (_isThrow)
         {
             this.gameObject.SetActive(false);
             isThrow = true;

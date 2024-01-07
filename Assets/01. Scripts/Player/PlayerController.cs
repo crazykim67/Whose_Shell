@@ -436,6 +436,11 @@ public class PlayerController : MonoBehaviour
                     InGameUIManager.Instance.TaskUI.TrashTask.OnHide();
                     break;
                 }
+            case Task.Dish:
+                {
+                    InGameUIManager.Instance.TaskUI.DishTask.OnHide();
+                    break;
+                }
         }
     }
 

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class CoralCut : TaskScript
 {
-    public Task task = Task.CoralCut;
-
     [SerializeField]
     private List<Stick> sticks = new List<Stick>();
 

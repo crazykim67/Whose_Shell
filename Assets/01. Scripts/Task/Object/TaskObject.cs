@@ -71,6 +71,11 @@ public class TaskObject : MonoBehaviour
                     isSuccss = InGameUIManager.Instance.TaskUI.TrashTask.isSuccess ? true : false;
                     break;
                 }
+            case Task.Dish:
+                {
+                    isSuccss = InGameUIManager.Instance.TaskUI.DishTask.isSuccess ? true : false;
+                    break;
+                }
         }
 
         return isSuccss;

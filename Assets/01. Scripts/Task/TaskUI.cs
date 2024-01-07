@@ -11,6 +11,7 @@ public enum Task
     None,
     CoralCut,
     Trash,
+    Dish,
 }
 
 public class TaskUI : MonoBehaviour
@@ -24,6 +25,10 @@ public class TaskUI : MonoBehaviour
     [SerializeField]
     private TrashTask trashTask;
     public TrashTask TrashTask { get { return trashTask; } }
+
+    [SerializeField]
+    private DishTask dishTask;
+    public DishTask DishTask { get { return dishTask; } }
 
     public bool isPlaying = false;
 
@@ -50,6 +55,12 @@ public class TaskUI : MonoBehaviour
                     trashTask.OnShow();
                     break;
                 }
+            case Task.Dish:
+                {
+                    this.gameObject.SetActive(true);
+                    DishTask.OnShow();
+                    break;
+                }
         }
 
         isPlaying = true;
@@ -63,6 +74,6 @@ public class TaskUI : MonoBehaviour
 
     public void OnSuccess()
     {
-        progress.fillAmount = progress.fillAmount + ((float)Math.Truncate(InGameUIManager.Instance.taskAmount * 100) / 100);
+        progress.fillAmount = progress.fillAmount + ((float)Math.Truncate(InGameUIManager.Instance.taskAmount * 1000) / 1000);
     }
 }
