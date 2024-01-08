@@ -143,6 +143,7 @@ public class RoomSetting : MonoBehaviourPunCallbacks
         //}
 
         GameSystem.Instance.OnStart();
+        MapManager.Instance.SetTask(true);
     }
 
     public void OnError(string str)

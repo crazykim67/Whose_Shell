@@ -39,6 +39,10 @@ public class MapManager : MonoBehaviour
     [Header("Spawn Area")]
     public List<Transform> spawnList = new List<Transform>();
 
+    [SerializeField]
+    private TaskController taskController;
+    public TaskController TaskController { get { return taskController; }  }
+
     private void Awake()
     {
         instance = this;
@@ -79,6 +83,7 @@ public class MapManager : MonoBehaviour
                     foreach(var player in playerList)
                         player.sorting.SetSorter(lobbySorter);
 
+                    SetTask(false);
                     break;
                 }
             case 1:
@@ -88,7 +93,6 @@ public class MapManager : MonoBehaviour
 
                     foreach (var player in playerList)
                         player.sorting.SetSorter(inGameSorter);
-
                     break;
                 }
         }
@@ -112,5 +116,24 @@ public class MapManager : MonoBehaviour
         Transform[] array = spawnList.ToArray();
 
         return array;
+    }
+
+    public void SetTask(bool isInit)
+    {
+        if(isInit)
+        {
+            int randomCommon = Random.Range(0, TaskController.commonTasks.Count);
+            int randomSimple = Random.Range(0, TaskController.simpleTasks.Count);
+
+            pv.RPC("SetRpcTask", RpcTarget.All, randomCommon, randomSimple);
+        }
+        else
+            pv.RPC("SetRpcTask", RpcTarget.All, 2, 3);
+    }
+
+    [PunRPC]
+    public void SetRpcTask(int randomCommon, int randomSimple)
+    {
+        TaskController.SetTask(randomCommon, randomSimple);
     }
 }
