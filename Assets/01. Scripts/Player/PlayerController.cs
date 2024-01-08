@@ -446,6 +446,11 @@ public class PlayerController : MonoBehaviour
                     InGameUIManager.Instance.TaskUI.CleanShellTask.OnHide();
                     break;
                 }
+            case Task.SpiderWeb:
+                {
+                    InGameUIManager.Instance.TaskUI.SpiderWebTask.OnHide();
+                    break;
+                }
         }
     }
 

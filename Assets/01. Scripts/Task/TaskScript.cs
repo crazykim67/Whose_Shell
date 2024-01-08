@@ -31,7 +31,7 @@ public class TaskScript : MonoBehaviour
                 }
             }
 
-        if(textAnim.GetBool("isSuccess") && textAnim.gameObject.activeSelf)
+        if(textAnim.gameObject.activeSelf)
             textAnim.SetBool("isSuccess", false);
 
         textAnim.gameObject.SetActive(false);

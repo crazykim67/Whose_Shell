@@ -20,10 +20,7 @@ public class TaskObject : MonoBehaviour
             return;
 
         if (IsSuccessful())
-        {
-            currentPlayer.taskObject = null;
             return;
-        }
 
         currentPlayer = coll.GetComponent<PlayerController>();
 
@@ -84,6 +81,11 @@ public class TaskObject : MonoBehaviour
             case Task.CleanShell:
                 {
                     isSuccss = InGameUIManager.Instance.TaskUI.CleanShellTask.isSuccess ? true : false;
+                    break;
+                }
+            case Task.SpiderWeb:
+                {
+                    isSuccss = InGameUIManager.Instance.TaskUI.SpiderWebTask.isSuccess ? true : false;
                     break;
                 }
         }

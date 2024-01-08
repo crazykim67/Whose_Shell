@@ -13,6 +13,7 @@ public enum Task
     Trash,
     Dish,
     CleanShell,
+    SpiderWeb,
 }
 
 public enum TaskType
@@ -41,6 +42,11 @@ public class TaskUI : MonoBehaviour
     [SerializeField]
     private CleanShellTask cleanShellTask;
     public CleanShellTask CleanShellTask { get { return cleanShellTask; } }
+
+    [SerializeField]
+    private SpiderWebTask spiderWebTask;
+    public SpiderWebTask SpiderWebTask { get { return spiderWebTask; } }
+
 
     public bool isPlaying = false;
 
@@ -77,6 +83,12 @@ public class TaskUI : MonoBehaviour
                 {
                     this.gameObject.SetActive(true);
                     CleanShellTask.OnShow();
+                    break;
+                }
+            case Task.SpiderWeb:
+                {
+                    this.gameObject.SetActive(true);
+                    SpiderWebTask.OnShow();
                     break;
                 }
         }

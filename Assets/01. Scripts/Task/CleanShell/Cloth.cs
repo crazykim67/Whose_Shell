@@ -27,15 +27,9 @@ public class Cloth : MonoBehaviour
         ClothUpdate();
     }
 
-    public void OnShow()
-    {
-        Cursor.visible = false;
-    }
+    public void OnShow() => Cursor.visible = false;
 
-    public void OnHide()
-    {
-        Cursor.visible = true;
-    }
+    public void OnHide() => Cursor.visible = true;
 
     public void OnCleaning()
     {

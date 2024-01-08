@@ -12,6 +12,7 @@ TagManager:
   - Shink
   - WaterTap
   - Dust
+  - SpiderWeb
   layers:
   - Default
   - TransparentFX
