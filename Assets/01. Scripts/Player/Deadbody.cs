@@ -34,8 +34,11 @@ public class Deadbody : MonoBehaviour
         shellColor = _hue;
     }
 
-    private void OnTriggerEnter2D(Collider2D coll)
+    private void OnTriggerStay2D(Collider2D coll)
     {
+        if (coll == null)
+            return;
+
         var player = coll.GetComponent<PlayerController>();
         if(player != null && player.pv.IsMine && (player.playerType & PlayerType.Ghost) != PlayerType.Ghost)
         {

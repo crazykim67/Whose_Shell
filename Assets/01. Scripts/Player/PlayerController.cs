@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         if (pv.IsMine)
         {
-            Init();
+            playerType = PlayerType.Turtle;
             cam = Camera.main.GetComponent<Camera>();
             shadowLight = cam.GetComponentInChildren<Light2D>();
 
@@ -124,7 +124,10 @@ public class PlayerController : MonoBehaviour
 
     public void Init()
     {
-        playerType = PlayerType.Turtle;
+        pv.RPC("PlayerInit", RpcTarget.All);
+
+        if (VivoxManager.Instance != null && PhotonNetwork.InRoom)
+            VivoxManager.Instance.LeftChannel(PhotonNetwork.CurrentRoom.Name);
     }
 
     public void Anim()
@@ -169,18 +172,14 @@ public class PlayerController : MonoBehaviour
         if(playerType == PlayerType.Terrapin)
         {
             foreach (var player in list)
-            {
                 if(player.playerType == PlayerType.Turtle)
                     player.playerSet.SetActive(false);
-            }
         }
         else
         {
             foreach (var player in list)
                 player.playerSet.SetActive(false);
         }
-
-        
     }
 
     public void SetLight()
@@ -200,6 +199,36 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Photon RPC
+
+    [PunRPC]
+    public void PlayerInit()
+    {
+        if (pv.IsMine)
+        {
+            // 라이트 초기화
+            shadowLight.pointLightOuterRadius = 8f;
+        }
+
+        // KillUI 비활성화
+        if ((playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
+            InGameUIManager.Instance.KillUI.OnHide();
+
+        if ((playerType & PlayerType.Ghost) == PlayerType.Ghost)
+        {
+            // 콜라이더 isTrigger 비활성화
+            var collider = GetComponent<BoxCollider2D>();
+            if (collider != null)
+                collider.isTrigger = false;
+
+            // 애니메이션 귀신 상태 비활성화
+            anim.SetBool("isGhost", false);
+            // 플레이어 색상 투명도 불투명하게 설정
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
+        }
+
+        // 플레이어 타입 초기화
+        playerType = PlayerType.Turtle;
+    }
 
     [PunRPC]
     public void SetRPCColor(float _hue)
@@ -314,6 +343,31 @@ public class PlayerController : MonoBehaviour
         RPCKill(playerFinder.GetNearTarget().pv.ViewID);
     }
 
+    public void KillLaterCheck()
+    {
+        if (GameSystem.Instance == null)
+            return;
+
+        if (OuttroUIManager.Instance == null)
+            return;
+
+        int remainTerrapin = 0;
+        int remainTurtle = 0;
+
+        foreach (var player in GameSystem.Instance.controllerList)
+        {
+            if ((player.playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
+                remainTerrapin++;
+            else if ((player.playerType & PlayerType.Turtle) == PlayerType.Turtle)
+                remainTurtle++;
+        }
+
+        Debug.Log($"자라 : {remainTerrapin} \n 거북이 : {remainTurtle}");
+
+        if (remainTerrapin == remainTurtle)
+            OuttroUIManager.Instance.Controller.OnOuttro(1);
+    }
+
     public void RPCKill(int _viewId)
     {
         PlayerController target = null;
@@ -343,6 +397,8 @@ public class PlayerController : MonoBehaviour
 
         pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, isEjection, "Deadbody", transform.position,
         transform.rotation.x, transform.rotation.y, transform.rotation.z, playerColor);
+
+        KillLaterCheck();
     }
 
     [PunRPC]

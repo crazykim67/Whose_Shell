@@ -27,7 +27,7 @@ public class TaskController : MonoBehaviour
         SetSimpleTask(simpleTaskCount, _randomSimple);
     }
 
-    public void SetCommonTask(int _count, int _random)
+    public void SetCommonTask(int _count, int _random = 0)
     {
         // 공용 임무는 0 ~ 2 개
         switch (_count)
@@ -41,12 +41,21 @@ public class TaskController : MonoBehaviour
             case 1:
                 {
                     commonTasks[_random].gameObject.SetActive(false);
+
+                    break;
+                }
+            case 2:
+                {
+                    foreach (var task in commonTasks)
+                        task.gameObject.SetActive(true);
                     break;
                 }
         }
+        if(InGameUIManager.Instance != null)
+            InGameUIManager.Instance.TaskUI.SetCommonTaskList(_count, _random);
     }
 
-    public void SetSimpleTask(int _count, int _random)
+    public void SetSimpleTask(int _count, int _random = 0)
     {
         // 개인 임무는 0 ~ 3개
         switch (_count)
@@ -70,6 +79,15 @@ public class TaskController : MonoBehaviour
                     simpleTasks[_random].gameObject.SetActive(false);
                     break;
                 }
+            case 3:
+                {
+                    foreach (var task in simpleTasks)
+                        task.gameObject.SetActive(true);
+                    break;
+                }
         }
+
+        if(InGameUIManager.Instance != null)
+            InGameUIManager.Instance.TaskUI.SetSimpleTaskList(_count, _random);
     }
 }

@@ -194,6 +194,7 @@ public class RoomSetting : MonoBehaviourPunCallbacks
             return;
 
         FirebaseManager.Instance.UpdatePlayerCount(PhotonNetwork.CurrentRoom.Name, PhotonNetwork.CurrentRoom.PlayerCount - 1);
+
         NetworkManager.Instance.LeftRoom();
     }
 

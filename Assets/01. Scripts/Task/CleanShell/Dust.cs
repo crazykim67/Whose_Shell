@@ -14,6 +14,7 @@ public class Dust : MonoBehaviour
     {
         dustImage.color = new Color(dustImage.color.r, dustImage.color.g, dustImage.color.b, 1f);
         this.gameObject.SetActive(true);
+        isClean = false;
     }
 
     public void OnClean()

@@ -145,7 +145,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
             int index = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
             var player = controllerList[index];
 
-            if (player.playerType != PlayerType.Terrapin)
+            if ((player.playerType & PlayerType.Terrapin) != PlayerType.Terrapin)
                 pv.RPC("SetPlayerType", RpcTarget.All, player.nickName);
             else
                 i--;
@@ -158,7 +158,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
         pv.RPC("SetTerrapinValue", RpcTarget.All);
     }
 
-    #region Start
+    #region Start / End
 
     public void OnStart()
     {
@@ -167,6 +167,14 @@ public class GameSystem : MonoBehaviourPunCallbacks
 
         StartCoroutine(GameReady());
         pv.RPC("IsStart", RpcTarget.All, true);
+    }
+
+    public void OnEnd()
+    {
+        if (!isStart)
+            return;
+
+        pv.RPC("IsStart", RpcTarget.All, false);
     }
 
     #endregion
@@ -260,6 +268,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
         foreach (var controller in controllerList)
         {
             controller.playerSet.SetColor(Color.white);
+            controller.playerSet.SetActive(true);
         }
     }
 
@@ -383,13 +392,14 @@ public class GameSystem : MonoBehaviourPunCallbacks
         System.Array.Sort(players, new PlayerVoteComparer());
 
         int remainTerrapin = 0;
+        int remainTurtle = 0;
 
         foreach (var player in players)
         {
             if ((player.playerType & PlayerType.Terrapin_Alive) == PlayerType.Terrapin_Alive)
-            {
                 remainTerrapin++;
-            }
+            else if((player.playerType & PlayerType.Tutle_Alive) == PlayerType.Tutle_Alive)
+                remainTurtle++;
         }
 
         // 스킵 투표 수가 플레이어 투표 수 보다 많을 시
@@ -431,6 +441,14 @@ public class GameSystem : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(10f);
 
         CloseEjectUI();
+
+        if(OuttroUIManager.Instance != null)
+        {
+            if (remainTerrapin == 0)
+                OuttroUIManager.Instance.Controller.OnOuttro(0);
+            else if(remainTerrapin == remainTurtle)
+                OuttroUIManager.Instance.Controller.OnOuttro(1);
+        }
     }
 
     public void RpcShowEjectionUI(bool isEjection, float _hue, bool isTerrapin, int remainTerrapin)
@@ -460,6 +478,19 @@ public class GameSystem : MonoBehaviourPunCallbacks
     public void RpcEndVoteTime()
     {
         InGameUIManager.Instance.MeetingUI.OpenResult();
+    }
+
+    public void Init()
+    {
+        InitNickName();
+
+        var deadbodies = FindObjectsByType<Deadbody>(FindObjectsSortMode.None);
+
+        if (deadbodies.Length <= 0)
+            return;
+
+        for (int i = 0; i < deadbodies.Length; i++)
+            Destroy(deadbodies[i].gameObject);
     }
 
     private class PlayerVoteComparer : IComparer

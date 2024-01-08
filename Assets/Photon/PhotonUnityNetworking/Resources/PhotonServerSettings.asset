@@ -82,6 +82,11 @@ MonoBehaviour:
   - TaskTypeCheck
   - TaskTypeRpcCheck
   - SetRpcTask
+  - ShowOuttroRPC
+  - RpcKillTerrapin
+  - RpcKillTurtle
+  - InitRpcTask
+  - PlayerInit
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

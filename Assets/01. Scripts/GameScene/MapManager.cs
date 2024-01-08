@@ -37,7 +37,8 @@ public class MapManager : MonoBehaviour
     public SpriteSorter inGameSorter;
 
     [Header("Spawn Area")]
-    public List<Transform> spawnList = new List<Transform>();
+    public List<Transform> spawnLobbyList = new List<Transform>();
+    public List<Transform> spawnInGameList = new List<Transform>();
 
     [SerializeField]
     private TaskController taskController;
@@ -55,15 +56,6 @@ public class MapManager : MonoBehaviour
             return;
 
         OnMap(index);
-
-        List<PlayerController> playerList = GameSystem.Instance.controllerList;
-
-        for (int i = 0; i < playerList.Count; i++) 
-        {
-            Transform spawnPos = spawnList[i];
-            //playerList[i].transform.position = spawnPos.position;
-            pv.RPC("SetPosition", RpcTarget.All, i, spawnPos.position.x, spawnPos.position.y, spawnPos.position.z);
-        }
     }
 
     public void OnMap(int index)
@@ -84,6 +76,12 @@ public class MapManager : MonoBehaviour
                         player.sorting.SetSorter(lobbySorter);
 
                     SetTask(false);
+
+                    for (int i = 0; i < playerList.Count; i++)
+                    {
+                        Transform spawnPos = spawnLobbyList[i];
+                        pv.RPC("SetPosition", RpcTarget.All, i, spawnPos.position.x, spawnPos.position.y, spawnPos.position.z);
+                    }
                     break;
                 }
             case 1:
@@ -93,6 +91,12 @@ public class MapManager : MonoBehaviour
 
                     foreach (var player in playerList)
                         player.sorting.SetSorter(inGameSorter);
+
+                    for (int i = 0; i < playerList.Count; i++)
+                    {
+                        Transform spawnPos = spawnInGameList[i];
+                        pv.RPC("SetPosition", RpcTarget.All, i, spawnPos.position.x, spawnPos.position.y, spawnPos.position.z);
+                    }
                     break;
                 }
         }
@@ -113,7 +117,7 @@ public class MapManager : MonoBehaviour
 
     public Transform[] SpawnArray()
     {
-        Transform[] array = spawnList.ToArray();
+        Transform[] array = spawnInGameList.ToArray();
 
         return array;
     }
@@ -128,12 +132,19 @@ public class MapManager : MonoBehaviour
             pv.RPC("SetRpcTask", RpcTarget.All, randomCommon, randomSimple);
         }
         else
-            pv.RPC("SetRpcTask", RpcTarget.All, 2, 3);
+            pv.RPC("InitRpcTask", RpcTarget.All);
     }
 
     [PunRPC]
     public void SetRpcTask(int randomCommon, int randomSimple)
     {
         TaskController.SetTask(randomCommon, randomSimple);
+    }
+
+    [PunRPC]
+    public void InitRpcTask()
+    {
+        TaskController.SetCommonTask(2, 0);
+        TaskController.SetSimpleTask(3, 0);
     }
 }

@@ -107,6 +107,15 @@ public class VivoxManager : MonoBehaviour
         });
     }
 
+    public void LeftChannel(string channelName)
+    {
+        if (!channelName.Equals(string.Empty))
+        {
+            if (vivox.channelSession != null)
+                vivox.channelSession.Disconnect();
+        }
+    }
+
     #region 사용자 참여, 나가기 관련 콜백
 
     // 사용자 참여, 나가기 콜백

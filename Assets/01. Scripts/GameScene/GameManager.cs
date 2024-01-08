@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int successCommonTask;
     public int successSimpleTask;
 
+    public int remainTurtleCount = 0;
+    public int remainTerrapinCount = 0;
+
     private void Awake()
     {
         instance = this;
@@ -50,11 +53,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         terrapinCount = terrapin;
     }
 
-    public void SetData(int _emCount, int _emCoolTime, int _emTime,
-        int _voteTime, float _speed, float _tuSight, float _teSight,
+    public void SetData(int _voteTime, float _speed, float _tuSight, float _teSight,
         float _killCoolTime, int _range, int _commonTask, int _simpleTask)
     {
-        GameRuleData data = new GameRuleData(_emCount, _emCoolTime, _emTime, _voteTime,
+        GameRuleData data = new GameRuleData(_voteTime,
             _speed, _tuSight, _teSight, _killCoolTime, (KillRange)_range, _commonTask, _simpleTask);
 
         ruleData = data;

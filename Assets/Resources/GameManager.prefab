@@ -46,9 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ruleData:
-    emergencyCount: 2
-    emergencyCoolTime: 20
-    emergencyTime: 20
     voteTime: 120
     playerSpeed: 3.5
     turtleSight: 1
@@ -60,6 +57,8 @@ MonoBehaviour:
   terrapinCount: 0
   successCommonTask: 0
   successSimpleTask: 0
+  remainTurtleCount: 0
+  remainTerrapinCount: 0
 --- !u!114 &6431038177005856686
 MonoBehaviour:
   m_ObjectHideFlags: 0

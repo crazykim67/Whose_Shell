@@ -75,6 +75,7 @@ public class IntroUIController : MonoBehaviour
                 MapManager.Instance.MapIndex(1); 
                 dimObj.SetActive(false);
                 turtleObj.SetActive(false);
+                ResetIntro();
             }) ;
     }
 
@@ -94,13 +95,8 @@ public class IntroUIController : MonoBehaviour
     {
         StartCoroutine(ShowIntroSequence());
 
-        if (GameSystem.Instance == null)
+        if (InGameUIManager.Instance == null)
             return;
-
-        // 모든 닉네임 비활성화
-        //foreach(var player in GameSystem.Instance.controllerList)
-        //    if (!player.nickName.Equals(PhotonNetwork.NickName))
-        //        player.playerSet.SetActive(false);
 
         InGameUIManager.Instance.StartGameSetting();
     }
@@ -163,5 +159,13 @@ public class IntroUIController : MonoBehaviour
     public void OnIntro()
     {
         pv.RPC("ShowIntroRPC", RpcTarget.All);
+    }
+
+    public void ResetIntro()
+    {
+        foreach(var character in otherCharacters)
+        {
+            character.gameObject.SetActive(false);
+        }
     }
 }
