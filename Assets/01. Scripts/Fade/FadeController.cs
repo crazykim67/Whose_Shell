@@ -32,6 +32,8 @@ public class FadeController : MonoBehaviour
     [SerializeField]
     private float alphaValue = 0f;
 
+    public Coroutine runningCorouine;
+
     private void Awake()
     {
         instance = this;

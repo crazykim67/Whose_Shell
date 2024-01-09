@@ -75,7 +75,11 @@ public class IntroUIController : MonoBehaviour
                 MapManager.Instance.MapIndex(1); 
                 dimObj.SetActive(false);
                 turtleObj.SetActive(false);
-                ResetIntro();
+
+                if (InGameUIManager.Instance == null)
+                    return;
+
+                InGameUIManager.Instance.StartGameSetting();
             }) ;
     }
 
@@ -94,17 +98,17 @@ public class IntroUIController : MonoBehaviour
     public void ShowIntroRPC()
     {
         StartCoroutine(ShowIntroSequence());
-
-        if (InGameUIManager.Instance == null)
-            return;
-
-        InGameUIManager.Instance.StartGameSetting();
     }
 
     #endregion
 
     public void ShowPlayer()
     {
+        foreach (var character in otherCharacters)
+        {
+            character.gameObject.SetActive(false);
+        }
+
         var players = GameSystem.Instance.GetPlayerList();
 
         PlayerController myPlayer = null;
@@ -117,6 +121,7 @@ public class IntroUIController : MonoBehaviour
                 break;
             }
         }
+
 
         myCharacter.SetIntroCharacter(PhotonNetwork.NickName, myPlayer.playerColor);
         myPlayer.SetTerrapinActive(GameSystem.Instance.controllerList);
@@ -159,13 +164,5 @@ public class IntroUIController : MonoBehaviour
     public void OnIntro()
     {
         pv.RPC("ShowIntroRPC", RpcTarget.All);
-    }
-
-    public void ResetIntro()
-    {
-        foreach(var character in otherCharacters)
-        {
-            character.gameObject.SetActive(false);
-        }
     }
 }

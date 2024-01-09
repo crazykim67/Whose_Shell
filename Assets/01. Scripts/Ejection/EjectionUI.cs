@@ -101,7 +101,29 @@ public class EjectionUI : MonoBehaviour
             forwardText += backText[0];
             backText = backText.Remove(0, 1);
             ejectionResultText.text = string.Format("<color=#FFFFFF>{0}</color><color=#393957>{1}</color>", forwardText, backText);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        if (GameSystem.Instance != null)
+        {
+            int remainTerrapin = 0;
+            int remainTurtle = 0;
+
+            foreach (var player in GameSystem.Instance.controllerList)
+            {
+                if ((player.playerType & PlayerType.Ghost) != PlayerType.Ghost && (player.playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
+                    remainTerrapin++;
+                else if ((player.playerType & PlayerType.Ghost) != PlayerType.Ghost && (player.playerType & PlayerType.Turtle) == PlayerType.Turtle)
+                    remainTurtle++;
+            }
+
+            if (OuttroUIManager.Instance != null)
+            {
+                if (remainTerrapin == 0)
+                    OuttroUIManager.Instance.Controller.ShowOuttroRPC(0);
+                else if (remainTerrapin == remainTurtle)
+                    OuttroUIManager.Instance.Controller.ShowOuttroRPC(1);
+            }
         }
     }
 

@@ -159,13 +159,13 @@ public class GameRuleSetting : MonoBehaviour
 
     public void OnCommonTaskChange(bool isPlus)
     {
-        commonTask = Mathf.Clamp(commonTask + (isPlus ? 1 : -1), 0, 2);
+        commonTask = Mathf.Clamp(commonTask + (isPlus ? 1 : -1), 1, 2);
         commonTaskText.text = string.Format("{0}", commonTask);
     }
 
     public void OnSimpleTaskChange(bool isPlus)
     {
-        simpleTask = Mathf.Clamp(simpleTask + (isPlus ? 1 : -1), 0, 3);
+        simpleTask = Mathf.Clamp(simpleTask + (isPlus ? 1 : -1), 1, 3);
         simpleTaskText.text = string.Format("{0}", simpleTask);
     }
 

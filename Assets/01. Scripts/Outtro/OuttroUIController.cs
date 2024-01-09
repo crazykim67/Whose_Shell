@@ -47,8 +47,6 @@ public class OuttroUIController : MonoBehaviour
                 turtleObj.SetActive(true);
             });
 
-        
-
         ShowPlayer(type);
 
         yield return new WaitForSeconds(3f);
@@ -107,7 +105,7 @@ public class OuttroUIController : MonoBehaviour
             }
         }
 
-        myCharacter.SetIntroCharacter(PhotonNetwork.NickName, myPlayer.playerColor);
+        myCharacter.gameObject.SetActive(false);
 
         for(int i = 0; i < players.Count; i++)
             otherCharacters[i].gameObject.SetActive(false);
@@ -117,6 +115,14 @@ public class OuttroUIController : MonoBehaviour
         {
             playerType.text = "ÀÚ¶ó ½Â¸®";
             playerType.color = gradientImage.color = terrapinColor;
+
+            if ((myPlayer.playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
+            {
+                myCharacter.SetIntroCharacter(PhotonNetwork.NickName, myPlayer.playerColor);
+                myCharacter.gameObject.SetActive(true);
+            }
+            else
+                myCharacter.gameObject.SetActive(false);
 
             int i = 0;
             foreach (var player in players)
@@ -134,6 +140,11 @@ public class OuttroUIController : MonoBehaviour
         {
             playerType.text = "°ÅºÏÀÌ ½Â¸®";
             playerType.color = gradientImage.color = turtleColor;
+
+            if ((myPlayer.playerType & PlayerType.Turtle) == PlayerType.Turtle)
+                myCharacter.SetIntroCharacter(PhotonNetwork.NickName, myPlayer.playerColor);
+            else
+                myCharacter.gameObject.SetActive(false);
 
             int i = 0;
             foreach (var player in players)
@@ -174,7 +185,7 @@ public class OuttroUIController : MonoBehaviour
         system.Init();
         ui.TaskUI.Init();
 
-        foreach(var player in system.controllerList)
+        foreach (var player in system.controllerList)
                 player.Init();
     }
 }

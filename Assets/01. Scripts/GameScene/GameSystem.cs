@@ -312,6 +312,9 @@ public class GameSystem : MonoBehaviourPunCallbacks
                 {
                     InGameUIManager.Instance.TaskUI.CoralCut.OnHide();
                     InGameUIManager.Instance.TaskUI.TrashTask.OnHide();
+                    InGameUIManager.Instance.TaskUI.CleanShellTask.OnHide();
+                    InGameUIManager.Instance.TaskUI.SpiderWebTask.OnHide();
+                    InGameUIManager.Instance.TaskUI.DishTask.OnHide();
                 }
             }
         }
@@ -392,15 +395,10 @@ public class GameSystem : MonoBehaviourPunCallbacks
         System.Array.Sort(players, new PlayerVoteComparer());
 
         int remainTerrapin = 0;
-        int remainTurtle = 0;
 
         foreach (var player in players)
-        {
-            if ((player.playerType & PlayerType.Terrapin_Alive) == PlayerType.Terrapin_Alive)
+            if ((player.playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
                 remainTerrapin++;
-            else if((player.playerType & PlayerType.Tutle_Alive) == PlayerType.Tutle_Alive)
-                remainTurtle++;
-        }
 
         // 스킵 투표 수가 플레이어 투표 수 보다 많을 시
         if (skipVotePlayerCount >= players[0].vote)
@@ -438,17 +436,9 @@ public class GameSystem : MonoBehaviourPunCallbacks
             }
         }
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(6f);
 
         CloseEjectUI();
-
-        if(OuttroUIManager.Instance != null)
-        {
-            if (remainTerrapin == 0)
-                OuttroUIManager.Instance.Controller.OnOuttro(0);
-            else if(remainTerrapin == remainTurtle)
-                OuttroUIManager.Instance.Controller.OnOuttro(1);
-        }
     }
 
     public void RpcShowEjectionUI(bool isEjection, float _hue, bool isTerrapin, int remainTerrapin)

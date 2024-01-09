@@ -56,6 +56,7 @@ public class MapManager : MonoBehaviour
             return;
 
         OnMap(index);
+        StopAllCoroutines();
     }
 
     public void OnMap(int index)
@@ -144,7 +145,7 @@ public class MapManager : MonoBehaviour
     [PunRPC]
     public void InitRpcTask()
     {
-        TaskController.SetCommonTask(2, 0);
-        TaskController.SetSimpleTask(3, 0);
+        TaskController.SetCommonTask(2, 0, true);
+        TaskController.SetSimpleTask(3, 0, true);
     }
 }

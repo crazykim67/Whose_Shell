@@ -154,13 +154,13 @@ public class TaskUI : MonoBehaviour
 
     public void Init()
     {
+        OnTaskListReset();
         progress.fillAmount = 0;
         CoralCut.Init();
         TrashTask.Init();
         DishTask.Init();
         CleanShellTask.Init();
         SpiderWebTask.Init();
-        OnTaskListReset();
     }
 
     public void SetCommonTaskList(int common, int random = 0)
@@ -202,7 +202,7 @@ public class TaskUI : MonoBehaviour
                     else if(random == 1)
                         SetTaskText("간단한 임무 : 등껍질 닦기");
                     else
-                        SetTaskText("공용임무 : 거미줄 청소하기");
+                        SetTaskText("간단한 임무 : 거미줄 청소하기");
 
                     break;
                 }
@@ -211,12 +211,12 @@ public class TaskUI : MonoBehaviour
                     if(random == 0)
                     {
                         SetTaskText("간단한 임무 : 등껍질 닦기");
-                        SetTaskText("공용임무 : 거미줄 청소하기");
+                        SetTaskText("간단한 임무 : 거미줄 청소하기");
                     }
                     else if(random == 1)
                     {
                         SetTaskText("간단한 임무 : 접시 모으기");
-                        SetTaskText("공용임무 : 거미줄 청소하기");
+                        SetTaskText("간단한 임무 : 거미줄 청소하기");
                     }
                     else
                     {
@@ -240,11 +240,9 @@ public class TaskUI : MonoBehaviour
         TextMeshProUGUI _taskText = Instantiate(taskText, taskRect).GetComponent<TextMeshProUGUI>();
         taskTextList.Add(_taskText);
         _taskText.text = text;
-
-        StartCoroutine(Rebuilder());
     }
 
-    private void OnTaskListReset()
+    public void OnTaskListReset()
     {
         foreach(var taskText in taskTextList)
             Destroy(taskText.gameObject);
@@ -252,7 +250,7 @@ public class TaskUI : MonoBehaviour
         taskTextList.Clear();
     }
 
-    private IEnumerator Rebuilder()
+    public IEnumerator Rebuilder()
     {
         yield return null;
 

@@ -96,6 +96,7 @@ public class InGameUIManager : MonoBehaviour
     public void StartGameSetting()
     {
         this.uiObject.SetActive(true);
+        StartCoroutine(TaskUI.Rebuilder());
     }
 
     public void EndGameSetting()

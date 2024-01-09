@@ -341,6 +341,7 @@ public class PlayerController : MonoBehaviour
     public void Kill()
     {
         RPCKill(playerFinder.GetNearTarget().pv.ViewID);
+        KillLaterCheck();
     }
 
     public void KillLaterCheck()
@@ -356,13 +357,11 @@ public class PlayerController : MonoBehaviour
 
         foreach (var player in GameSystem.Instance.controllerList)
         {
-            if ((player.playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
+            if ((player.playerType & PlayerType.Ghost) != PlayerType.Ghost && (player.playerType & PlayerType.Terrapin) == PlayerType.Terrapin)
                 remainTerrapin++;
-            else if ((player.playerType & PlayerType.Turtle) == PlayerType.Turtle)
+            else if ((player.playerType & PlayerType.Ghost) != PlayerType.Ghost && (player.playerType & PlayerType.Turtle) == PlayerType.Turtle)
                 remainTurtle++;
         }
-
-        Debug.Log($"자라 : {remainTerrapin} \n 거북이 : {remainTurtle}");
 
         if (remainTerrapin == remainTurtle)
             OuttroUIManager.Instance.Controller.OnOuttro(1);
@@ -397,8 +396,6 @@ public class PlayerController : MonoBehaviour
 
         pv.RPC("InstantiateRoomObject", RpcTarget.MasterClient, isEjection, "Deadbody", transform.position,
         transform.rotation.x, transform.rotation.y, transform.rotation.z, playerColor);
-
-        KillLaterCheck();
     }
 
     [PunRPC]
