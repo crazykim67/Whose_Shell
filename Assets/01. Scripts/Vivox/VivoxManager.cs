@@ -23,7 +23,37 @@ public class Vivox
     public IAudioDevices audioInputDevice;
     public IAudioDevices audioOutputDevice;
 }
+//private IParticipant participant;
 
+//void Start()
+//{
+//    // Vivox 초기화 및 로그인 등의 코드...
+
+//    // 채널에 참여한 사용자를 가져옴
+//    participant = VivoxManager.Instance.ChannelSession.Participants.FirstOrDefault();
+
+//    // 음성 감지 이벤트 핸들링
+//    if (participant != null)
+//    {
+//        participant.AudioUpdatedEvent += OnAudioUpdated;
+//    }
+//}
+
+//// 음성 감지 이벤트 핸들러
+//private void OnAudioUpdated()
+//{
+//    if (participant.IsSpeaking)
+//    {
+//        // 사용자가 말하고 있는 경우 처리할 내용
+//        Debug.Log("User is speaking");
+//    }
+//    else
+//    {
+//        // 사용자가 말하지 않고 있는 경우 처리할 내용
+//        Debug.Log("User is not speaking");
+//    }
+//}
+//}
 public class VivoxManager : MonoBehaviour
 {
     public Vivox vivox = new Vivox();

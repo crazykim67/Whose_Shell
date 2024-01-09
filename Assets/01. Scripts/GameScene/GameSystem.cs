@@ -304,6 +304,7 @@ public class GameSystem : MonoBehaviourPunCallbacks
     [PunRPC]
     public void RpcSendReportSign(float deadbodyColor)
     {
+        // 임무를 수행 중이었다면 모든 임무 강제종료
         foreach(var player in controllerList) 
         { 
             if (player.pv.IsMine)

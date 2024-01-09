@@ -24,7 +24,7 @@ public class TaskObject : MonoBehaviour
 
         currentPlayer = coll.GetComponent<PlayerController>();
 
-        if (currentPlayer != null && currentPlayer.pv.IsMine /*&& (currentPlayer.playerType & PlayerType.Terrapin) != PlayerType.Terrapin*/)
+        if (currentPlayer != null && currentPlayer.pv.IsMine && (currentPlayer.playerType & PlayerType.Terrapin) != PlayerType.Terrapin)
         {
             outLine.SetActive(true);
             currentPlayer.taskObject = this;
