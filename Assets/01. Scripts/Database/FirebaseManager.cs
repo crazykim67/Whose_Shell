@@ -6,6 +6,7 @@ using Firebase.Database;
 using Firebase.Extensions;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class FirebaseManager : MonoBehaviour
 {
@@ -114,6 +115,51 @@ public class FirebaseManager : MonoBehaviour
         string jsonData = JsonUtility.ToJson(_room);
 
         databaseReference.Child("RoomList").Child(_roomName).SetRawJsonValueAsync(jsonData);
+    }
+
+    public void OnLoadRoomData()
+    {
+        databaseReference.Child("RoomList").GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCanceled)
+                Debug.Log("Load Canceled...!");
+            else if (task.IsFaulted)
+                Debug.Log("Load Failed...!");
+            else
+            {
+                var _data = task.Result;
+
+                string dataString = "";
+                foreach (var data in _data.Children)
+                    dataString = $"RoomName : {data}";
+            }
+        });
+    }
+
+    public void IsExistRoom(string _roomName, Action trueAct = null, Action falseAct = null)
+    {
+        databaseReference.Child("RoomList").GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCanceled)
+                Debug.Log("Load Canceled...!");
+            else if (task.IsFaulted)
+                Debug.Log("Load Failed...!");
+            else
+            {
+                var _data = task.Result;
+
+                foreach (var data in _data.Children)
+                {
+                    if (data.Key.Equals(_roomName))
+                    {
+                        trueAct.Invoke();
+                        return;
+                    }
+                }
+
+                falseAct.Invoke();
+            }
+        });
     }
 
     public void UpdatePlayerCount(string _roomName, int _playerCount)

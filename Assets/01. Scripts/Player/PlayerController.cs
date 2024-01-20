@@ -418,7 +418,7 @@ public class PlayerController : MonoBehaviour
     {
         playerType |= PlayerType.Ghost;
         anim.SetBool("isGhost", true);
-
+        
         // 자신이 죽었을 때
         if (pv.IsMine)
         {

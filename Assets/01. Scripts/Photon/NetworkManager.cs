@@ -165,7 +165,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             char c = ROOM_CODE[pos];
             sb.Append(c);
         }
-        // 중복검사해야함
+
         return sb.ToString();
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.Android;
 using System;
 using VivoxUnity;
 using Photon.Pun;
+using Unity.Services.Vivox;
 
 [Serializable]
 public class Vivox
@@ -17,46 +18,20 @@ public class Vivox
     public string tokenKey = "L7XRwfPL9dUwXpxp8mCpRMYMNCHOHyEL";
     public TimeSpan timespan = TimeSpan.FromSeconds(90);
 
+
     public ILoginSession loginSession;
     public IChannelSession channelSession;
 
     public IAudioDevices audioInputDevice;
     public IAudioDevices audioOutputDevice;
 }
-//private IParticipant participant;
 
-//void Start()
-//{
-//    // Vivox 초기화 및 로그인 등의 코드...
 
-//    // 채널에 참여한 사용자를 가져옴
-//    participant = VivoxManager.Instance.ChannelSession.Participants.FirstOrDefault();
-
-//    // 음성 감지 이벤트 핸들링
-//    if (participant != null)
-//    {
-//        participant.AudioUpdatedEvent += OnAudioUpdated;
-//    }
-//}
-
-//// 음성 감지 이벤트 핸들러
-//private void OnAudioUpdated()
-//{
-//    if (participant.IsSpeaking)
-//    {
-//        // 사용자가 말하고 있는 경우 처리할 내용
-//        Debug.Log("User is speaking");
-//    }
-//    else
-//    {
-//        // 사용자가 말하지 않고 있는 경우 처리할 내용
-//        Debug.Log("User is not speaking");
-//    }
-//}
-//}
 public class VivoxManager : MonoBehaviour
 {
     public Vivox vivox = new Vivox();
+    public AccountId accountId = null;
+    public string userName;
 
     #region Instance
 
@@ -94,10 +69,11 @@ public class VivoxManager : MonoBehaviour
         SetAudioDevices();
     }
 
-    public void Login(string userName)
+    public void Login(string _userName)
     {
-        AccountId accoundId = new AccountId(vivox.issuer, userName, vivox.domain);
-        vivox.loginSession = vivox.client.GetLoginSession(accoundId);
+        userName = _userName;
+        accountId = new AccountId(vivox.issuer, userName, vivox.domain);
+        vivox.loginSession = vivox.client.GetLoginSession(accountId);
 
         // 공식 문서에서 TryCatch 사용이 무난하다고 함.
         vivox.loginSession.BeginLogin(vivox.server, vivox.loginSession.GetLoginToken(vivox.tokenKey, vivox.timespan),
@@ -234,6 +210,8 @@ public class VivoxManager : MonoBehaviour
             {
                 vivox.channelSession.Disconnect();
                 vivox.loginSession.DeleteChannelSession(new ChannelId(vivox.issuer, roomName, vivox.domain, ChannelType.NonPositional));
+                accountId = null;
+                userName = "";
             }
         }
 

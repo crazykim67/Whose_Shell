@@ -81,8 +81,17 @@ public class OnlineMenuUI : MonoBehaviour
             return;
         }
 
-        PhotonNetwork.NickName = nickNameInputField.text;
-        CircleTransitionController.Instance.CloseBlackScreen(InputField , OnJoinRoom);
+        FirebaseManager.Instance.IsExistRoom(codeInputField.text, () =>
+        {
+            CircleTransitionController.Instance.CloseBlackScreen(InputField, OnJoinRoom);
+            PhotonNetwork.NickName = nickNameInputField.text;
+        },
+        () =>
+        {
+            OnCodeAnim();
+            OnError("해당하는 방이 없습니다.");
+            return;
+        });
     }
 
     public void OnCodeAnim()

@@ -26,8 +26,8 @@ public class MeetingUI : MonoBehaviour
     [SerializeField]
     private Transform skipVoteParent;
 
-    [SerializeField]
-    private List<MeetingPlayerPanel> meetingPlayerPanels = new List<MeetingPlayerPanel>();
+    public List<MeetingPlayerPanel> meetingPlayerPanels = new List<MeetingPlayerPanel>();
+
     [SerializeField]
     private List<Image> skipPlayer = new List<Image>();
 
@@ -166,9 +166,7 @@ public class MeetingUI : MonoBehaviour
     private void Update()
     {
         if (isStart)
-        {
             meetingTimeText.text = string.Format("회의시간 : {0}s", (int)Mathf.Clamp(GameSystem.Instance.remainTime, 0f, float.MaxValue));
-        }
     }
 
     public void OnHide()
@@ -189,4 +187,5 @@ public class MeetingUI : MonoBehaviour
         meetingPlayerPanels.Clear();
         skipPlayer.Clear();
     }
+
 }
