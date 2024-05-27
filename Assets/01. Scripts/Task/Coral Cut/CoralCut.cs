@@ -52,9 +52,10 @@ public class CoralCut : TaskScript
 
         textAnim.gameObject.SetActive(true);
         textAnim.SetBool("isSuccess", true);
+        curTaskText.OnTaskCheck(true);
         isSuccess = true;
 
-        if(InGameUIManager.Instance != null)
+        if (InGameUIManager.Instance != null)
         {
             InGameUIManager.Instance.OnSuccess();
             InGameUIManager.Instance.TaskTypeCheck((int)taskType);

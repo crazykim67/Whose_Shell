@@ -49,6 +49,7 @@ public class SpiderWebTask : TaskScript
 
         textAnim.gameObject.SetActive(true);
         textAnim.SetBool("isSuccess", true);
+        curTaskText.OnTaskCheck(true);
         isSuccess = true;
 
         if (InGameUIManager.Instance != null)

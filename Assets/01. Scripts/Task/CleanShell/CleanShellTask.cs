@@ -53,6 +53,7 @@ public class CleanShellTask : TaskScript
 
         textAnim.gameObject.SetActive(true);
         textAnim.SetBool("isSuccess", true);
+        curTaskText.OnTaskCheck(true);
         isSuccess = true;
 
         head.SetActive(true);

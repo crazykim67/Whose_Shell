@@ -32,7 +32,7 @@ public class TaskUI : MonoBehaviour
     public GameObject taskText;
 
     [SerializeField]
-    private List<TextMeshProUGUI> taskTextList = new List<TextMeshProUGUI>();
+    private List<TaskText> taskTextList = new List<TaskText>();
 
     [SerializeField]
     private CoralCut coralCut;
@@ -174,15 +174,15 @@ public class TaskUI : MonoBehaviour
             case 1:
                 {
                     if(random == 0)
-                        SetTaskText("공용임무 : 쓰레기 버리기");
+                        SetTaskText("공용임무 : 쓰레기 버리기", trashTask);
                     else
-                        SetTaskText("공용임무 : 산호초 자르기");
+                        SetTaskText("공용임무 : 산호초 자르기", coralCut);
                     break;
                 }
             case 2:
                 {
-                    SetTaskText("공용임무 : 산호초 자르기");
-                    SetTaskText("공용임무 : 쓰레기 버리기");
+                    SetTaskText("공용임무 : 산호초 자르기", coralCut);
+                    SetTaskText("공용임무 : 쓰레기 버리기", trashTask);
                     break;
                 }
         }
@@ -198,11 +198,11 @@ public class TaskUI : MonoBehaviour
             case 1:
                 {
                     if (random == 0)
-                        SetTaskText("간단한 임무 : 접시 모으기");
+                        SetTaskText("간단한 임무 : 접시 모으기", dishTask);
                     else if(random == 1)
-                        SetTaskText("간단한 임무 : 등껍질 닦기");
+                        SetTaskText("간단한 임무 : 등껍질 닦기", cleanShellTask);
                     else
-                        SetTaskText("간단한 임무 : 거미줄 청소하기");
+                        SetTaskText("간단한 임무 : 거미줄 청소하기", spiderWebTask);
 
                     break;
                 }
@@ -210,36 +210,38 @@ public class TaskUI : MonoBehaviour
                 {
                     if(random == 0)
                     {
-                        SetTaskText("간단한 임무 : 등껍질 닦기");
-                        SetTaskText("간단한 임무 : 거미줄 청소하기");
+                        SetTaskText("간단한 임무 : 등껍질 닦기", cleanShellTask);
+                        SetTaskText("간단한 임무 : 거미줄 청소하기", spiderWebTask);
                     }
                     else if(random == 1)
                     {
-                        SetTaskText("간단한 임무 : 접시 모으기");
-                        SetTaskText("간단한 임무 : 거미줄 청소하기");
+                        SetTaskText("간단한 임무 : 접시 모으기", dishTask);
+                        SetTaskText("간단한 임무 : 거미줄 청소하기", spiderWebTask);
                     }
                     else
                     {
-                        SetTaskText("간단한 임무 : 접시 모으기");
-                        SetTaskText("간단한 임무 : 등껍질 닦기");
+                        SetTaskText("간단한 임무 : 접시 모으기", dishTask);
+                        SetTaskText("간단한 임무 : 등껍질 닦기", cleanShellTask);
                     }
                     break;
                 }
             case 3:
                 {
-                    SetTaskText("간단한 임무 : 등껍질 닦기");
-                    SetTaskText("간단한 임무 : 접시 모으기");
-                    SetTaskText("간단한 임무 : 등껍질 닦기");
+                    SetTaskText("간단한 임무 : 등껍질 닦기", cleanShellTask);
+                    SetTaskText("간단한 임무 : 접시 모으기", dishTask);
+                    SetTaskText("간단한 임무 : 등껍질 닦기", cleanShellTask);
                     break;
                 }
         }
     }   
 
-    private void SetTaskText(string text) 
+    private void SetTaskText(string text, TaskScript taskScript) 
     { 
-        TextMeshProUGUI _taskText = Instantiate(taskText, taskRect).GetComponent<TextMeshProUGUI>();
+        TaskText _taskText = Instantiate(taskText, taskRect).GetComponent<TaskText>();
+        _taskText.SetTask(text);
+        _taskText.OnTaskCheck(false);
         taskTextList.Add(_taskText);
-        _taskText.text = text;
+        taskScript.curTaskText = _taskText;
     }
 
     public void OnTaskListReset()

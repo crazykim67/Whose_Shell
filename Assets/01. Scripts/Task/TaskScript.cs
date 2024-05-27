@@ -16,6 +16,9 @@ public class TaskScript : MonoBehaviour
 
     public TaskType taskType = TaskType.None;
 
+    [HideInInspector]
+    public TaskText curTaskText;
+
     public virtual void Init()
     {
         if (GameSystem.Instance == null)
@@ -23,13 +26,11 @@ public class TaskScript : MonoBehaviour
 
         if (myCharacter == null)
             foreach (var player in GameSystem.Instance.controllerList)
-            {
                 if (player.nickName.Equals(PhotonNetwork.NickName))
                 {
                     myCharacter = player;
                     break;
                 }
-            }
 
         if(textAnim.gameObject.activeSelf)
             textAnim.SetBool("isSuccess", false);
