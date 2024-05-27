@@ -140,8 +140,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // Vivox 연결
         VivoxManager.Instance.Login(AuthManager.Instance.currentId);
 
-        VivoxManager.Instance.OnInputAudioMute(true);
-        VivoxManager.Instance.OnOutputAudioMute(true);
+        VivoxManager.Instance.OnAudioMute(true);
     }
 
     // 방 나가기 콜백

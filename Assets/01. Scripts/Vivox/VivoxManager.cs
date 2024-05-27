@@ -200,6 +200,12 @@ public class VivoxManager : MonoBehaviour
         vivox.client.AudioOutputDevices.Muted = isMute;
     }
 
+    public void OnAudioMute(bool isMute)
+    {
+        vivox.client.AudioOutputDevices.Muted = isMute;
+        vivox.client.AudioInputDevices.Muted = isMute;
+    }
+
     #endregion
 
     public void OnLeft(string roomName = "")
