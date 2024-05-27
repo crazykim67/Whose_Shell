@@ -211,18 +211,15 @@ public class VivoxManager : MonoBehaviour
     public void OnLeft(string roomName = "")
     {
         if (!roomName.Equals(string.Empty))
-        {
             if (vivox.channelSession != null)
             {
                 vivox.channelSession.Disconnect();
                 vivox.loginSession.DeleteChannelSession(new ChannelId(vivox.issuer, roomName, vivox.domain, ChannelType.NonPositional));
+                vivox.client.Uninitialize();
                 accountId = null;
                 userName = "";
             }
-        }
 
-        vivox.client.Uninitialize();
-        Debug.Log("Vivox Discconect...!");
     }
 
 }
