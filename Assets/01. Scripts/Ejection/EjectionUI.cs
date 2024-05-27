@@ -42,10 +42,7 @@ public class EjectionUI : MonoBehaviour
         }
 
         if (VivoxManager.Instance != null)
-        {
             VivoxManager.Instance.OnAudioMute(true);
-            VivoxManager.Instance.OnAudioMute(true);
-        }
 
         string str = "";
 
