@@ -80,11 +80,7 @@ public class OuttroUIController : MonoBehaviour
     {
         StartCoroutine(ShowOuttroSequence(type));
 
-        if (GameSystem.Instance == null)
-            return;
-
         InGameUIManager.Instance.EndGameSetting();
-
     }
 
     public void ShowPlayer(int type)

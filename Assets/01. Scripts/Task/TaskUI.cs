@@ -116,12 +116,6 @@ public class TaskUI : MonoBehaviour
 
     public void TaskTypeCheck(TaskType type)
     {
-        if (GameManager.Instance == null)
-            return;
-
-        if (InGameUIManager.Instance == null)
-            return;
-
         var game = GameManager.Instance;
         var inGame = InGameUIManager.Instance;
 

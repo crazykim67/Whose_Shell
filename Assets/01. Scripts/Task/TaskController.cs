@@ -12,12 +12,6 @@ public class TaskController : MonoBehaviour
 
     public void SetTask(int _randomCommon, int _randomSimple)
     {
-        if (InGameUIManager.Instance == null)
-            return;
-
-        if (GameManager.Instance == null)
-            return;
-
         commonTaskCount = GameManager.Instance.ruleData.commonTask;
         simpleTaskCount = GameManager.Instance.ruleData.simpleTask;
 

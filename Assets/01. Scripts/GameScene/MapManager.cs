@@ -52,9 +52,6 @@ public class MapManager : MonoBehaviour
 
     public void MapIndex(int index)
     {
-        if (GameSystem.Instance == null)
-            return;
-
         OnMap(index);
         StopAllCoroutines();
     }

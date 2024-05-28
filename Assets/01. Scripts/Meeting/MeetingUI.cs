@@ -38,9 +38,6 @@ public class MeetingUI : MonoBehaviour
 
     public void OnShow()
     {
-        if (GameSystem.Instance == null)
-            return;
-
         isStart = true;
 
         var players = GameSystem.Instance.GetPlayerList();

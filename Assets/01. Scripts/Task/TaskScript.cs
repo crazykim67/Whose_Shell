@@ -21,9 +21,6 @@ public class TaskScript : MonoBehaviour
 
     public virtual void Init()
     {
-        if (GameSystem.Instance == null)
-            return;
-
         if (myCharacter == null)
             foreach (var player in GameSystem.Instance.controllerList)
                 if (player.nickName.Equals(PhotonNetwork.NickName))

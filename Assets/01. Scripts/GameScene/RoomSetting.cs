@@ -163,8 +163,6 @@ public class RoomSetting : MonoBehaviourPunCallbacks
 
     public void OnOptionMenuHide()
     {
-        if (OptionManager.Instance == null)
-            return;
         if(OptionManager.Instance.emptyImage.activeSelf)
             OnHideSetting();
 
@@ -174,17 +172,11 @@ public class RoomSetting : MonoBehaviourPunCallbacks
 
     public void OnShowSetting()
     {
-        if (OptionManager.Instance == null)
-            return;
-
         OptionManager.Instance.OnShow();
     }
 
     public void OnHideSetting()
     {
-        if (OptionManager.Instance == null)
-            return;
-
         OptionManager.Instance.OnHide();
     }
 
