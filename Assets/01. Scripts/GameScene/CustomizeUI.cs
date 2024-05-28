@@ -23,9 +23,6 @@ public class CustomizeUI : MonoBehaviour
 
     public void OnShow()
     {
-        if (CustomManager.Instance.player == null)
-            return;
-
         gameObject.SetActive(true);
 
         characterImage.material.SetFloat("_Hue", hue);
@@ -42,20 +39,11 @@ public class CustomizeUI : MonoBehaviour
 
     public void OnClick(float _hue)
     {
-        if (CustomManager.Instance.player == null)
-            return;
-
-        //if (CustomManager.Instance.player.mat.GetFloat("_Hue") == _hue)
-        //    return;
-
         characterImage.material.SetFloat("_Hue", _hue);
     }
 
     public void OnConfirm()
     {
-        if(CustomManager.Instance.player == null) 
-            return;
-
         CustomManager.Instance.player.SetColor(characterImage.material.GetFloat("_Hue"));
         hue = characterImage.material.GetFloat("_Hue");
     }
