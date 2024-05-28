@@ -22,22 +22,6 @@ public class PlayerFinder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        //if (GameSystem.Instance == null)
-        //    return;
-
-        //if (!GameSystem.Instance.isStart)
-        //    return;
-
-        //if (coll.tag == "Player")
-        //{
-        //    PlayerController otherPlayer = coll.gameObject.GetComponent<PlayerController>();
-
-        //    if (otherPlayer.pv.IsMine)
-        //        return;
-
-        //    otherPlayer.playerSet.SetActive(true);
-        //}
-
         var player = coll.GetComponent<PlayerController>();
 
         if(player != null && player.playerType == PlayerType.Turtle)
@@ -49,22 +33,6 @@ public class PlayerFinder : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D coll)
     {
-        //if (GameSystem.Instance == null)
-        //    return;
-
-        //if (!GameSystem.Instance.isStart)
-        //    return;
-
-        //if (coll.tag == "Player")
-        //{
-        //    PlayerController otherPlayer = coll.gameObject.GetComponent<PlayerController>();
-
-        //    if (otherPlayer.pv.IsMine)
-        //        return;
-
-        //    otherPlayer.playerSet.SetActive(false);
-        //}
-
         var player = coll.GetComponent<PlayerController>();
 
         if(player != null && player.playerType == PlayerType.Turtle)

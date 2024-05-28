@@ -24,9 +24,6 @@ public class ReportButtonUI : MonoBehaviour
 
     public void OnClickButton()
     {
-        if (GameSystem.Instance == null)
-            return;
-
         PlayerController myPlayer = null;
 
         foreach(var player in GameSystem.Instance.controllerList)

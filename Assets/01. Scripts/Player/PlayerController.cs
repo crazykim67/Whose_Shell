@@ -184,9 +184,6 @@ public class PlayerController : MonoBehaviour
 
     public void SetLight()
     {
-        if (GameManager.Instance == null)
-            return;
-
         if (!pv.IsMine)
             return;
 
@@ -303,9 +300,6 @@ public class PlayerController : MonoBehaviour
     [PunRPC]
     public void RpcInitBtns()
     {
-        if (CustomManager.Instance == null)
-            return;
-
         CustomManager.Instance.InitBtns();
     }
 
@@ -315,12 +309,6 @@ public class PlayerController : MonoBehaviour
 
     public void SetTerrapinUI()
     {
-        if (GameManager.Instance == null)
-            return;
-
-        if (InGameUIManager.Instance == null)
-            return;
-
         if (!pv.IsMine)
             return;
 
@@ -525,9 +513,6 @@ public class PlayerController : MonoBehaviour
 
     public void Report()
     {
-        if (GameSystem.Instance == null)
-            return;
-
         GameSystem.Instance.StartReportMeeting(deadbodyColor);
         pv.RPC("IsReporter", RpcTarget.All, true);
     }
@@ -563,25 +548,19 @@ public class PlayerController : MonoBehaviour
         List<float> playerColors = new List<float>();
 
         for(int i = 0; i < players.Count; i++)
-        {
             if (!players[i].nickName.Equals(PhotonNetwork.NickName))
-            {
                 playerColors.Add(players[i].playerColor);
-            }
-        }
 
         foreach (var btn in CustomManager.Instance.colorBtns)
         {
             bool isFind = false;
 
             foreach (var playerColor in playerColors)
-            {
                 if(btn.hue == playerColor)
                 {
                     isFind = true;
                     break;
                 }
-            }
 
             if (!isFind)
             {

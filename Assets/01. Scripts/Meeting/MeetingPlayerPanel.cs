@@ -56,9 +56,6 @@ public class MeetingPlayerPanel : MonoBehaviour
 
     public void SetPlayer(PlayerController target)
     {
-        if (GameSystem.Instance == null)
-            return;
-
         Material inst = Instantiate(playerImage.material);
         playerImage.material = inst;
 

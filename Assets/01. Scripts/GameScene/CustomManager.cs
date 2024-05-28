@@ -128,9 +128,6 @@ public class CustomManager : MonoBehaviour
 
     public void InitBtns()
     {
-        if (GameSystem.Instance == null)
-            return;
-
         var players = GameSystem.Instance.GetPlayerList();
 
         for (int i = 0; i < colorBtns.Count; i++)

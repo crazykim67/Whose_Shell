@@ -16,9 +16,6 @@ public class TaskObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        if (GameSystem.Instance == null)
-            return;
-
         if (IsSuccessful())
             return;
 
@@ -44,9 +41,6 @@ public class TaskObject : MonoBehaviour
 
     public void OnShow()
     {
-        if (InGameUIManager.Instance == null)
-            return;
-
         InGameUIManager.Instance.OnTask(task);
         currentPlayer.isUI = true;
     }
