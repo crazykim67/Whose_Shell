@@ -24,6 +24,18 @@ public class Vivox
 
     public IAudioDevices audioInputDevice;
     public IAudioDevices audioOutputDevice;
+
+    public void Initialize()
+    {
+        client = new VivoxUnity.Client();
+        client.Uninitialize();
+        client.Initialize();
+    }
+
+    public void Uninitialize()
+    {
+        client?.Uninitialize();
+    }
 }
 
 
@@ -43,8 +55,9 @@ public class VivoxManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new VivoxManager();
-                return instance;
+                GameObject obj = new GameObject("VivoxManager");
+                instance = obj.AddComponent<VivoxManager>();
+                DontDestroyOnLoad(obj);
             }
 
             return instance;
@@ -59,13 +72,17 @@ public class VivoxManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            InitializeVivox();
         }
         else
             Destroy(gameObject);
 
-        vivox.client = new VivoxUnity.Client();
-        vivox.client.Uninitialize();
-        vivox.client.Initialize();
+        SetAudioDevices();
+    }
+
+    private void InitializeVivox()
+    {
+        vivox.Initialize();
         SetAudioDevices();
     }
 

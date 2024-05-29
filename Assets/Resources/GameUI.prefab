@@ -4599,6 +4599,7 @@ MonoBehaviour:
   isSuccess: 0
   myCharacter: {fileID: 0}
   taskType: 2
+  curTaskText: {fileID: 0}
   gr: {fileID: 7221791913172772817}
   plates:
   - {fileID: 661445353335015660}
@@ -6620,6 +6621,7 @@ MonoBehaviour:
   isSuccess: 0
   myCharacter: {fileID: 0}
   taskType: 2
+  curTaskText: {fileID: 0}
   dusts:
   - {fileID: 6241723653988524038}
   - {fileID: 8125506881258038472}
@@ -8210,6 +8212,7 @@ MonoBehaviour:
   isSuccess: 0
   myCharacter: {fileID: 0}
   taskType: 2
+  curTaskText: {fileID: 0}
   spiderWebs:
   - {fileID: 5238422426011297986}
   - {fileID: 5195693185047522926}
@@ -8547,6 +8550,7 @@ MonoBehaviour:
   isSuccess: 0
   myCharacter: {fileID: 0}
   taskType: 1
+  curTaskText: {fileID: 0}
   gr: {fileID: 7221791913172772817}
   currentTrash: {fileID: 0}
   trashes:
@@ -8999,6 +9003,7 @@ MonoBehaviour:
   isSuccess: 0
   myCharacter: {fileID: 0}
   taskType: 1
+  curTaskText: {fileID: 0}
   sticks:
   - {fileID: 4604907435731927191}
   - {fileID: 8526115073284289427}
