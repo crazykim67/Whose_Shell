@@ -44,7 +44,7 @@ public class CustomizeUI : MonoBehaviour
 
     public void OnConfirm()
     {
-        CustomManager.Instance.player.SetColor(characterImage.material.GetFloat("_Hue"));
+        CustomManager.Instance.player?.SetColor(characterImage.material.GetFloat("_Hue"));
         hue = characterImage.material.GetFloat("_Hue");
     }
 
